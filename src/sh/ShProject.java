@@ -50,6 +50,7 @@ public class ShProject {
     //Пункт 1.5
     double q_pr; //Величина нагрузки
     double y;//координаты рассматриваемой точки в осях Y
+    double Fia;
     //Пункт 1.5
 
     //Пункт 1.6
@@ -80,12 +81,16 @@ public class ShProject {
     double K; //коэффициент виброразрушения грунта;
     //Пункт 1.7
 
+    //Глава 2
+    double C;
+    double Fi;
+    //Глава 2
+
     ////////////////////////////////////////////////////
     ////////////для сетки    
     ////////////////////////////////////////////////////
     double sigma; //напряжения
     double gamma; //Объемный вес грунта на откосе;
-    double Fia;
     double delta;
 
     public static void main(String[] args) {
@@ -93,7 +98,8 @@ public class ShProject {
         Calc calc = new Calc();
 
         ShProject shp = new ShProject();
-        System.out.println(shp.A0(3, 4));
+//        System.out.println(shp.A0(3, 4));
+//        System.out.println(Math.toDegrees(Math.PI/4));
 
     }
 ////////////глава 1.1 Характеристики колебального процесса грунтов земляного полотна
@@ -193,9 +199,9 @@ public class ShProject {
     }
 
     double n() {
-        if (tipG == "G") {
+        if ("G".equals(tipG)) {
             n = Math.log10(delta1);
-        } else if (tipG == "P") {
+        } else if ("P".equals(tipG)) {
             n = Math.log(delta1);
         }
         return n;
@@ -261,4 +267,55 @@ public class ShProject {
         return Kfi;
     }
     /////////////////end главы 1.7
+
+    ////////////глава 2 Условия построения сетки линий скольжения
+    double ugol1sem1obl() {
+//        return Math.toDegrees(Math.PI / 4 - Fidin / 2); //Градусы
+        return Math.PI / 4 - Fidin / 2; //Радиансы
+    }
+
+    double ugol2sem1obl() {
+//        return Math.toDegrees(Math.PI / 4 + Fidin / 2); //Градусы
+        return Math.PI / 4 + Fidin / 2; //Радиансы
+    }
+
+    double ugol1sem3obl() {
+//        return Math.toDegrees(Math.PI / 4 - Fidin / 2); //Градусы
+        return Math.PI / 4 + Fidin / 2; //Радиансы
+    }
+
+    double ugol2sem3obl() {
+//        return Math.toDegrees(Math.PI / 4 + Fidin / 2); //Градусы
+        return Math.PI / 4 - Fidin / 2; //Радиансы
+    }
+
+    /////////////////end главы 2
+    ////////////глава 2 Условия построения сетки линий скольжения
+    double sigma() {
+        if (C != 0) {
+            sigma = gamma * Fia * Math.cos(alfa) + Cdin * Math.cos(2 * (delta - alfa));
+        } else {
+            sigma = (gamma * Fia * Math.cos(alfa) + Cdin * Math.cos(Fidin) * Math.cos(2 * (delta - alfa)))
+                    / (1 - Math.sin(Fidin) * Math.cos(2 * (delta - alfa)));
+        }
+        return sigma;
+    }
+
+    double delta() {
+        if (Fi != 0) {
+            delta = 1 / 2 * Math.asin(gamma * Fia * Math.sin(alfa) / Cdin) + alfa;
+        } else {
+            delta = 1 / 2 * Math.asin(gamma * Fia * Math.sin(alfa))
+                    * (Cdin + gamma * Fia * Math.tan(Fidin) * Math.cos(alfa)
+                    - Math.sqrt(Math.pow(Math.pow(Cdin + gamma * Fia * Math.cos(alfa) * Math.tan(Fidin), 2)
+                            * Math.pow(Math.sin(Fidin), 2), 2)
+                            - Math.pow(gamma * Fia * Math.sin(alfa) * Math.sin(Fidin), 2))
+                    / (Math.pow(gamma * Fia * Math.sin(alfa) * Math.tan(Fidin), 2)
+                    + Math.pow(gamma * Fia * Math.cos(alfa) * Math.tan(Fidin) + Cdin, 2)) * Math.cos(Fidin))
+                    + alfa;
+        }
+        return delta;
+    }
+
+    /////////////////end главы 2
 }
