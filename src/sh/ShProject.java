@@ -30,7 +30,7 @@ public class ShProject {
     double v; //скорость движения поездов, км/ч;
     double Q_shp; //нагрузка от рельса на шпалу;
     double l_shp; //длина шпалы, см;
-    double b = 1.35; //полуширина шпалы, принимается 13 см для железобетонных шпал;
+    double b_shp = 1.35; //полуширина шпалы, принимается 13 см для железобетонных шпал;
 
     //Пункт 1.2
     double b0; //размер зоны основной площадки, воспринимающей внешнее давление, м;
@@ -38,7 +38,8 @@ public class ShProject {
 
     //Пункт 1.3
     double a; //расчетная ширина обочины, м;
-    double b_pl;
+    double b_pl; //ширина основной площадки земляного полотна,    
+    double b = 1.35; //расстояние от бровки основной площадки до оси ближайшего пути
     //Пункт 1.3
 
     //Пункт 1.4
@@ -95,6 +96,13 @@ public class ShProject {
     double sigma_10i_0;
     double delta_10_0;
     //Глава 3
+    
+    //Глава 4
+    double dz1sem;
+    double dz2sem;
+    double dy;
+    double mju;
+    //Глава 4
 
     ////////////////////////////////////////////////////
     ////////////для сетки    
@@ -128,7 +136,7 @@ public class ShProject {
                     Ay = Az - 138.48 - 0.22 * (v - 65);
                 }
             }
-            sigma_bsr = Q_shp / l_shp * b;
+            sigma_bsr = Q_shp / l_shp * b_shp;
             if (40 <= v && v <= 180) {
                 alfa = 1.55 + 0.008 * (v - 40);
             }
@@ -167,7 +175,7 @@ public class ShProject {
 
     double a_Np() {
         //b=l_shp/2 (10 формула)
-        a = 0.5 * (l_shp - b0);
+        a = b - 0.5 * b0;
         return a;
     }
     /////////////////end главы 1.3
@@ -313,8 +321,8 @@ public class ShProject {
         } else {
             delta = 1 / 2 * Math.asin(gamma * Fia * Math.sin(alfa))
                     * (Cdin + gamma * Fia * Math.tan(Fidin) * Math.cos(alfa)
-                    - Math.sqrt(Math.pow(Math.pow(Cdin + gamma * Fia * Math.cos(alfa) * Math.tan(Fidin), 2)
-                            * Math.pow(Math.sin(Fidin), 2), 2)
+                    - Math.sqrt(Math.pow(Cdin + gamma * Fia * Math.cos(alfa) * Math.tan(Fidin), 2)
+                            * Math.pow(Math.sin(Fidin), 2)
                             - Math.pow(gamma * Fia * Math.sin(alfa) * Math.sin(Fidin), 2))
                     / (Math.pow(gamma * Fia * Math.sin(alfa) * Math.tan(Fidin), 2)
                     + Math.pow(gamma * Fia * Math.cos(alfa) * Math.tan(Fidin) + Cdin, 2)) * Math.cos(Fidin))
@@ -371,4 +379,19 @@ public class ShProject {
     }
 
     /////////////////end главы 3
+
+        /////////////////глава 4 Расчет предельных напряжений
+//    double dz1sem(){
+//        dz1sem = dy*Math.tan(delta+mju);
+//        return dz1sem;        
+//    }
+//
+//    double dz2sem(){
+//        dz2sem = dy*Math.tan(delta-mju);
+//        return dz2sem;        
+//    }
+    
+    
+    /////////////////end главы 4
+
 }
