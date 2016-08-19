@@ -90,6 +90,10 @@ public class ShProject {
     double sigma_z;
     double sigma_y;
     double sigma_pr;
+    int i;
+    double delta_10i_0;
+    double sigma_10i_0;
+    double delta_10_0;
     //Глава 3
 
     ////////////////////////////////////////////////////
@@ -349,8 +353,22 @@ public class ShProject {
         }
         return sigma_pr;
     }
-    
-    
+
+    double delta_10i_0() {
+        delta_10i_0 = ((Math.PI - 2 * alfa) / 20) * i + alfa;
+        return delta_10i_0;
+    }
+
+    double sigma_10i_0() {
+        if (C != 0 && Fi == 0) {
+            sigma_10i_0 = Cdin * (((Math.PI - 2 * alfa) / 10) * i + alfa);
+        } else {
+            sigma_10i_0 = ((gamma * Fia * Math.cos(alfa) + Cdin * Math.cos(Fidin) * Math.cos(2 * (delta_10_0 - alfa)))
+                    / (1 - Math.sin(Fidin) * Math.cos(2 * (delta_10_0 - alfa))))
+                    * Math.exp(2 * delta_10i_0 * Math.tan(Fidin));
+        }
+        return sigma_10i_0;
+    }
 
     /////////////////end главы 3
 }
