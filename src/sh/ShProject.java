@@ -81,18 +81,20 @@ public class ShProject {
     double K; //коэффициент виброразрушения грунта;
     //Пункт 1.7
 
-    //Глава 2
+    //Глава 3
+    double sigma; //напряжения
+    double gamma; //Объемный вес грунта на откосе;
+    double delta;
     double C;
     double Fi;
-    //Глава 2
+    double sigma_z;
+    double sigma_y;
+    double sigma_pr;
+    //Глава 3
 
     ////////////////////////////////////////////////////
     ////////////для сетки    
     ////////////////////////////////////////////////////
-    double sigma; //напряжения
-    double gamma; //Объемный вес грунта на откосе;
-    double delta;
-
     public static void main(String[] args) {
 
         Calc calc = new Calc();
@@ -290,9 +292,9 @@ public class ShProject {
     }
 
     /////////////////end главы 2
-    ////////////глава 2 Условия построения сетки линий скольжения
+    ////////////глава 3 Граничные условния
     double sigma() {
-        if (C != 0) {
+        if (C == 0) {
             sigma = gamma * Fia * Math.cos(alfa) + Cdin * Math.cos(2 * (delta - alfa));
         } else {
             sigma = (gamma * Fia * Math.cos(alfa) + Cdin * Math.cos(Fidin) * Math.cos(2 * (delta - alfa)))
@@ -302,7 +304,7 @@ public class ShProject {
     }
 
     double delta() {
-        if (Fi != 0) {
+        if (Fi == 0) {
             delta = 1 / 2 * Math.asin(gamma * Fia * Math.sin(alfa) / Cdin) + alfa;
         } else {
             delta = 1 / 2 * Math.asin(gamma * Fia * Math.sin(alfa))
@@ -317,5 +319,38 @@ public class ShProject {
         return delta;
     }
 
-    /////////////////end главы 2
+    double sigma_z() {
+        if (delta == Math.PI / 2) {
+            sigma_z = sigma * (1 + Math.sin(Fidin)) + Cdin * Math.cos(Fidin);
+        }
+        return sigma_z;
+    }
+
+    double sigma_y() {
+        if (delta == Math.PI / 2) {
+            sigma_y = sigma * (1 - Math.sin(Fidin)) - Cdin * Math.cos(Fidin);
+        }
+        return sigma_y;
+    }
+
+//    double tau_zy() {
+//        if (delta == Math.PI / 2) {
+//            tau_zy = ;
+//        }
+//        return tau_zy;
+//    }
+    double sigma_pr() {
+        if (C != 0 && Fi == 0) {
+            sigma_pr = Cdin * (Math.PI - 2 * alfa + 1);
+        } else {
+            sigma_pr = (gamma * Fia * Math.cos(alfa) + Cdin * Math.cos(Fidin) * Math.cos(2 * (Math.PI / 2 + alfa)))
+                    / (1 - Math.sin(Fidin) * Math.cos(2 * (Math.PI / 2 - alfa)))
+                    * Math.exp(Math.PI * Math.tan(Fidin));
+        }
+        return sigma_pr;
+    }
+    
+    
+
+    /////////////////end главы 3
 }
