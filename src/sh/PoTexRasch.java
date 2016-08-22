@@ -160,8 +160,9 @@ public class PoTexRasch {
         PoTexRasch p = new PoTexRasch();
 
         sigma = (gamma * p.Fia(y) * Math.cos(p.alfa()) + p.Cdin(z, y) * Math.cos(p.Fidin(z, y)) * Math.cos(2 * (delta - p.alfa())))
-                / (1 - Math.sin(p.Fidin(z, y)) * Math.cos(2 * (p.delta(z, y) - p.alfa())));
-
+                / (1 - Math.sin(p.Fidin(z, y)) * Math.cos(2 * (p.delta(z, y) - alfa())));
+        System.out.println("alfa " + alfa);
+        System.out.println("a.alfa() " + p.alfa());
         return sigma;
     }
 
@@ -199,10 +200,10 @@ public class PoTexRasch {
 //----(19)----
     double Cdin(double z, double y) {
         PoTexRasch p = new PoTexRasch();
-        System.out.println("Kc --> " + Kc);
-        System.out.println("z - y -->> " + z + " - " + y);
+//        System.out.println("Kc --> " + Kc);
+//        System.out.println("z - y -->> " + z + " - " + y);
         Cdin = p.Kc_1() + Kc * Math.exp(p.n("G") * z - p.delta1_0() * (Math.abs(y + 0.5 * p.b0()) - 1.35) + p.delta3(p.n("G")) * p.Fihi_j(y));
-        System.out.println("------------->>> " + Cdin);
+//        System.out.println("------------->>> " + Cdin);
         return Cdin;
     }
 
@@ -216,7 +217,7 @@ public class PoTexRasch {
 //----(2111)----
     double Kc_1() {
         Kc_1 = 1 - Kc;
-        System.out.println("Kc_1 --> " + Kc_1);
+//        System.out.println("Kc_1 --> " + Kc_1);
         return Kc_1;
     }
 
@@ -239,7 +240,7 @@ public class PoTexRasch {
         } else if ("P".equals(tipG)) {
             n = Math.log(delta1);
         }
-        System.out.println("n --> " + n);
+//        System.out.println("n --> " + n);
         return n;
     }
 
@@ -323,12 +324,12 @@ public class PoTexRasch {
 //                int i=1;
                 if (i + j == 10) {
                     ZY(i, j);
-//                    System.out.println("ZYMZ " + i + ":" + j + " -- " + zyM[i][j].getZ());
-//                    System.out.println("ZYMY " + i + ":" + j + " -- " + zyM[i][j].getY());
-//                    System.out.println("ZYMS " + i + ":" + j + " -- " + zyM[i][j].getSigma());
-//                    System.out.println("ZYMD " + i + ":" + j + " -- " + zyM[i][j].getDelta());
-                    System.out.println("z " + zyM[i][j].getZ() + " : y " + zyM[i][j].getY());
-                    System.out.println("Cdin " + p.Cdin(zyM[i][j].getZ(), zyM[i][j].getY()));
+                    System.out.println("ZYMZ " + i + ":" + j + " -- " + zyM[i][j].getZ());
+                    System.out.println("ZYMY " + i + ":" + j + " -- " + zyM[i][j].getY());
+                    System.out.println("ZYMS " + i + ":" + j + " -- " + zyM[i][j].getSigma());
+                    System.out.println("ZYMD " + i + ":" + j + " -- " + zyM[i][j].getDelta());
+//                    System.out.println("z " + zyM[i][j].getZ() + " : y " + zyM[i][j].getY());
+//                    System.out.println("Cdin " + p.Cdin(zyM[i][j].getZ(), zyM[i][j].getY()));
                 }
             }
         }
