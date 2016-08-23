@@ -15,15 +15,19 @@ public class ModelZY {
     private double y;
     private double sigma;
     private double delta;
+    private double Cdin;
+    private double Fidin;
 
     public ModelZY() {
     }
 
-    public ModelZY(double z, double y, double sigma, double delta) {
+    public ModelZY(double z, double y, double sigma, double delta, double Cdin, double Fidin) {
         this.z = z;
         this.y = y;
         this.sigma = sigma;
         this.delta = delta;
+        this.Cdin = Cdin;
+        this.Fidin = Fidin;
     }
 
     public double getZ() {
@@ -56,6 +60,22 @@ public class ModelZY {
 
     public void setDelta(double delta) {
         this.delta = delta;
+    }
+
+    public double getCdin() {
+        return Cdin;
+    }
+
+    public void setCdin(double Cdin) {
+        this.Cdin = Cdin;
+    }
+
+    public double getFidin() {
+        return Fidin;
+    }
+
+    public void setFidin(double Fidin) {
+        this.Fidin = Fidin;
     }
 
 }

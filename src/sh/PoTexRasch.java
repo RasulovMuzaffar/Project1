@@ -65,8 +65,8 @@ public class PoTexRasch {
     //Пункт 1.6
 
     //Пункт 1.7
-    double Cdin; //удельное сцепление грунта, воспринимающего вибродинамическую нагрузку Azy;
-    double Fidin; //угол внутреннего трения грунта, воспринимающего вибродинамическую нагрузку Azy;
+    static double Cdin; //удельное сцепление грунта, воспринимающего вибродинамическую нагрузку Azy;
+    static double Fidin; //угол внутреннего трения грунта, воспринимающего вибродинамическую нагрузку Azy;
     double Kc_1; //коэффициенты характеризующие чувствительность грунта к вибродинамическому воздействию;
     double Kfi_1; //коэффициенты характеризующие чувствительность грунта к вибродинамическому воздействию;
     double Kc = 0.2; //показатели относительного снижения удельного сцепления и угла внутреннего трения под влиянием вибродинамического воздействия;
@@ -112,6 +112,8 @@ public class PoTexRasch {
         zy.setY(y);
         zy.setSigma(sigma);
         zy.setDelta(delta);
+        zy.setCdin(Cdin);
+        zy.setFidin(Fidin);
         zyM[i][j] = zy;
     }
 
@@ -158,26 +160,33 @@ public class PoTexRasch {
     //----(25)----
     double sigma(double z, double y) {
         PoTexRasch p = new PoTexRasch();
-
-        sigma = (gamma * p.Fia(y) * Math.cos(p.alfa()) + p.Cdin(z, y) * Math.cos(p.Fidin(z, y)) * Math.cos(2 * (delta - p.alfa())))
-                / (1 - Math.sin(p.Fidin(z, y)) * Math.cos(2 * (p.delta(z, y) - alfa())));
-        System.out.println("alfa " + alfa);
-        System.out.println("a.alfa() " + p.alfa());
+        Fia = p.Fia(y);
+        alfa = p.alfa();
+        Cdin = p.Cdin(z, y);
+        Fidin = p.Fidin(z, y);
+        delta = p.delta(z, y);
+        sigma = (gamma * Fia * Math.cos(alfa) + Cdin * Math.cos(Fidin) * Math.cos(2 * (delta - alfa)))
+                / (1 - Math.sin(Fidin) * Math.cos(2 * (delta - alfa)));
+//        System.out.println("alfa " + alfa);
+//        System.out.println("a.alfa() " + p.alfa());
         return sigma;
     }
 
     //----(26)----
     double delta(double z, double y) {
         PoTexRasch p = new PoTexRasch();
-
-        delta = 1 / 2 * Math.asin(gamma * p.Fia(y) * Math.sin(p.alfa()))
-                * (p.Cdin(z, y) + gamma * p.Fia(y) * Math.tan(p.Fidin(z, y)) * Math.cos(p.alfa())
-                - Math.sqrt(Math.pow(p.Cdin(z, y) + gamma * p.Fia(y) * Math.cos(p.alfa()) * Math.tan(p.Fidin(z, y)), 2)
-                        * Math.pow(Math.sin(p.Fidin(z, y)), 2)
-                        - Math.pow(gamma * p.Fia(y) * Math.sin(p.alfa()) * Math.sin(p.Fidin(z, y)), 2))
-                / (Math.pow(gamma * p.Fia(y) * Math.sin(p.alfa()) * Math.tan(p.Fidin(z, y)), 2)
-                + Math.pow(gamma * p.Fia(y) * Math.cos(p.alfa()) * Math.tan(p.Fidin(z, y)) + p.Cdin(z, y), 2)) * Math.cos(p.Fidin(z, y)))
-                + p.alfa();
+        Fia = p.Fia(y);
+        alfa = p.alfa();
+        Cdin = p.Cdin(z, y);
+        Fidin = p.Fidin(z, y);
+        delta = 1 / 2 * Math.asin(gamma * Fia * Math.sin(alfa))
+                * (Cdin + gamma * Fia * Math.tan(Fidin) * Math.cos(alfa)
+                - Math.sqrt(Math.pow(Cdin + gamma * Fia * Math.cos(alfa) * Math.tan(Fidin), 2)
+                        * Math.pow(Math.sin(Fidin), 2)
+                        - Math.pow(gamma * Fia * Math.sin(alfa) * Math.sin(Fidin), 2))
+                / (Math.pow(gamma * Fia * Math.sin(alfa) * Math.tan(Fidin), 2)
+                + Math.pow(gamma * Fia * Math.cos(alfa) * Math.tan(Fidin) + Cdin, 2)) * Math.cos(Fidin))
+                + alfa;
         return delta;
     }
 
@@ -203,7 +212,7 @@ public class PoTexRasch {
 //        System.out.println("Kc --> " + Kc);
 //        System.out.println("z - y -->> " + z + " - " + y);
         Cdin = p.Kc_1() + Kc * Math.exp(p.n("G") * z - p.delta1_0() * (Math.abs(y + 0.5 * p.b0()) - 1.35) + p.delta3(p.n("G")) * p.Fihi_j(y));
-//        System.out.println("------------->>> " + Cdin);
+        System.out.println("Cdin ------------->>> " + Cdin);
         return Cdin;
     }
 
@@ -211,6 +220,7 @@ public class PoTexRasch {
     double Fidin(double z, double y) {
         PoTexRasch p = new PoTexRasch();
         Fidin = p.Kfi_1() + Kfi * Math.exp(p.n("G") * z - delta1_0 * (Math.abs(y + 0.5 * p.b0()) - 1.35) + delta3 * p.Fihi_j(y));
+        System.out.println("Fidin ------------->>> " + Fidin);
         return Fidin;
     }
 
@@ -328,6 +338,8 @@ public class PoTexRasch {
                     System.out.println("ZYMY " + i + ":" + j + " -- " + zyM[i][j].getY());
                     System.out.println("ZYMS " + i + ":" + j + " -- " + zyM[i][j].getSigma());
                     System.out.println("ZYMD " + i + ":" + j + " -- " + zyM[i][j].getDelta());
+                    System.out.println("ZYMCd " + i + ":" + j + " -- " + zyM[i][j].getCdin());
+                    System.out.println("ZYMFd " + i + ":" + j + " -- " + zyM[i][j].getFidin());
 //                    System.out.println("z " + zyM[i][j].getZ() + " : y " + zyM[i][j].getY());
 //                    System.out.println("Cdin " + p.Cdin(zyM[i][j].getZ(), zyM[i][j].getY()));
                 }
