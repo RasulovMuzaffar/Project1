@@ -20,7 +20,7 @@ public class PoTexRasch {
 
     //По указанию Шавката
     //Пункт 1.1
-    double A0; //Результирующая амплитуда колебаний грунтов основной площадки;
+    double A0 = 190; //Результирующая амплитуда колебаний грунтов основной площадки;
     double Az; //Амплитуда вертикальных колебаний грунтов основной площадки;
     double Ay; //Амплитуда горизонтальных колебаний грунтов основной площадки;
     double sigma_bsr; //средние напряжения, передающиеся от шпалы на балласт, Мпа;
@@ -93,7 +93,9 @@ public class PoTexRasch {
     double sigma_10i_0;
     double delta_10_0;
     //Глава 3
-
+//Глава 4
+    static double mju;
+//Глава 4
     static ModelIJ[][] ij = new ModelIJ[1][10];
     static ModelZY[][] zyM = new ModelZY[10][11];
 
@@ -283,6 +285,13 @@ public class PoTexRasch {
     }
     /////////////////end главы 1.6
 
+    ////////////Глава 4
+    double mju() {
+        mju = 0.25 * Math.PI - 0.5 * Fidin;
+        return mju;
+    }
+
+    /////////////////end главы 4
     ////////////глава 1.1 Характеристики колебального процесса грунтов земляного полотна
     double Ay(double Az) {
         if (tipG == "G") {
@@ -320,11 +329,6 @@ public class PoTexRasch {
         return Az;
     }
 
-    double A0(double Az, double Ay) {
-        A0 = Math.sqrt(Math.pow(Az, 2) + Math.pow(Ay, 2));
-        return A0;
-    }
-
     /////////////////end главы 1.1
     public static void main(String[] args) {
         PoTexRasch p = new PoTexRasch();
@@ -340,6 +344,7 @@ public class PoTexRasch {
                     System.out.println("ZYMD " + i + ":" + j + " -- " + zyM[i][j].getDelta());
                     System.out.println("ZYMCd " + i + ":" + j + " -- " + zyM[i][j].getCdin());
                     System.out.println("ZYMFd " + i + ":" + j + " -- " + zyM[i][j].getFidin());
+                    p.mju();
 //                    System.out.println("z " + zyM[i][j].getZ() + " : y " + zyM[i][j].getY());
 //                    System.out.println("Cdin " + p.Cdin(zyM[i][j].getZ(), zyM[i][j].getY()));
                 }
