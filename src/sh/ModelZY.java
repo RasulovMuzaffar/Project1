@@ -30,6 +30,12 @@ public class ModelZY {
         this.Fidin = Fidin;
     }
 
+    @Override
+    public String toString() {
+//        return "{" + "z=" + z + ", y=" + y + ", sigma=" + sigma + ", delta=" + delta + ", Cdin=" + Cdin + ", Fidin=" + Fidin + "}";
+        return "{" + z + ", " + y + "}";
+    }
+
     public double getZ() {
         return z;
     }
