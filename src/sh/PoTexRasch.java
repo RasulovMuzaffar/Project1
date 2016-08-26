@@ -214,7 +214,7 @@ public class PoTexRasch {
 //        System.out.println("Kc --> " + Kc);
 //        System.out.println("z - y -->> " + z + " - " + y);
         Cdin = p.Kc_1() + Kc * Math.exp(p.n("G") * z - p.delta1_0() * (Math.abs(y + 0.5 * p.b0()) - 1.35) + p.delta3(p.n("G")) * p.Fihi_j(y));
-        System.out.println("Cdin ------------->>> " + Cdin);
+//        System.out.println("Cdin ------------->>> " + Cdin);
         return Cdin;
     }
 
@@ -222,7 +222,7 @@ public class PoTexRasch {
     double Fidin(double z, double y) {
         PoTexRasch p = new PoTexRasch();
         Fidin = p.Kfi_1() + Kfi * Math.exp(p.n("G") * z - delta1_0 * (Math.abs(y + 0.5 * p.b0()) - 1.35) + delta3 * p.Fihi_j(y));
-        System.out.println("Fidin ------------->>> " + Fidin);
+//        System.out.println("Fidin ------------->>> " + Fidin);
         return Fidin;
     }
 
@@ -333,17 +333,19 @@ public class PoTexRasch {
     public static void main(String[] args) {
         PoTexRasch p = new PoTexRasch();
 
-        for (int i = 9; i >= 0; i--) {
-            for (int j = 0; j <= 10; j++) {
+//        for (int i = 9; i >= 0; i--) {
+//            for (int j = 0; j <= 10; j++) {
+        for (int i = 0; i < zyM.length; i++) {
+            for (int j = 0; j < zyM[i].length; j++) {
 //                int i=1;
                 if (i + j == 10) {
                     ZY(i, j);
-                    System.out.println("ZYMZ " + i + ":" + j + " -- " + zyM[i][j].getZ());
-                    System.out.println("ZYMY " + i + ":" + j + " -- " + zyM[i][j].getY());
-                    System.out.println("ZYMS " + i + ":" + j + " -- " + zyM[i][j].getSigma());
-                    System.out.println("ZYMD " + i + ":" + j + " -- " + zyM[i][j].getDelta());
-                    System.out.println("ZYMCd " + i + ":" + j + " -- " + zyM[i][j].getCdin());
-                    System.out.println("ZYMFd " + i + ":" + j + " -- " + zyM[i][j].getFidin());
+//                    System.out.println("ZYMZ " + i + ":" + j + " -- " + zyM[i][j].getZ());
+//                    System.out.println("ZYMY " + i + ":" + j + " -- " + zyM[i][j].getY());
+//                    System.out.println("ZYMS " + i + ":" + j + " -- " + zyM[i][j].getSigma());
+//                    System.out.println("ZYMD " + i + ":" + j + " -- " + zyM[i][j].getDelta());
+//                    System.out.println("ZYMCd " + i + ":" + j + " -- " + zyM[i][j].getCdin());
+//                    System.out.println("ZYMFd " + i + ":" + j + " -- " + zyM[i][j].getFidin());
 //                    p.mju();
 //                    System.out.println("z " + zyM[i][j].getZ() + " : y " + zyM[i][j].getY());
 //                    System.out.println("Cdin " + p.Cdin(zyM[i][j].getZ(), zyM[i][j].getY()));
@@ -363,8 +365,9 @@ public class PoTexRasch {
 //        zyM[8][2].setDelta(0.001);
 
         for (int i = 0; i < zyM.length; i++) {
+            System.out.println(zyM[i].length);
             for (int j = 0; j < zyM[i].length; j++) {
-                System.out.print("" + zyM[i][j].toString());
+                System.out.print(i + ":" + j + " " + zyM[i][j].toString());
             }
             System.out.println("");
         }
