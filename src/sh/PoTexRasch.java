@@ -97,10 +97,10 @@ public class PoTexRasch {
     static double mju;
 //Глава 4
     static ModelIJ[][] ij = new ModelIJ[1][10];
-    static ModelZY[][] zyM = new ModelZY[11][31];
+    public static ModelZY[][] zyM = new ModelZY[11][31];
 
     ////////////По указанию Шавката
-    private static void ZY(int i, int j) {
+    public static void ZY(int i, int j) {
         PoTexRasch p = new PoTexRasch();
         ModelZY zy = new ModelZY();
         z = j * p.b0() / 10 * Math.sin(p.alfa());
@@ -330,46 +330,46 @@ public class PoTexRasch {
     }
 
     /////////////////end главы 1.1
-    public static void main(String[] args) {
-        PoTexRasch p = new PoTexRasch();
-
-//        for (int i = 9; i >= 0; i--) {
-//            for (int j = 0; j <= 10; j++) {
-        for (int i = 0; i < zyM.length; i++) {
-            for (int j = 0; j < zyM[i].length; j++) {
-//                int i=1;
-                if (i + j == 10) {
-                    ZY(i, j);
-//                    System.out.println("ZYMZ " + i + ":" + j + " -- " + zyM[i][j].getZ());
-//                    System.out.println("ZYMY " + i + ":" + j + " -- " + zyM[i][j].getY());
-//                    System.out.println("ZYMS " + i + ":" + j + " -- " + zyM[i][j].getSigma());
-//                    System.out.println("ZYMD " + i + ":" + j + " -- " + zyM[i][j].getDelta());
-//                    System.out.println("ZYMCd " + i + ":" + j + " -- " + zyM[i][j].getCdin());
-//                    System.out.println("ZYMFd " + i + ":" + j + " -- " + zyM[i][j].getFidin());
-//                    p.mju();
-//                    System.out.println("z " + zyM[i][j].getZ() + " : y " + zyM[i][j].getY());
-//                    System.out.println("Cdin " + p.Cdin(zyM[i][j].getZ(), zyM[i][j].getY()));
-                } else {
-                    ModelZY zy = new ModelZY();
-
-                    zy.setZ(0);
-                    zy.setY(0);
-                    zy.setSigma(0);
-                    zy.setDelta(0);
-                    zy.setCdin(0);
-                    zy.setFidin(0);
-                    zyM[i][j] = zy;
-                }
-            }
-        }
-//        zyM[8][2].setDelta(0.001);
-
-        for (int i = 0; i < zyM.length; i++) {
-            System.out.println(zyM[i].length);
-            for (int j = 0; j < zyM[i].length; j++) {
-                System.out.print(i + ":" + j + " " + zyM[i][j].toString());
-            }
-            System.out.println("");
-        }
-    }
+//    public static void main(String[] args) {
+//        PoTexRasch p = new PoTexRasch();
+//
+////        for (int i = 9; i >= 0; i--) {
+////            for (int j = 0; j <= 10; j++) {
+//        for (int i = 0; i < zyM.length; i++) {
+//            for (int j = 0; j < zyM[i].length; j++) {
+////                int i=1;
+//                if (i + j == 10) {
+//                    ZY(i, j);
+////                    System.out.println("ZYMZ " + i + ":" + j + " -- " + zyM[i][j].getZ());
+////                    System.out.println("ZYMY " + i + ":" + j + " -- " + zyM[i][j].getY());
+////                    System.out.println("ZYMS " + i + ":" + j + " -- " + zyM[i][j].getSigma());
+////                    System.out.println("ZYMD " + i + ":" + j + " -- " + zyM[i][j].getDelta());
+////                    System.out.println("ZYMCd " + i + ":" + j + " -- " + zyM[i][j].getCdin());
+////                    System.out.println("ZYMFd " + i + ":" + j + " -- " + zyM[i][j].getFidin());
+////                    p.mju();
+////                    System.out.println("z " + zyM[i][j].getZ() + " : y " + zyM[i][j].getY());
+////                    System.out.println("Cdin " + p.Cdin(zyM[i][j].getZ(), zyM[i][j].getY()));
+//                } else {
+//                    ModelZY zy = new ModelZY();
+//
+//                    zy.setZ(0);
+//                    zy.setY(0);
+//                    zy.setSigma(0);
+//                    zy.setDelta(0);
+//                    zy.setCdin(0);
+//                    zy.setFidin(0);
+//                    zyM[i][j] = zy;
+//                }
+//            }
+//        }
+////        zyM[8][2].setDelta(0.001);
+//
+//        for (int i = 0; i < zyM.length; i++) {
+////            System.out.println(zyM[i].length);
+//            for (int j = 0; j < zyM[i].length; j++) {
+//                System.out.print(i + ":" + j + " " + zyM[i][j].toString());
+//            }
+//            System.out.println("");
+//        }
+//    }
 }
