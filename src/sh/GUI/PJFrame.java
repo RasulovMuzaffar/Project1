@@ -103,16 +103,16 @@ public class PJFrame extends javax.swing.JFrame {
 
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
-//                System.out.print(" " + i + ":" + j + " " + PoTexRasch.zyM[i][j].toString());
-                if (PoTexRasch.zyM[i][j].getSigma() != 0) {
-                    System.out.println("ZYMZ " + i + ":" + j + " -- " + PoTexRasch.zyM[i][j].getZ());
-                    System.out.println("ZYMY " + i + ":" + j + " -- " + PoTexRasch.zyM[i][j].getY());
-                    System.out.println("ZYMS " + i + ":" + j + " -- " + PoTexRasch.zyM[i][j].getSigma());
-                    System.out.println("ZYMD " + i + ":" + j + " -- " + PoTexRasch.zyM[i][j].getDelta());
-                    System.out.println("ZYMCd " + i + ":" + j + " -- " + PoTexRasch.zyM[i][j].getCdin());
-                    System.out.println("ZYMFd " + i + ":" + j + " -- " + PoTexRasch.zyM[i][j].getFidin());
-                    System.out.println("ZYMmju " + i + ":" + j + " -- " + PoTexRasch.zyM[i][j].getMju());
-                }
+                System.out.print(" " + i + ":" + j + " " + PoTexRasch.zyM[i][j].toString());
+//                if (PoTexRasch.zyM[i][j].getSigma() != 0) {
+//                    System.out.println("ZYMZ " + i + ":" + j + " -- " + PoTexRasch.zyM[i][j].getZ());
+//                    System.out.println("ZYMY " + i + ":" + j + " -- " + PoTexRasch.zyM[i][j].getY());
+//                    System.out.println("ZYMS " + i + ":" + j + " -- " + PoTexRasch.zyM[i][j].getSigma());
+//                    System.out.println("ZYMD " + i + ":" + j + " -- " + PoTexRasch.zyM[i][j].getDelta());
+//                    System.out.println("ZYMCd " + i + ":" + j + " -- " + PoTexRasch.zyM[i][j].getCdin());
+//                    System.out.println("ZYMFd " + i + ":" + j + " -- " + PoTexRasch.zyM[i][j].getFidin());
+//                    System.out.println("ZYMmju " + i + ":" + j + " -- " + PoTexRasch.zyM[i][j].getMju());
+//                }
             }
             System.out.println("");
         }
