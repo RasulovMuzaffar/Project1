@@ -103,20 +103,39 @@ public class PoTexRasch {
     public static void ZY(int i, int j) {
         PoTexRasch p = new PoTexRasch();
         ModelZY zy = new ModelZY();
-        z = j * p.b0() / 10 * Math.sin(p.alfa());
-        y = j * p.b0() / 10 * Math.cos(p.alfa());
+
+        if (i + j == 10) {
+            z = j * p.b0() / 10 * Math.sin(p.alfa());
+            y = j * p.b0() / 10 * Math.cos(p.alfa());
 
 //        p.sigma(z, y);
 //        p.delta(z, y);
-        sigma = p.sigma(z, y);
-        delta = p.delta(z, y);
-        zy.setZ(z);
-        zy.setY(y);
-        zy.setSigma(sigma);
-        zy.setDelta(delta);
-        zy.setCdin(Cdin);
-        zy.setFidin(Fidin);
-        zyM[i][j] = zy;
+            sigma = p.sigma(z, y);
+            delta = p.delta(z, y);
+            zy.setZ(z);
+            zy.setY(y);
+            zy.setSigma(sigma);
+            zy.setDelta(delta);
+            zy.setCdin(Cdin);
+            zy.setFidin(Fidin);
+            zyM[i][j] = zy;
+//        } else if (i == 10 && j == 30) {
+//            zy.setZ(30);
+//            zy.setY(30);
+//            zy.setSigma(30);
+//            zy.setDelta(30);
+//            zy.setCdin(30);
+//            zy.setFidin(30);
+//            zyM[i][j] = zy;
+        } else {
+            zy.setZ(0);
+            zy.setY(0);
+            zy.setSigma(0);
+            zy.setDelta(0);
+            zy.setCdin(0);
+            zy.setFidin(0);
+            zyM[i][j] = zy;
+        }
     }
 
     /////////////////end 

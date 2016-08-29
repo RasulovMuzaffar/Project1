@@ -5,6 +5,11 @@
  */
 package sh.GUI;
 
+import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.util.ArrayList;
+import java.util.List;
 import sh.ModelZY;
 import sh.PoTexRasch;
 
@@ -14,7 +19,13 @@ import sh.PoTexRasch;
  */
 public class PJFrame extends javax.swing.JFrame {
 
-//    static ModelZY[][] zyM = new ModelZY[11][31];
+    private Graphics2D g;
+    private Line2D lineBuffer;
+    private Ellipse2D circBuffer;
+
+    private List<Line2D> lineContainer = new ArrayList();
+    private List<Ellipse2D> circContainer = new ArrayList();
+
     /**
      * Creates new form PJFrame
      */
@@ -86,47 +97,32 @@ public class PJFrame extends javax.swing.JFrame {
         PoTexRasch p = new PoTexRasch();
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
-//                int i=1;
-                if (i + j == 10) {
-                    PoTexRasch.ZY(i, j);
-//                    System.out.println("ZYMZ " + i + ":" + j + " -- " + zyM[i][j].getZ());
-//                    System.out.println("ZYMY " + i + ":" + j + " -- " + zyM[i][j].getY());
-//                    System.out.println("ZYMS " + i + ":" + j + " -- " + zyM[i][j].getSigma());
-//                    System.out.println("ZYMD " + i + ":" + j + " -- " + zyM[i][j].getDelta());
-//                    System.out.println("ZYMCd " + i + ":" + j + " -- " + zyM[i][j].getCdin());
-//                    System.out.println("ZYMFd " + i + ":" + j + " -- " + zyM[i][j].getFidin());
-//                    p.mju();
-//                    System.out.println("z " + zyM[i][j].getZ() + " : y " + zyM[i][j].getY());
-//                    System.out.println("Cdin " + p.Cdin(zyM[i][j].getZ(), zyM[i][j].getY()));
-                } else if (i + j == 0) {
-                    zy.setZ(31);
-                    zy.setY(31);
-                    zy.setSigma(31);
-                    zy.setDelta(31);
-                    zy.setCdin(31);
-                    zy.setFidin(31);
-                    PoTexRasch.zyM[i][j] = zy;
-                } else {
-
-                    zy.setZ(110);
-                    zy.setY(0);
-                    zy.setSigma(0);
-                    zy.setDelta(0);
-                    zy.setCdin(0);
-                    zy.setFidin(0);
-                    PoTexRasch.zyM[i][j] = zy;
-                }
+                PoTexRasch.ZY(i, j);
             }
         }
-//        zyM[8][2].setDelta(0.001);
-//System.out.println(""+PoTexRasch.zyM[9][1].getZ());
+
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
-////            System.out.println(zyM[i].length);
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
                 System.out.print(" " + i + ":" + j + " " + PoTexRasch.zyM[i][j].toString());
             }
             System.out.println("");
         }
+
+        //------Рисуем------
+        g = (Graphics2D) jPanel1.getGraphics();
+
+        for (ModelZY[] zyM : PoTexRasch.zyM) {
+            for (ModelZY zyM1 : zyM) {
+                if (zyM1.getZ() != 0 && zyM1.getY() != 0) {
+                    circBuffer = new Ellipse2D.Double(zyM1.getZ() * 100, zyM1.getZ() * 100, 6, 6);
+                    circContainer.add(circBuffer);
+                }
+            }
+        }
+        for (int i = 0; i < circContainer.size(); i++) {
+            g.draw(circContainer.get(i));
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
