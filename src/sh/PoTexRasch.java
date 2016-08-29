@@ -107,7 +107,7 @@ public class PoTexRasch {
         if (i + j == 10) {
             z = j * p.b0() / 10 * Math.sin(p.alfa());
             y = j * p.b0() / 10 * Math.cos(p.alfa());
-            if (i==10 && j==0) {
+            if (i == 10 && j == 0) {
                 System.out.println("i=10 " + z);
                 System.out.println("j=0 " + y);
             }
@@ -122,14 +122,6 @@ public class PoTexRasch {
             zy.setCdin(Cdin);
             zy.setFidin(Fidin);
             zyM[i][j] = zy;
-//        } else if (i == 10 && j == 30) {
-//            zy.setZ(30);
-//            zy.setY(30);
-//            zy.setSigma(30);
-//            zy.setDelta(30);
-//            zy.setCdin(30);
-//            zy.setFidin(30);
-//            zyM[i][j] = zy;
         } else {
             zy.setZ(0);
             zy.setY(0);
