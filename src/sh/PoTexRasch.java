@@ -96,6 +96,12 @@ public class PoTexRasch {
 //Глава 4
     static double mju;
 //Глава 4
+
+    //ЗОНА 1
+    static double z1z;
+    static double z1y;
+    //
+
     static ModelIJ[][] ij = new ModelIJ[1][10];
     public static ModelZY[][] zyM = new ModelZY[11][31];
 
@@ -111,8 +117,6 @@ public class PoTexRasch {
                 System.out.println("i=10 " + z);
                 System.out.println("j=0 " + y);
             }
-//        p.sigma(z, y);
-//        p.delta(z, y);
             sigma = p.sigma(z, y);
             delta = p.delta(z, y);
             zy.setZ(z);
@@ -121,6 +125,15 @@ public class PoTexRasch {
             zy.setDelta(delta);
             zy.setCdin(Cdin);
             zy.setFidin(Fidin);
+            zy.setMju(p.mju());
+            zyM[i][j] = zy;
+        } else if ((i + j > 10 && (i <= 10 && j <= 10)) || j == 10) {
+            zy.setZ(p.z1z(i, j));
+            zy.setY(p.z1y(i, j));
+            zy.setSigma(0);
+            zy.setDelta(0);
+            zy.setCdin(0);
+            zy.setFidin(0);
             zyM[i][j] = zy;
         } else {
             zy.setZ(0);
@@ -302,6 +315,7 @@ public class PoTexRasch {
     ////////////Глава 4
     double mju() {
         mju = 0.25 * Math.PI - 0.5 * Fidin;
+//        System.out.println("mju --->>> " + mju);
         return mju;
     }
 
@@ -344,6 +358,19 @@ public class PoTexRasch {
     }
 
     /////////////////end главы 1.1
+    //НАЧАЛИ ПОСТРОИТЬ СЕТКУ ЗОНЫ 1
+    double z1z(int i, int j) {
+        System.out.println(zyM[i-1][j].getFidin());
+        z1z = 100;
+        return z1z;
+    }
+
+    double z1y(double i, double j) {
+        z1y = 100;
+        return z1y;
+    }
+    ////////////КОНЕЦ ЗОНЫ 1 
+
 //    public static void main(String[] args) {
 //        PoTexRasch p = new PoTexRasch();
 //

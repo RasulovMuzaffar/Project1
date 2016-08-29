@@ -17,17 +17,19 @@ public class ModelZY {
     private double delta;
     private double Cdin;
     private double Fidin;
+    private double mju;
 
     public ModelZY() {
     }
 
-    public ModelZY(double z, double y, double sigma, double delta, double Cdin, double Fidin) {
+    public ModelZY(double z, double y, double sigma, double delta, double Cdin, double Fidin, double mju) {
         this.z = z;
         this.y = y;
         this.sigma = sigma;
         this.delta = delta;
         this.Cdin = Cdin;
         this.Fidin = Fidin;
+        this.mju = mju;
     }
 
     @Override
@@ -82,6 +84,14 @@ public class ModelZY {
 
     public void setFidin(double Fidin) {
         this.Fidin = Fidin;
+    }
+
+    public double getMju() {
+        return mju;
+    }
+
+    public void setMju(double mju) {
+        this.mju = mju;
     }
 
 }
