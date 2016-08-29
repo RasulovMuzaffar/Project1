@@ -123,7 +123,7 @@ public class PJFrame extends javax.swing.JFrame {
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
 //                if ((i == 10 && j == 0) || (i == 0 && j == 10)) {
-                if (i + j == 10) {
+                if ((i + j == 10)||(i + j > 10 && (i <= 10 && j <= 10)) || j == 10) {
                     circBuffer = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 100), (PoTexRasch.zyM[i][j].getZ() * 100), 6, 6);
                     circContainer.add(circBuffer);
                 }

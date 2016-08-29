@@ -10,7 +10,7 @@ package sh;
  * @author Muzaffar
  */
 public class PoTexRasch {
-    
+
     String tipG; //Тип грунта глинистый G или барханный P
     String tipP; //Тип поезда грузовой Gruz или пассажирский Pass
 
@@ -109,7 +109,7 @@ public class PoTexRasch {
     public static void ZY(int i, int j) {
         PoTexRasch p = new PoTexRasch();
         ModelZY zy = new ModelZY();
-        
+
         if (i + j == 10) {
             z = j * p.b0() / 10 * Math.sin(p.alfa());
             y = j * p.b0() / 10 * Math.cos(p.alfa());
@@ -272,7 +272,7 @@ public class PoTexRasch {
         Azy = A0 * Math.exp(n * z - delta1_0 * Fiy + delta3 * Fihi_j);
         return Azy;
     }
-    
+
     double n(String tipG) {
         if ("G".equals(tipG)) {
             n = Math.log10(delta1);
@@ -282,12 +282,12 @@ public class PoTexRasch {
 //        System.out.println("n --> " + n);
         return n;
     }
-    
+
     double delta1_0() {
         delta1_0 = delta2_1 + delta2_2;
         return delta1_0;
     }
-    
+
     double Fiy() {
         if (Math.abs(y + 0.5 * b0) <= 1.35) {
             Fiy = 0;
@@ -296,7 +296,7 @@ public class PoTexRasch {
         }
         return Fiy;
     }
-    
+
     double Fihi_j(double y) {
         if (y <= a) {
             Fihi_j = 0;
@@ -305,7 +305,7 @@ public class PoTexRasch {
         }
         return Fihi_j;
     }
-    
+
     double delta3(double n) {
         delta3 = 0.667 * Math.abs(n) * Math.tan(alfa1);
         return delta3;
@@ -351,7 +351,7 @@ public class PoTexRasch {
         }
         return Az;
     }
-    
+
     double Az() {
         Az = 160.9 * sigma_bsr * ((1 - Math.pow(mju_0, 2)) / E) * Math.exp(-alfa * (h_b - 0.25));
         return Az;
@@ -361,17 +361,17 @@ public class PoTexRasch {
     //НАЧАЛИ ПОСТРОИТЬ СЕТКУ ЗОНЫ 1
     double z1z(int i, int j) {
         System.out.println(zyM[i - 1][j].getFidin());
-        z1z = zyM[i][j - 1].getZ() - zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + zyM[i][j - 1].getMju())
-                - this.z1y(i, j) * Math.tan(zyM[i][j - 1].getSigma() + zyM[i][j - 1].getMju());
+        z1z = zyM[i][j - 1].getZ() - zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
+                - this.z1y(i, j) * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin());
         return z1z;
     }
-    
+
     double z1y(int i, int j) {
         z1y = (zyM[i - 1][j].getZ() - zyM[i][j - 1].getZ()
-                + zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + zyM[i][j - 1].getMju())
-                - zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getSigma() + zyM[i - 1][j].getMju()))
-                / (Math.tan(zyM[i][j - 1].getSigma() + zyM[i][j - 1].getMju())
-                - Math.tan(zyM[i - 1][j].getSigma() + zyM[i - 1][j].getMju()));
+                + zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
+                - zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()))
+                / (Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
+                - Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()));
         System.out.println("z1y {" + i + " : " + j + "} " + z1y);
         return z1y;
     }
