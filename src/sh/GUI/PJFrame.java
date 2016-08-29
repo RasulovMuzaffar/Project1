@@ -111,10 +111,11 @@ public class PJFrame extends javax.swing.JFrame {
         //------Рисуем------
         g = (Graphics2D) jPanel1.getGraphics();
 
-        for (ModelZY[] zyM : PoTexRasch.zyM) {
-            for (ModelZY zyM1 : zyM) {
-                if (zyM1.getZ() != 0 && zyM1.getY() != 0) {
-                    circBuffer = new Ellipse2D.Double(zyM1.getZ() * 100, zyM1.getZ() * 100, 6, 6);
+        for (int i = 0; i < PoTexRasch.zyM.length; i++) {
+            for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
+//                if ((i == 10 && j == 0) || (i == 0 && j == 10)) {
+                if (i + j == 10) {
+                    circBuffer = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 100), (PoTexRasch.zyM[i][j].getZ() * 100), 6, 6);
                     circContainer.add(circBuffer);
                 }
             }

@@ -107,7 +107,10 @@ public class PoTexRasch {
         if (i + j == 10) {
             z = j * p.b0() / 10 * Math.sin(p.alfa());
             y = j * p.b0() / 10 * Math.cos(p.alfa());
-
+            if (i==10 && j==0) {
+                System.out.println("i=10 " + z);
+                System.out.println("j=0 " + y);
+            }
 //        p.sigma(z, y);
 //        p.delta(z, y);
             sigma = p.sigma(z, y);
