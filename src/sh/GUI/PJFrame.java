@@ -19,12 +19,12 @@ import sh.PoTexRasch;
  * @author Muzaffar
  */
 public class PJFrame extends javax.swing.JFrame {
-
+    
     private Graphics2D g;
     private Line2D lineBuffer;
     private Ellipse2D circBuffer;
     private Ellipse2D circBuffer2;
-
+    
     private List<Line2D> lineContainer = new ArrayList();
     private List<Ellipse2D> circContainer = new ArrayList();
     private List<Ellipse2D> circContainer2 = new ArrayList();
@@ -103,7 +103,7 @@ public class PJFrame extends javax.swing.JFrame {
                 PoTexRasch.ZY(i, j);
             }
         }
-
+        
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
                 System.out.print(" " + i + ":" + j + " " + PoTexRasch.zyM[i][j].toString());
@@ -122,7 +122,7 @@ public class PJFrame extends javax.swing.JFrame {
 
         //------Рисуем------
         g = (Graphics2D) jPanel1.getGraphics();
-
+        
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
 //                if ((i == 10 && j == 0) || (i == 0 && j == 10)) {
@@ -131,7 +131,7 @@ public class PJFrame extends javax.swing.JFrame {
                     circBuffer = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 80), (PoTexRasch.zyM[i][j].getZ() * 80), 6, 6);
                     circContainer.add(circBuffer);
                 }
-                if (i + j ==11) {
+                if (i + j == 11) {
                     circBuffer2 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 80), (PoTexRasch.zyM[i][j].getZ() * 80), 6, 6);
                     circContainer2.add(circBuffer2);
                 }
