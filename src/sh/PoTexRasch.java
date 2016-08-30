@@ -110,13 +110,10 @@ public class PoTexRasch {
         PoTexRasch p = new PoTexRasch();
         ModelZY zy = new ModelZY();
 
-        if (i + j == 10) {
+        if (i + j == 10) { //0.10
             z = j * p.b0() / 10 * Math.sin(p.alfa());
             y = j * p.b0() / 10 * Math.cos(p.alfa());
-            if (i == 10 && j == 0) {
-                System.out.println("i=10 " + z);
-                System.out.println("j=0 " + y);
-            }
+
             sigma = p.sigma(z, y);
             delta = p.delta(z, y);
             zy.setZ(z);
@@ -127,7 +124,14 @@ public class PoTexRasch {
             zy.setFidin(Fidin);
             zy.setMju(p.mju());
             zyM[i][j] = zy;
-        } else if ((i + j > 10 && (i <= 10 && j <= 10)) || j == 10) {
+            
+            if (i == 10 && j == 0) {
+                for (int k = 11; k < 21; k++) {
+                    zyM[0][k] = zy;
+                }
+            }
+//        } else if ((i + j > 10 && (i <= 10 && j <= 10)) || j == 10) {
+        } else if ((i + j == 11) && (j%10!=1)) {
             zy.setZ(p.z1z(i, j));
             zy.setY(p.z1y(i, j));
             zy.setSigma(0);
@@ -360,18 +364,18 @@ public class PoTexRasch {
     /////////////////end главы 1.1
     //НАЧАЛИ ПОСТРОИТЬ СЕТКУ ЗОНЫ 1
     double z1z(int i, int j) {
-        System.out.println(zyM[i - 1][j].getFidin());
+//        System.out.println(zyM[i - 1][j].getFidin());
         z1z = zyM[i][j - 1].getZ() - zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
                 - this.z1y(i, j) * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin());
         return z1z;
     }
 
     double z1y(int i, int j) {
-        z1y = (zyM[i - 1][j].getZ() - zyM[i][j - 1].getZ()
-                + zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
-                - zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()))
-                / (Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
-                - Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()));
+//        z1y = (zyM[i - 1][j].getZ() - zyM[i][j - 1].getZ()
+//                + zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
+//                - zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()))
+//                / (Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
+//                - Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()));
         System.out.println("z1y {" + i + " : " + j + "} " + z1y);
         return z1y;
     }
