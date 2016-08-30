@@ -23,9 +23,11 @@ public class PJFrame extends javax.swing.JFrame {
     private Graphics2D g;
     private Line2D lineBuffer;
     private Ellipse2D circBuffer;
+    private Ellipse2D circBuffer2;
 
     private List<Line2D> lineContainer = new ArrayList();
     private List<Ellipse2D> circContainer = new ArrayList();
+    private List<Ellipse2D> circContainer2 = new ArrayList();
 
     /**
      * Creates new form PJFrame
@@ -63,7 +65,7 @@ public class PJFrame extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 336, Short.MAX_VALUE)
+            .addGap(0, 606, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -76,7 +78,7 @@ public class PJFrame extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(0, 789, Short.MAX_VALUE)))
+                        .addGap(0, 1014, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -124,14 +126,23 @@ public class PJFrame extends javax.swing.JFrame {
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
 //                if ((i == 10 && j == 0) || (i == 0 && j == 10)) {
-                if ((i + j == 10)||(i + j > 10 && (i <= 10 && j <= 10)) || j == 10) {
-                    circBuffer = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 100), (PoTexRasch.zyM[i][j].getZ() * 100), 6, 6);
+//                if ((i + j == 10)||(i + j > 10 && (i <= 10 && j <= 10)) || j == 10) {
+                if (i + j == 10) {
+                    circBuffer = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 80), (PoTexRasch.zyM[i][j].getZ() * 80), 6, 6);
                     circContainer.add(circBuffer);
+                }
+                if (i + j ==11) {
+                    circBuffer2 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 80), (PoTexRasch.zyM[i][j].getZ() * 80), 6, 6);
+                    circContainer2.add(circBuffer2);
                 }
             }
         }
         for (int i = 0; i < circContainer.size(); i++) {
             g.draw(circContainer.get(i));
+        }
+        for (int i = 0; i < circContainer2.size(); i++) {
+            g.setColor(Color.red);
+            g.draw(circContainer2.get(i));
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
