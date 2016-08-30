@@ -96,8 +96,6 @@ public class PJFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        ModelZY zy = new ModelZY();
-        PoTexRasch p = new PoTexRasch();
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
                 PoTexRasch.ZY(i, j);

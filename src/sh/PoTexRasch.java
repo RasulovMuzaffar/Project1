@@ -103,7 +103,8 @@ public class PoTexRasch {
     //
 
     static ModelIJ[][] ij = new ModelIJ[1][10];
-    public static ModelZY[][] zyM = new ModelZY[11][31];
+//    public static ModelZY[][] zyM = new ModelZY[11][31];
+    public static ModelZY[][] zyM = new ModelZY[31][11];
 
     ////////////По указанию Шавката
     public static void ZY(int i, int j) {
@@ -127,11 +128,11 @@ public class PoTexRasch {
             
             if (i == 10 && j == 0) {
                 for (int k = 11; k < 21; k++) {
-                    zyM[0][k] = zy;
+                    zyM[k][0] = zy;
                 }
             }
 //        } else if ((i + j > 10 && (i <= 10 && j <= 10)) || j == 10) {
-        } else if ((i + j == 11) && (j%10!=1)) {
+        } else if ((i + j == 11) && (i % 10 != 1)) {
             zy.setZ(p.z1z(i, j));
             zy.setY(p.z1y(i, j));
             zy.setSigma(0);
