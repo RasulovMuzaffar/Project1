@@ -125,14 +125,14 @@ public class PoTexRasch {
             zy.setFidin(Fidin);
             zy.setMju(p.mju());
             zyM[i][j] = zy;
-            
+
             if (i == 10 && j == 0) {
                 for (int k = 11; k < 21; k++) {
                     zyM[k][0] = zy;
                 }
             }
 //        } else if ((i + j > 10 && (i <= 10 && j <= 10)) || j == 10) {
-        } else if ((i + j == 11) && (i % 10 != 1)) {
+        } else if ((i + j == 11) && (i != 11)) {
             zy.setZ(p.z1z(i, j));
             zy.setY(p.z1y(i, j));
             zy.setSigma(0);
@@ -365,19 +365,22 @@ public class PoTexRasch {
     /////////////////end главы 1.1
     //НАЧАЛИ ПОСТРОИТЬ СЕТКУ ЗОНЫ 1
     double z1z(int i, int j) {
-//        System.out.println(zyM[i - 1][j].getFidin());
+        System.out.println(zyM[i - 1][j].getFidin());
         z1z = zyM[i][j - 1].getZ() - zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
                 - this.z1y(i, j) * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin());
+        if (i == 1 && j == 10) {
+            System.out.println("============== z1z " + z1z);
+        }
         return z1z;
     }
 
     double z1y(int i, int j) {
-//        z1y = (zyM[i - 1][j].getZ() - zyM[i][j - 1].getZ()
-//                + zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
-//                - zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()))
-//                / (Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
-//                - Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()));
-        System.out.println("z1y {" + i + " : " + j + "} " + z1y);
+        z1y = (zyM[i - 1][j].getZ() - zyM[i][j - 1].getZ()
+                + zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
+                - zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()))
+                / (Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
+                - Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()));
+//        System.out.println("z1y {" + i + " : " + j + "} " + z1y);
         return z1y;
     }
     ////////////КОНЕЦ ЗОНЫ 1 
