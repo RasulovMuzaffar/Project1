@@ -494,11 +494,12 @@ public class PoTexRasch {
     }
 
     double sigmaij(int i, int j) {
+        
         sigmaij = 2 * (zyM[i][j - 1].getSigma() * Math.tan(Fidin(zyM[i][j - 1].getZ(), zyM[i][j - 1].getY())) + zyM[i][j - 1].getCdin())
-                * (zyM[i][j - 1].getDelta() - deltaij(i, j)) + zyM[i][j - 1].getSigma()
+                * (zyM[i][j - 1].getDelta() - this.deltaij(i, j)) + zyM[i][j - 1].getSigma()
                 - ((gamma + Bij1(i, j)) * ((zyM[i][j - 1].getZ() - z1z/*zyM[i][j].getZ()*/)
                 + (zyM[i][j - 1].getY() - z1y/*zyM[i][j].getY()*/) * Math.tan(Fidin(zyM[i][j - 1].getZ(), zyM[i][j - 1].getY())))
-                + Dij1(i, j) * ((zyM[i][j - 1].getY() - z1y/*zyM[i][j].getY()*/)
+                + this.Dij1(i, j) * ((zyM[i][j - 1].getY() - z1y/*zyM[i][j].getY()*/)
                 - (zyM[i][j - 1].getZ() - z1z/*zyM[i][j].getZ()*/) * Math.tan(Fidin(zyM[i][j - 1].getZ(), zyM[i][j - 1].getY()))));
         return sigmaij;
     }
