@@ -141,8 +141,8 @@ public class PoTexRasch {
                     zyM[k][0] = zy;
                 }
             }
-        } else if (i + j > 10 && (i <= 10 && j <= 10)) {
-//        } else if ((i + j == 11) && (i != 11)) {
+//        } else if (i + j > 10 && (i <= 10 && j <= 10)) {
+        } else if ((i + j == 11) && (i != 11)) {
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
             Bi1j = p.Bi1j(i, j);
