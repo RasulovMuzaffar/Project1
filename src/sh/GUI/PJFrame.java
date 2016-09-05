@@ -143,25 +143,25 @@ public class PJFrame extends javax.swing.JFrame {
 //                    }
                 }
                 if (i + j == 11) {
-                    circBuffer2 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 10) + 300, (PoTexRasch.zyM[i][j].getY() * 10) + 300, 6, 6);
+                    circBuffer2 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 50) + 300, (PoTexRasch.zyM[i][j].getY() * 50) + 300, 6, 6);
                     circContainer2.add(circBuffer2);
                 }
                 if (i + j == 12) {
-                    circBuffer3 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 10) + 300, (PoTexRasch.zyM[i][j].getY() * 10) + 300, 6, 6);
+                    circBuffer3 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 50) + 300, (PoTexRasch.zyM[i][j].getY() * 50) + 300, 6, 6);
                     circContainer3.add(circBuffer3);
                 }
                 
                 if (i + j == 13) {
-                    circBuffer4 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 10) + 300, (PoTexRasch.zyM[i][j].getY() * 10) + 300, 6, 6);
+                    circBuffer4 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 50) + 300, (PoTexRasch.zyM[i][j].getY() * 50) + 300, 6, 6);
                     circContainer4.add(circBuffer4);
                 }
                 if (i + j == 14) {
-                    circBuffer3 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 10) + 300, (PoTexRasch.zyM[i][j].getY() * 10) + 300, 6, 6);
+                    circBuffer3 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 50) + 300, (PoTexRasch.zyM[i][j].getY() * 50) + 300, 6, 6);
                     circContainer3.add(circBuffer3);
                 }
                 
-                if (i + j == 14) {
-                    circBuffer4 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 10) + 300, (PoTexRasch.zyM[i][j].getY() * 10) + 300, 6, 6);
+                if (i + j == 15) {
+                    circBuffer4 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 50) + 300, (PoTexRasch.zyM[i][j].getY() * 50) + 300, 6, 6);
                     circContainer4.add(circBuffer4);
                 }
             }
@@ -189,7 +189,7 @@ public class PJFrame extends javax.swing.JFrame {
             g.draw(circContainer5.get(i));
         }
         for (int i = 0; i < circContainer6.size(); i++) {
-            g.setColor(Color.ORANGE);
+            g.setColor(Color.magenta);
             g.draw(circContainer6.get(i));
         }
 
