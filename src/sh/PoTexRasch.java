@@ -176,7 +176,7 @@ public class PoTexRasch {
             System.out.println("Cdin(" + i + " , " + j + ") ---->>>> " + Cdin);
             System.out.println("Fidin(" + i + " , " + j + ") ---->>>> " + Fidin);
             System.out.println("----------------------------------------------------");
-        } else if ((i + j == 12) && (i != 12)){
+        } else if ((i + j == 12) && (i < 11)){
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
             Bi1j = p.Bi1j(i, j);
@@ -210,7 +210,7 @@ public class PoTexRasch {
             System.out.println("Cdin(" + i + " , " + j + ") ---->>>> " + Cdin);
             System.out.println("Fidin(" + i + " , " + j + ") ---->>>> " + Fidin);
             System.out.println("----------------------------------------------------");
-        } else if ((i + j == 13) && (i != 13)){
+        } else if ((i + j == 13) && (i < 11)){
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
             Bi1j = p.Bi1j(i, j);
@@ -244,7 +244,7 @@ public class PoTexRasch {
             System.out.println("Cdin(" + i + " , " + j + ") ---->>>> " + Cdin);
             System.out.println("Fidin(" + i + " , " + j + ") ---->>>> " + Fidin);
             System.out.println("----------------------------------------------------");
-        } else if ((i + j == 14) && (i != 14)){
+        } else if ((i + j == 14) && (i < 11)){
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
             Bi1j = p.Bi1j(i, j);
@@ -278,7 +278,7 @@ public class PoTexRasch {
             System.out.println("Cdin(" + i + " , " + j + ") ---->>>> " + Cdin);
             System.out.println("Fidin(" + i + " , " + j + ") ---->>>> " + Fidin);
             System.out.println("----------------------------------------------------");
-        } else if ((i + j == 15) && (i != 15)){
+        } else if ((i + j == 15) && (i < 11)){
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
             Bi1j = p.Bi1j(i, j);
