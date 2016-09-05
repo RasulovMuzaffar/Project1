@@ -142,7 +142,7 @@ public class PoTexRasch {
                 }
             }
 //        } else if (i + j > 10 && (i <= 10 && j <= 10)) {
-        } else if ((i + j == 11) && (i != 11)){
+        } else if ((i + j == 11) && (i != 11)) {
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
             Bi1j = p.Bi1j(i, j);
@@ -176,7 +176,7 @@ public class PoTexRasch {
             System.out.println("Cdin(" + i + " , " + j + ") ---->>>> " + Cdin);
             System.out.println("Fidin(" + i + " , " + j + ") ---->>>> " + Fidin);
             System.out.println("----------------------------------------------------");
-        } else if ((i + j == 12) && (i < 11)){
+        } else if ((i + j == 12) && (i < 11)) {
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
             Bi1j = p.Bi1j(i, j);
@@ -210,7 +210,7 @@ public class PoTexRasch {
             System.out.println("Cdin(" + i + " , " + j + ") ---->>>> " + Cdin);
             System.out.println("Fidin(" + i + " , " + j + ") ---->>>> " + Fidin);
             System.out.println("----------------------------------------------------");
-        } else if ((i + j == 13) && (i < 11)){
+        } else if ((i + j == 13) && (i < 11)) {
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
             Bi1j = p.Bi1j(i, j);
@@ -244,7 +244,7 @@ public class PoTexRasch {
             System.out.println("Cdin(" + i + " , " + j + ") ---->>>> " + Cdin);
             System.out.println("Fidin(" + i + " , " + j + ") ---->>>> " + Fidin);
             System.out.println("----------------------------------------------------");
-        } else if ((i + j == 14) && (i < 11)){
+        } else if ((i + j == 14) && (i < 11)) {
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
             Bi1j = p.Bi1j(i, j);
@@ -278,7 +278,7 @@ public class PoTexRasch {
             System.out.println("Cdin(" + i + " , " + j + ") ---->>>> " + Cdin);
             System.out.println("Fidin(" + i + " , " + j + ") ---->>>> " + Fidin);
             System.out.println("----------------------------------------------------");
-        } else if ((i + j == 15) && (i < 11)){
+        } else if ((i + j == 15) && (i < 11)) {
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
             Bi1j = p.Bi1j(i, j);
@@ -557,9 +557,11 @@ public class PoTexRasch {
     /////////////////end главы 1.1
     //НАЧАЛИ ПОСТРОИТЬ СЕТКУ ЗОНЫ 1
     double z1z(int i, int j) {
-//        System.out.println(zyM[i - 1][j].getFidin());
-        z1z = zyM[i][j - 1].getZ() - zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
-                - this.z1y(i, j) * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin());
+        System.out.println("zyM[i - 1][j].getZ() ---> " + zyM[i - 1][j].getZ());
+        System.out.println("zyM[i][j-1].getZ() ---> " + zyM[i][j - 1].getZ());
+
+        z1z = zyM[i][j - 1].getZ() - (zyM[i][j - 1].getY() - this.z1y(i, j))
+                * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin());
 //        if (i == 1 && j == 10) {
 //            System.out.println("============== z1z " + z1z);
 //        }
@@ -568,11 +570,18 @@ public class PoTexRasch {
     }
 
     double z1y(int i, int j) {
-        z1y = (zyM[i - 1][j].getZ() - zyM[i][j - 1].getZ()
-                + zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
-                - zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()))
-                / (Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
-                - Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()));
+        System.out.println("zyM[i][j-1].getY() ---> " + zyM[i][j - 1].getY());
+        System.out.println("zyM[i-1][j].getY() ---> " + zyM[i - 1][j].getY());
+//        z1y = (zyM[i - 1][j].getZ() - zyM[i][j - 1].getZ()
+//                + zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
+//                - zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()))
+//                / (Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
+//                - Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()));
+        z1y = (zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getSigma() - (0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()))
+                - zyM[i - 1][j].getZ() + zyM[i][j - 1].getZ()
+                + zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + (0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())))
+                / (zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getSigma() + (0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin()))
+                + zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getSigma() - (0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin())));
         System.out.println("z1y {" + i + " : " + j + "} " + z1y);
         return z1y;
     }
