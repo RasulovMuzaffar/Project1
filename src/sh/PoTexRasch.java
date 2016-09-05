@@ -141,7 +141,7 @@ public class PoTexRasch {
                     zyM[k][0] = zy;
                 }
             }
-        } else if ((i + j > 10 && (i <= 10 && j <= 10)) || j == 10) {
+        } else if (i + j > 10 && (i <= 10 && j <= 10)) {
 //        } else if ((i + j == 11) && (i != 11)) {
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
@@ -498,7 +498,6 @@ public class PoTexRasch {
 //        System.out.println("(zyM[i][j - 1].getZ(), zyM[i][j - 1].getY())- " + zyM[i][j - 1].getZ() + " , " + zyM[i][j - 1].getY());
 
 //        System.out.println("----------------------");
-
         System.out.println("Bij1 {" + i + " : " + j + "} " + Bij1);
         return Bij1;
     }
@@ -566,7 +565,7 @@ public class PoTexRasch {
                 + 2 * zyM[i - 1][j].getDelta() * (zyM[i - 1][j].getSigma() * Math.tan(Fidin(zyM[i - 1][j].getZ(), zyM[i - 1][j].getY())) + zyM[i - 1][j].getCdin()))
                 / (2 * zyM[i][j - 1].getSigma() * Math.tan(Fidin(zyM[i][j - 1].getZ(), zyM[i][j - 1].getY())) + 2 * zyM[i][j - 1].getCdin()
                 + 2 * zyM[i - 1][j].getSigma() * Math.tan(Fidin(zyM[i - 1][j].getZ(), zyM[i - 1][j].getY())) - 2 * zyM[i - 1][j].getCdin());
-        
+
         System.out.println("deltaij {" + i + " : " + j + "} " + deltaij);
         return deltaij;
     }

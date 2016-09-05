@@ -24,10 +24,12 @@ public class PJFrame extends javax.swing.JFrame {
     private Line2D lineBuffer;
     private Ellipse2D circBuffer;
     private Ellipse2D circBuffer2;
+    private Ellipse2D circBuffer3;
 
     private List<Line2D> lineContainer = new ArrayList();
     private List<Ellipse2D> circContainer = new ArrayList();
     private List<Ellipse2D> circContainer2 = new ArrayList();
+    private List<Ellipse2D> circContainer3 = new ArrayList();
 
     /**
      * Creates new form PJFrame
@@ -128,27 +130,35 @@ public class PJFrame extends javax.swing.JFrame {
                 if (i + j == 10) {
                     circBuffer = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 50), (PoTexRasch.zyM[i][j].getY() * 50), 6, 6);
                     circContainer.add(circBuffer);
-                    if (i < 10 && j < 10) {
-                        lineBuffer = new Line2D.Double((PoTexRasch.zyM[i][j].getZ() * 50), (PoTexRasch.zyM[i][j].getY() * 50),
-                                (PoTexRasch.zyM[i + 1][j + 1].getZ() * 50), (PoTexRasch.zyM[i + 1][j + 1].getY() * 50));
-                        lineContainer.add(lineBuffer);
-                    }
+//                    if (i < 10 && j < 10) {
+//                        lineBuffer = new Line2D.Double((PoTexRasch.zyM[i][j].getZ() * 50), (PoTexRasch.zyM[i][j].getY() * 50),
+//                                (PoTexRasch.zyM[i + 1][j + 1].getZ() * 50), (PoTexRasch.zyM[i + 1][j + 1].getY() * 50));
+//                        lineContainer.add(lineBuffer);
+//                    }
                 }
                 if (i + j == 11) {
-                    circBuffer2 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 50), (PoTexRasch.zyM[i][j].getY() * 50), 6, 6);
+                    circBuffer2 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 10), (PoTexRasch.zyM[i][j].getY() * 10), 6, 6);
                     circContainer2.add(circBuffer2);
+                }
+                if (i + j == 12) {
+                    circBuffer3 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() ), (PoTexRasch.zyM[i][j].getY()), 6, 6);
+                    circContainer3.add(circBuffer3);
                 }
             }
         }
         for (int i = 0; i < circContainer.size(); i++) {
             g.draw(circContainer.get(i));
         }
-        for (int i = 0; i < lineContainer.size(); i++) {
-            g.draw(lineContainer.get(i));
-        }
+//        for (int i = 0; i < lineContainer.size(); i++) {
+//            g.draw(lineContainer.get(i));
+//        }
         for (int i = 0; i < circContainer2.size(); i++) {
             g.setColor(Color.red);
             g.draw(circContainer2.get(i));
+        }
+        for (int i = 0; i < circContainer3.size(); i++) {
+            g.setColor(Color.BLUE);
+            g.draw(circContainer3.get(i));
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
