@@ -578,11 +578,12 @@ public class PoTexRasch {
 //                - zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()))
 //                / (Math.tan(zyM[i][j - 1].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())
 //                - Math.tan(zyM[i - 1][j].getSigma() + 0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()));
-        z1y = (zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getDelta() - (0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin()))
+        z1y = (zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getDelta() - 0.25 * Math.PI + 0.5 * zyM[i - 1][j].getFidin())
                 - zyM[i - 1][j].getZ() + zyM[i][j - 1].getZ()
-                + zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getDelta()+ (0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin())))
-                / (zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getDelta() + (0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin()))
-                + zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getDelta() - (0.25 * Math.PI - 0.5 * zyM[i - 1][j].getFidin())));
+                - zyM[i][j - 1].getY() * Math.tan(zyM[i][j - 1].getDelta() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin()))
+                / (Math.tan(zyM[i - 1][j].getDelta() - 0.25 * Math.PI + 0.5 * zyM[i - 1][j].getFidin())
+                - Math.tan(zyM[i][j - 1].getDelta() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin()));
+
         System.out.println("z1y {" + i + " : " + j + "} " + z1y);
         return z1y;
     }
