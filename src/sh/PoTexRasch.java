@@ -38,14 +38,14 @@ public class PoTexRasch {
     //Пункт 1.2
 
     //Пункт 1.3
-    static double a = 0.85; //расчетная ширина обочины, м;
+    static double a ; //= 0.85расчетная ширина обочины, м;
     static double b_pl = 3; //ширина основной площадки земляного полотна,    
     static double b = 1.35; //расстояние от бровки основной площадки до оси ближайшего пути
     //Пункт 1.3
 
     //Пункт 1.4
     static double alfa; //коэффициент затухания напряжений в балластной призме;
-    static double h_nas = 0.3; // высота насыпи
+    static double h_nas ; // = 0.3 высота насыпи
     static double m; // m=1
     static double alfa1; //угол заложения насыпи.
     //Пункт 1.4
@@ -80,7 +80,7 @@ public class PoTexRasch {
 
     //Глава 3
     static double sigma; //напряжения
-    double gamma = 1.85; //Объемный вес грунта на откосе;
+    static double gamma ; //= 1.85 Объемный вес грунта на откосе;
     static double delta;
     double Fia;
     double C;
@@ -116,8 +116,11 @@ public class PoTexRasch {
 //    public static ModelZY[][] zyM = new ModelZY[11][31];
     public static ModelZY[][] zyM = new ModelZY[31][11];
 
-    public static void Peremennie(double _m) {
+    public static void Peremennie(double _m, double _h_nas, double _a, double _gamma) {
         m = _m;
+        h_nas = _h_nas;
+        a = _a;
+        gamma = _gamma;
     }
 
     ////////////По указанию Шавката
