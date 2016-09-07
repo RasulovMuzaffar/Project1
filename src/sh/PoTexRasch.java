@@ -150,7 +150,9 @@ public class PoTexRasch {
                     zy.setZ(0);
                     zy.setY(0);
                     zy.setSigma(p.sigma_10i_0(k));
+//                    zy.setSigma(1);
                     zy.setDelta(p.delta_10i_0(k));
+//                    zy.setDelta(1);
                     zy.setCdin(Cdin);
                     zy.setFidin(Fidin);
                     zyM[k][0] = zy;
