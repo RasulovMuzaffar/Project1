@@ -145,20 +145,20 @@ public class PoTexRasch {
 //            zy.setMju(p.mju());
             zyM[i][j] = zy;
 
-            if (i == 10 && j == 0) {
-                for (int k = 11; k < 21; k++) {
-                    zy.setZ(0);
-                    zy.setY(0);
-                    zy.setSigma(p.sigma_10i_0(k));
-//                    zy.setSigma(1);
-                    zy.setDelta(p.delta_10i_0(k));
-//                    zy.setDelta(1);
-                    zy.setCdin(Cdin);
-                    zy.setFidin(Fidin);
-                    zyM[k][0] = zy;
-                    System.out.println("k ============ " + k);
-                }
-            }
+//            if (i == 10 && j == 0) {
+//                for (int k = 11; k < 21; k++) {
+//                    zy.setZ(0);
+//                    zy.setY(0);
+//                    zy.setSigma(p.sigma_10i_0(k));
+////                    zy.setSigma(1);
+//                    zy.setDelta(p.delta_10i_0(k));
+////                    zy.setDelta(1);
+//                    zy.setCdin(Cdin);
+//                    zy.setFidin(Fidin);
+//                    zyM[k][0] = zy;
+//                    System.out.println("k ============ " + k);
+//                }
+//            }
 //        } else if (i + j > 10 && (i <= 10 && j <= 10)) {
         } else if ((i + j > 10) && (i <= 10 && j <= 10)) {
             z1z = p.z1z(i, j);
@@ -167,13 +167,13 @@ public class PoTexRasch {
             Bij1 = p.Bij1(i, j);
             Di1j = p.Di1j(i, j);
             Dij1 = p.Dij1(i, j);
-//            deltaij = p.deltaij(i, j);
-//            sigmaij = p.sigmaij(i, j);
+            deltaij = p.deltaij(i, j);
+            sigmaij = p.sigmaij(i, j);
 
             zy.setZ(z1z);
             zy.setY(z1y);
-//            zy.setSigma(sigmaij);
-//            zy.setDelta(deltaij);
+            zy.setSigma(sigmaij);
+            zy.setDelta(deltaij);
             zy.setCdin(Cdin);
             zy.setFidin(Fidin);
             zyM[i][j] = zy;
