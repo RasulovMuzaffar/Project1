@@ -89,8 +89,8 @@ public class PoTexRasch {
     double sigma_y;
     double sigma_pr;
     int i;
-    double delta_10i_0;
-    double sigma_10i_0;
+    static double delta_10i_0;
+    static double sigma_10i_0;
     double delta_10_0;
     //Глава 3
 //Глава 4
@@ -147,12 +147,18 @@ public class PoTexRasch {
 
             if (i == 10 && j == 0) {
                 for (int k = 11; k < 21; k++) {
+                    zy.setZ(0);
+                    zy.setY(0);
+                    zy.setSigma(p.sigma_10i_0(k));
+                    zy.setDelta(p.delta_10i_0(k));
+                    zy.setCdin(Cdin);
+                    zy.setFidin(Fidin);
                     zyM[k][0] = zy;
                     System.out.println("k ============ " + k);
                 }
             }
 //        } else if (i + j > 10 && (i <= 10 && j <= 10)) {
-        } else if ((i + j > 10) && (i <= 20)) {
+        } else if ((i + j > 10) && (i <= 10 && j <= 10)) {
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
             Bi1j = p.Bi1j(i, j);
@@ -641,5 +647,20 @@ public class PoTexRasch {
 //            System.out.println("");
 //        }
 //    }
+
+    double delta_10i_0(int i) {
+        delta_10i_0 = ((Math.PI - 2 * this.alfa()) / 20) * i + this.alfa();
+        System.out.println("delta_10i_0delta_10i_0delta_10i_0delta_10i_0delta_10i_0 " + delta_10i_0);
+        return delta_10i_0;
+    }
+
+    double sigma_10i_0(int i) {
+        sigma_10i_0 = ((gamma * this.Fia(zyM[i - 1][0].getY()) * Math.cos(this.alfa())
+                + this.Cdin(0, 0) * Math.cos(this.Fidin(0, 0)) * Math.cos(2 * (zyM[10][0].getDelta() - this.alfa())))
+                / (1 - Math.sin(this.Fidin(0, 0)) * Math.cos(2 * (zyM[10][0].getDelta() - this.alfa()))))
+                * Math.exp(2 * this.delta_10i_0(i) * Math.tan(this.Fidin(0, 0)));
+        System.out.println("sigma_10i_0sigma_10i_0sigma_10i_0sigma_10i_0sigma_10i_0 " + sigma_10i_0);
+        return sigma_10i_0;
+    }
 
 }

@@ -222,32 +222,34 @@ public class PJFrame extends javax.swing.JFrame {
 
         //------Рисуем------
         g = (Graphics2D) jPanel1.getGraphics();
-        lineBuffer = new Line2D.Double((PoTexRasch.zyM[10][0].getY() * 100) + 300, (PoTexRasch.zyM[10][0].getZ() * 100) + 300,
-                (PoTexRasch.zyM[9][1].getY() * 100) + 300, (PoTexRasch.zyM[9][1].getZ() * 100) + 300);
-        lineContainer.add(lineBuffer);
-        lineBuffer = new Line2D.Double((PoTexRasch.zyM[10][0].getY() * 100) + 300, (PoTexRasch.zyM[10][0].getZ() * 100) + 300,
-                (PoTexRasch.zyM[10][1].getY() * 100) + 300, (PoTexRasch.zyM[10][1].getZ() * 100) + 300);
-        lineContainer.add(lineBuffer);
-        lineBuffer = new Line2D.Double((PoTexRasch.zyM[10][1].getY() * 100) + 300, (PoTexRasch.zyM[10][1].getZ() * 100) + 300,
-                (PoTexRasch.zyM[9][1].getY() * 100) + 300, (PoTexRasch.zyM[9][1].getZ() * 100) + 300);
-        lineContainer.add(lineBuffer);
-        ////////////
-        lineBuffer = new Line2D.Double((PoTexRasch.zyM[10][1].getY() * 100) + 300, (PoTexRasch.zyM[10][1].getZ() * 100) + 300,
-                (PoTexRasch.zyM[10][2].getY() * 100) + 300, (PoTexRasch.zyM[10][2].getZ() * 100) + 300);
-        lineContainer.add(lineBuffer);
-        lineBuffer = new Line2D.Double((PoTexRasch.zyM[10][2].getY() * 100) + 300, (PoTexRasch.zyM[10][2].getZ() * 100) + 300,
-                (PoTexRasch.zyM[9][2].getY() * 100) + 300, (PoTexRasch.zyM[9][2].getZ() * 100) + 300);
-        lineContainer.add(lineBuffer);
-        ////////////
-        lineBuffer = new Line2D.Double((PoTexRasch.zyM[9][1].getY() * 100) + 300, (PoTexRasch.zyM[9][1].getZ() * 100) + 300,
-                (PoTexRasch.zyM[8][2].getY() * 100) + 300, (PoTexRasch.zyM[8][2].getZ() * 100) + 300);
-        lineContainer.add(lineBuffer);
-        lineBuffer = new Line2D.Double((PoTexRasch.zyM[9][1].getY() * 100) + 300, (PoTexRasch.zyM[9][1].getZ() * 100) + 300,
-                (PoTexRasch.zyM[9][2].getY() * 100) + 300, (PoTexRasch.zyM[9][2].getZ() * 100) + 300);
-        lineContainer.add(lineBuffer);
-        lineBuffer = new Line2D.Double((PoTexRasch.zyM[9][2].getY() * 100) + 300, (PoTexRasch.zyM[9][2].getZ() * 100) + 300,
-                (PoTexRasch.zyM[8][2].getY() * 100) + 300, (PoTexRasch.zyM[8][2].getZ() * 100) + 300);
-        lineContainer.add(lineBuffer);
+        
+        
+//        lineBuffer = new Line2D.Double((PoTexRasch.zyM[10][0].getY() * 100) + 300, (PoTexRasch.zyM[10][0].getZ() * 100) + 300,
+//                (PoTexRasch.zyM[9][1].getY() * 100) + 300, (PoTexRasch.zyM[9][1].getZ() * 100) + 300);
+//        lineContainer.add(lineBuffer);
+//        lineBuffer = new Line2D.Double((PoTexRasch.zyM[10][0].getY() * 100) + 300, (PoTexRasch.zyM[10][0].getZ() * 100) + 300,
+//                (PoTexRasch.zyM[10][1].getY() * 100) + 300, (PoTexRasch.zyM[10][1].getZ() * 100) + 300);
+//        lineContainer.add(lineBuffer);
+//        lineBuffer = new Line2D.Double((PoTexRasch.zyM[10][1].getY() * 100) + 300, (PoTexRasch.zyM[10][1].getZ() * 100) + 300,
+//                (PoTexRasch.zyM[9][1].getY() * 100) + 300, (PoTexRasch.zyM[9][1].getZ() * 100) + 300);
+//        lineContainer.add(lineBuffer);
+//        ////////////
+//        lineBuffer = new Line2D.Double((PoTexRasch.zyM[10][1].getY() * 100) + 300, (PoTexRasch.zyM[10][1].getZ() * 100) + 300,
+//                (PoTexRasch.zyM[10][2].getY() * 100) + 300, (PoTexRasch.zyM[10][2].getZ() * 100) + 300);
+//        lineContainer.add(lineBuffer);
+//        lineBuffer = new Line2D.Double((PoTexRasch.zyM[10][2].getY() * 100) + 300, (PoTexRasch.zyM[10][2].getZ() * 100) + 300,
+//                (PoTexRasch.zyM[9][2].getY() * 100) + 300, (PoTexRasch.zyM[9][2].getZ() * 100) + 300);
+//        lineContainer.add(lineBuffer);
+//        ////////////
+//        lineBuffer = new Line2D.Double((PoTexRasch.zyM[9][1].getY() * 100) + 300, (PoTexRasch.zyM[9][1].getZ() * 100) + 300,
+//                (PoTexRasch.zyM[8][2].getY() * 100) + 300, (PoTexRasch.zyM[8][2].getZ() * 100) + 300);
+//        lineContainer.add(lineBuffer);
+//        lineBuffer = new Line2D.Double((PoTexRasch.zyM[9][1].getY() * 100) + 300, (PoTexRasch.zyM[9][1].getZ() * 100) + 300,
+//                (PoTexRasch.zyM[9][2].getY() * 100) + 300, (PoTexRasch.zyM[9][2].getZ() * 100) + 300);
+//        lineContainer.add(lineBuffer);
+//        lineBuffer = new Line2D.Double((PoTexRasch.zyM[9][2].getY() * 100) + 300, (PoTexRasch.zyM[9][2].getZ() * 100) + 300,
+//                (PoTexRasch.zyM[8][2].getY() * 100) + 300, (PoTexRasch.zyM[8][2].getZ() * 100) + 300);
+//        lineContainer.add(lineBuffer);
         ///////////////
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
@@ -265,7 +267,7 @@ public class PJFrame extends javax.swing.JFrame {
 //                    }
                 }
 //                if (i + j > 10 && (i <= 10 && j <= 10)) {
-                if ((i + j > 10) && (i <= 20)) {
+                if ((i + j > 10) && (i <= 10 && j <= 10)) {
 //                if (i==10&&j == 1) {
                     circBuffer2 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getY() * 100) + 300, (PoTexRasch.zyM[i][j].getZ() * 100) + 300, 6, 6);
                     circContainer2.add(circBuffer2);
