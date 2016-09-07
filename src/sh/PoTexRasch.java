@@ -46,7 +46,7 @@ public class PoTexRasch {
     //Пункт 1.4
     static double alfa; //коэффициент затухания напряжений в балластной призме;
     static double h_nas = 0.3; // высота насыпи
-    static double m = 1;
+    static double m; // m=1
     static double alfa1; //угол заложения насыпи.
     //Пункт 1.4
 
@@ -115,6 +115,10 @@ public class PoTexRasch {
     static ModelIJ[][] ij = new ModelIJ[1][10];
 //    public static ModelZY[][] zyM = new ModelZY[11][31];
     public static ModelZY[][] zyM = new ModelZY[31][11];
+
+    public static void Peremennie(double _m) {
+        m = _m;
+    }
 
     ////////////По указанию Шавката
     public static void ZY(int i, int j) {
