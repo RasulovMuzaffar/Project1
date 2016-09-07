@@ -38,14 +38,14 @@ public class PoTexRasch {
     //Пункт 1.2
 
     //Пункт 1.3
-    static double a ; //= 0.85расчетная ширина обочины, м;
+    static double a; //= 0.85расчетная ширина обочины, м;
     static double b_pl = 3; //ширина основной площадки земляного полотна,    
     static double b = 1.35; //расстояние от бровки основной площадки до оси ближайшего пути
     //Пункт 1.3
 
     //Пункт 1.4
     static double alfa; //коэффициент затухания напряжений в балластной призме;
-    static double h_nas ; // = 0.3 высота насыпи
+    static double h_nas; // = 0.3 высота насыпи
     static double m; // m=1
     static double alfa1; //угол заложения насыпи.
     //Пункт 1.4
@@ -72,15 +72,15 @@ public class PoTexRasch {
     double Kc = 0.2; //показатели относительного снижения удельного сцепления и угла внутреннего трения под влиянием вибродинамического воздействия;
     double Kfi = 0.1; //показатели относительного снижения удельного сцепления и угла внутреннего трения под влиянием вибродинамического воздействия;
     double Cdin_min; //минимальные значения прочностных характеристик, определяемые при действии максимальной возможной вибродинамической нагрузки A0;
-    double Cst = 0.5; //прочностные характеристики при действии статической нагрузки;
+    static double Cst; //= 0.5 прочностные характеристики при действии статической нагрузки;
     double Fidin_min; //минимальные значения прочностных характеристик, определяемые при действии максимальной возможной вибродинамической нагрузки A0;
-    double Fist = 38; //прочностные характеристики при действии статической нагрузки;
+    static double Fist; //= 38 прочностные характеристики при действии статической нагрузки;
     double K = 0.010; //коэффициент виброразрушения грунта;
     //Пункт 1.7
 
     //Глава 3
     static double sigma; //напряжения
-    static double gamma ; //= 1.85 Объемный вес грунта на откосе;
+    static double gamma; //= 1.85 Объемный вес грунта на откосе;
     static double delta;
     double Fia;
     double C;
@@ -116,11 +116,13 @@ public class PoTexRasch {
 //    public static ModelZY[][] zyM = new ModelZY[11][31];
     public static ModelZY[][] zyM = new ModelZY[31][11];
 
-    public static void Peremennie(double _m, double _h_nas, double _a, double _gamma) {
+    public static void Peremennie(double _m, double _h_nas, double _a, double _gamma, double _Cst, double _Fist) {
         m = _m;
         h_nas = _h_nas;
         a = _a;
         gamma = _gamma;
+        Cst = _Cst;
+        Fist = Math.toRadians(_Fist);
     }
 
     ////////////По указанию Шавката
@@ -146,10 +148,11 @@ public class PoTexRasch {
             if (i == 10 && j == 0) {
                 for (int k = 11; k < 21; k++) {
                     zyM[k][0] = zy;
+                    System.out.println("k ============ " + k);
                 }
             }
-        } else if (i + j > 10 && (i <= 10 && j <= 10)) {
-//        } else if ((i + j == 11) && (i != 11)) {
+//        } else if (i + j > 10 && (i <= 10 && j <= 10)) {
+        } else if ((i + j > 10) && (i <= 20)) {
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
             Bi1j = p.Bi1j(i, j);
@@ -166,142 +169,6 @@ public class PoTexRasch {
             zy.setCdin(Cdin);
             zy.setFidin(Fidin);
             zyM[i][j] = zy;
-//            System.out.println("z (" + i + " , " + j + ") ---->>>> " + z1z);
-//            System.out.println("y (" + i + " , " + j + ") ---->>>> " + z1y);
-//            System.out.println("p.Bij1(" + i + " , " + j + ") ---->>>> " + Bij1);
-//            System.out.println("p.Bi1j(" + i + " , " + j + ") ---->>>> " + Bi1j);
-//            System.out.println("p.Dij1(" + i + " , " + j + ") ---->>>> " + Dij1);
-//            System.out.println("p.Di1j(" + i + " , " + j + ") ---->>>> " + Di1j);
-//            System.out.println("p.Hi1j(" + i + " , " + j + ") ---->>>> " + p.Hi1j(i, j));
-//            System.out.println("p.Hij1(" + i + " , " + j + ") ---->>>> " + p.Hij1(i, j));
-//            System.out.println("p.Fi1j(" + i + " , " + j + ") ---->>>> " + p.Fi1j(i, j));
-//            System.out.println("p.Fij1(" + i + " , " + j + ") ---->>>> " + p.Fij1(i, j));
-////            System.out.println("p.Azyij1(" + i + " , " + j + ") ---->>>> " + p.Azy(i, j - 1));
-////            System.out.println("p.Azyi1j(" + i + " , " + j + ") ---->>>> " + p.Azy(i - 1, j));
-//            System.out.println("p.Sigma(" + i + " , " + j + ") ---->>>> " + sigmaij);
-//            System.out.println("p.delta(" + i + " , " + j + ") ---->>>> " + deltaij);
-//            System.out.println("Cdin(" + i + " , " + j + ") ---->>>> " + Cdin);
-//            System.out.println("Fidin(" + i + " , " + j + ") ---->>>> " + Fidin);
-//            System.out.println("----------------------------------------------------");
-//        } else if ((i + j == 12) && (i < 11)) {
-//            z1z = p.z1z(i, j);
-//            z1y = p.z1y(i, j);
-//            Bi1j = p.Bi1j(i, j);
-//            Bij1 = p.Bij1(i, j);
-//            Di1j = p.Di1j(i, j);
-//            Dij1 = p.Dij1(i, j);
-////            deltaij = p.deltaij(i, j);
-////            sigmaij = p.sigmaij(i, j);
-//
-//            zy.setZ(z1z);
-//            zy.setY(z1y);
-////            zy.setSigma(sigmaij);
-////            zy.setDelta(deltaij);
-//            zy.setCdin(Cdin);
-//            zy.setFidin(Fidin);
-//            zyM[i][j] = zy;
-//            System.out.println("z (" + i + " , " + j + ") ---->>>> " + z1z);
-//            System.out.println("y (" + i + " , " + j + ") ---->>>> " + z1y);
-//            System.out.println("p.Bij1(" + i + " , " + j + ") ---->>>> " + Bij1);
-//            System.out.println("p.Bi1j(" + i + " , " + j + ") ---->>>> " + Bi1j);
-//            System.out.println("p.Dij1(" + i + " , " + j + ") ---->>>> " + Dij1);
-//            System.out.println("p.Di1j(" + i + " , " + j + ") ---->>>> " + Di1j);
-//            System.out.println("p.Hi1j(" + i + " , " + j + ") ---->>>> " + p.Hi1j(i, j));
-//            System.out.println("p.Hij1(" + i + " , " + j + ") ---->>>> " + p.Hij1(i, j));
-//            System.out.println("p.Fi1j(" + i + " , " + j + ") ---->>>> " + p.Fi1j(i, j));
-//            System.out.println("p.Fij1(" + i + " , " + j + ") ---->>>> " + p.Fij1(i, j));
-////            System.out.println("p.Azyij1(" + i + " , " + j + ") ---->>>> " + p.Azy(i, j - 1));
-////            System.out.println("p.Azyi1j(" + i + " , " + j + ") ---->>>> " + p.Azy(i - 1, j));
-//            System.out.println("p.Sigma(" + i + " , " + j + ") ---->>>> " + sigmaij);
-//            System.out.println("p.delta(" + i + " , " + j + ") ---->>>> " + deltaij);
-//            System.out.println("Cdin(" + i + " , " + j + ") ---->>>> " + Cdin);
-//            System.out.println("Fidin(" + i + " , " + j + ") ---->>>> " + Fidin);
-//            System.out.println("----------------------------------------------------");
-//        } else if ((i + j == 13) && (i < 11)) {
-//            z1z = p.z1z(i, j);
-//            z1y = p.z1y(i, j);
-//            Bi1j = p.Bi1j(i, j);
-//            Bij1 = p.Bij1(i, j);
-//            Di1j = p.Di1j(i, j);
-//            Dij1 = p.Dij1(i, j);
-////            deltaij = p.deltaij(i, j);
-////            sigmaij = p.sigmaij(i, j);
-//
-//            zy.setZ(z1z);
-//            zy.setY(z1y);
-////            zy.setSigma(sigmaij);
-////            zy.setDelta(deltaij);
-//            zy.setCdin(Cdin);
-//            zy.setFidin(Fidin);
-//            zyM[i][j] = zy;
-//            System.out.println("z (" + i + " , " + j + ") ---->>>> " + z1z);
-//            System.out.println("y (" + i + " , " + j + ") ---->>>> " + z1y);
-//            System.out.println("p.Bij1(" + i + " , " + j + ") ---->>>> " + Bij1);
-//            System.out.println("p.Bi1j(" + i + " , " + j + ") ---->>>> " + Bi1j);
-//            System.out.println("p.Dij1(" + i + " , " + j + ") ---->>>> " + Dij1);
-//            System.out.println("p.Di1j(" + i + " , " + j + ") ---->>>> " + Di1j);
-//            System.out.println("p.Hi1j(" + i + " , " + j + ") ---->>>> " + p.Hi1j(i, j));
-//            System.out.println("p.Hij1(" + i + " , " + j + ") ---->>>> " + p.Hij1(i, j));
-//            System.out.println("p.Fi1j(" + i + " , " + j + ") ---->>>> " + p.Fi1j(i, j));
-//            System.out.println("p.Fij1(" + i + " , " + j + ") ---->>>> " + p.Fij1(i, j));
-////            System.out.println("p.Azyij1(" + i + " , " + j + ") ---->>>> " + p.Azy(i, j - 1));
-////            System.out.println("p.Azyi1j(" + i + " , " + j + ") ---->>>> " + p.Azy(i - 1, j));
-//            System.out.println("p.Sigma(" + i + " , " + j + ") ---->>>> " + sigmaij);
-//            System.out.println("p.delta(" + i + " , " + j + ") ---->>>> " + deltaij);
-//            System.out.println("Cdin(" + i + " , " + j + ") ---->>>> " + Cdin);
-//            System.out.println("Fidin(" + i + " , " + j + ") ---->>>> " + Fidin);
-//            System.out.println("----------------------------------------------------");
-//        } else if ((i + j == 14) && (i < 11)) {
-//            z1z = p.z1z(i, j);
-//            z1y = p.z1y(i, j);
-//            Bi1j = p.Bi1j(i, j);
-//            Bij1 = p.Bij1(i, j);
-//            Di1j = p.Di1j(i, j);
-//            Dij1 = p.Dij1(i, j);
-////            deltaij = p.deltaij(i, j);
-////            sigmaij = p.sigmaij(i, j);
-//
-//            zy.setZ(z1z);
-//            zy.setY(z1y);
-////            zy.setSigma(sigmaij);
-////            zy.setDelta(deltaij);
-//            zy.setCdin(Cdin);
-//            zy.setFidin(Fidin);
-//            zyM[i][j] = zy;
-//            System.out.println("z (" + i + " , " + j + ") ---->>>> " + z1z);
-//            System.out.println("y (" + i + " , " + j + ") ---->>>> " + z1y);
-//            System.out.println("p.Bij1(" + i + " , " + j + ") ---->>>> " + Bij1);
-//            System.out.println("p.Bi1j(" + i + " , " + j + ") ---->>>> " + Bi1j);
-//            System.out.println("p.Dij1(" + i + " , " + j + ") ---->>>> " + Dij1);
-//            System.out.println("p.Di1j(" + i + " , " + j + ") ---->>>> " + Di1j);
-//            System.out.println("p.Hi1j(" + i + " , " + j + ") ---->>>> " + p.Hi1j(i, j));
-//            System.out.println("p.Hij1(" + i + " , " + j + ") ---->>>> " + p.Hij1(i, j));
-//            System.out.println("p.Fi1j(" + i + " , " + j + ") ---->>>> " + p.Fi1j(i, j));
-//            System.out.println("p.Fij1(" + i + " , " + j + ") ---->>>> " + p.Fij1(i, j));
-////            System.out.println("p.Azyij1(" + i + " , " + j + ") ---->>>> " + p.Azy(i, j - 1));
-////            System.out.println("p.Azyi1j(" + i + " , " + j + ") ---->>>> " + p.Azy(i - 1, j));
-//            System.out.println("p.Sigma(" + i + " , " + j + ") ---->>>> " + sigmaij);
-//            System.out.println("p.delta(" + i + " , " + j + ") ---->>>> " + deltaij);
-//            System.out.println("Cdin(" + i + " , " + j + ") ---->>>> " + Cdin);
-//            System.out.println("Fidin(" + i + " , " + j + ") ---->>>> " + Fidin);
-//            System.out.println("----------------------------------------------------");
-//        } else if ((i + j == 15) && (i < 11)) {
-//            z1z = p.z1z(i, j);
-//            z1y = p.z1y(i, j);
-//            Bi1j = p.Bi1j(i, j);
-//            Bij1 = p.Bij1(i, j);
-//            Di1j = p.Di1j(i, j);
-//            Dij1 = p.Dij1(i, j);
-////            deltaij = p.deltaij(i, j);
-////            sigmaij = p.sigmaij(i, j);
-//
-//            zy.setZ(z1z);
-//            zy.setY(z1y);
-////            zy.setSigma(sigmaij);
-////            zy.setDelta(deltaij);
-//            zy.setCdin(Cdin);
-//            zy.setFidin(Fidin);
-//            zyM[i][j] = zy;
 //            System.out.println("z (" + i + " , " + j + ") ---->>>> " + z1z);
 //            System.out.println("y (" + i + " , " + j + ") ---->>>> " + z1y);
 //            System.out.println("p.Bij1(" + i + " , " + j + ") ---->>>> " + Bij1);
