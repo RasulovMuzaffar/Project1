@@ -129,9 +129,13 @@ public class PoTexRasch {
         PoTexRasch p = new PoTexRasch();
         ModelZY zy = new ModelZY();
 
+        System.out.println("alfa - >> " + Math.toDegrees(p.alfa()));
+        System.out.println("alfa1 - >> " + Math.toDegrees(alfa1));
         if (i + j == 10) {  //А0 кесма учун z, y, sigma, delta ларни аниклаймиз
             z = j * p.b0() / 10 * Math.sin(p.alfa());
             y = j * p.b0() / 10 * Math.cos(p.alfa());
+
+            System.out.println("z = " + z + " : " + " y = " + y);
 
             sigma = p.sigma(z, y);
             delta = p.delta(z, y);
@@ -193,8 +197,12 @@ public class PoTexRasch {
     /////////////////end 
     ////////////глава 1.2 Ширина загружения земляного полотна
     //----(8)----
-    double b0() {		
+    double b0() {
+        System.out.println("l_shp - > " + l_shp);
+        System.out.println("h_b - > " + h_b);
+        System.out.println(Math.tan(Math.toRadians(30)));
         b0 = l_shp + 2 * h_b * Math.tan(Math.toRadians(30));
+        System.out.println("b0 - > " + b0);
         return b0;
     }
     /////////////////end главы 1.2
@@ -202,7 +210,8 @@ public class PoTexRasch {
 ////////////глава 1.3 Расчетная ширина обочины земляного полотна
     //----(9)----
     double a_1p() {
-        a = 0.5 * (b_pl - this.b0());
+        a = 0.5 * (b_pl - b0);
+        System.out.println("a - > " + a);
         return a;
     }
 
@@ -218,6 +227,8 @@ public class PoTexRasch {
     double alfa() {
         alfa1 = Math.atan(1 / m); //получаем угол в радиансах
         alfa = Math.atan(h_nas / (this.a_1p() + h_nas / Math.tan(alfa1)));
+        System.out.println("alfa1 - > " + alfa1);
+        System.out.println("alfa - > " + alfa);
         return alfa;
     }
     /////////////////end главы 1.4
@@ -242,13 +253,13 @@ public class PoTexRasch {
         Cdin = this.Cdin(z, y);
         Fidin = this.Fidin(z, y);
 
-        delta = 1 / 2 * Math.asin(gamma * Fia * Math.sin(alfa)
+        delta = 1 / 2 * (Math.asin(gamma * Fia * Math.sin(alfa)
                 * (Cdin + gamma * Fia * Math.tan(Fidin) * Math.cos(alfa)
                 - Math.sqrt(Math.pow(Cdin + gamma * Fia * Math.cos(alfa) * Math.tan(Fidin), 2)
                         * Math.pow(Math.sin(Fidin), 2)
-                        - Math.pow(gamma * Fia * Math.sin(alfa) * Math.sin(Fidin), 2))
-                / (Math.pow(gamma * Fia * Math.sin(alfa) * Math.tan(Fidin), 2)
-                + Math.pow(gamma * Fia * Math.cos(alfa) * Math.tan(Fidin) + Cdin, 2)) * Math.cos(Fidin)))
+                        - Math.pow(gamma * Fia * Math.sin(alfa) * Math.sin(Fidin), 2)))
+                / ((Math.pow(gamma * Fia * Math.sin(alfa) * Math.tan(Fidin), 2)
+                + Math.pow(gamma * Fia * Math.cos(alfa) * Math.tan(Fidin) + Cdin, 2)) * Math.cos(Fidin))))
                 + alfa;
         return delta;
     }
@@ -257,6 +268,7 @@ public class PoTexRasch {
     ////////////глава 1.5 Учет пригрузки, действующей на расчетную поверхность откоса
     //----(13)----
     double Fia(double y) {
+        a = this.a_1p();
         if (y <= a) {
             Fia = y * Math.tan(alfa);
         } else if (a < y && y <= a + h_nas / Math.tan(alfa1)) {
@@ -271,15 +283,29 @@ public class PoTexRasch {
     ////////////глава 1.7 Прочностные характеристики грунтов земляного полотна
 //----(19)----
     double Cdin(double z, double y) {
-        Cdin = this.Kc_1() + Kc * Math.exp(this.n("P") * z - this.delta1_0()
-                * (Math.abs(y + 0.5 * this.b0()) - 1.35) + this.delta3(this.n("P")) * this.Fihi_j(y));
+        Kc_1 = this.Kc_1();
+        n = this.n("P");
+        b0 = this.b0();
+        delta1_0 = this.delta1_0();
+        Fihi_j = this.Fihi_j(y);
+        delta3 = this.delta3(n);
+
+        Cdin = Kc_1 + Kc * Math.exp(n * z - delta1_0
+                * (Math.abs(y + 0.5 * b0) - 1.35) + delta3 * Fihi_j);
         return Cdin;
     }
 
 //----(20)----
     double Fidin(double z, double y) {
-        Fidin = this.Kfi_1() + Kfi * Math.exp(this.n("P") * z - this.delta1_0()
-                * (Math.abs(y + 0.5 * this.b0()) - 1.35) + this.delta3(this.n("P")) * this.Fihi_j(y));
+        Kfi_1 = this.Kfi_1();
+        n = this.n("P");
+        delta1_0 = this.delta1_0();
+        b0 = this.b0();
+        Fihi_j = this.Fihi_j(y);
+        delta3 = this.delta3(n);
+
+        Fidin = Kfi_1 + Kfi * Math.exp(n * z - delta1_0
+                * (Math.abs(y + 0.5 * b0) - 1.35) + delta3 * Fihi_j);
         return Fidin;
     }
 
@@ -299,7 +325,10 @@ public class PoTexRasch {
     ////////////глава 1.6 Выбродинамические характеристики грунтов
     //----(14)----
     double Azy(int i, int j) {
-        Azy = A0 * Math.exp(this.n("P") * zyM[i][j].getZ() - this.delta1_0()
+        n = this.n("P");
+        delta1_0 = this.delta1_0();
+
+        Azy = A0 * Math.exp(n * zyM[i][j].getZ() - delta1_0
                 * this.Fiy(zyM[i][j].getZ()) + this.delta3(this.n("P")) * this.Fihi_j(zyM[i][j].getZ()));
         return Azy;
     }
@@ -312,13 +341,13 @@ public class PoTexRasch {
         }
         return n;
     }
-    
+
 //----(15)----
     double delta1_0() {
         delta1_0 = delta2_1 + delta2_2;
         return delta1_0;
     }
-    
+
     //----(16)----
     double Fiy(double y) {
         if (Math.abs(y + 0.5 * this.b0()) <= 1.35) {
@@ -341,7 +370,7 @@ public class PoTexRasch {
 
     //----(18)----
     double delta3(double n) {
-        delta3 = 0.667 * Math.abs(this.n("P")) * Math.tan(alfa1);
+        delta3 = 0.667 * Math.abs(n) * Math.tan(alfa1);
         return delta3;
     }
     /////////////////end главы 1.6
@@ -377,10 +406,8 @@ public class PoTexRasch {
 //        Az = 160.9 * sigma_bsr * ((1 - Math.pow(mju_0, 2)) / E) * Math.exp(-alfa * (h_b - 0.25));
 //        return Az;
 //    }
-
     /////////////////end главы 1.1
     //НАЧАЛИ ПОСТРОИТЬ СЕТКУ ЗОНЫ 1
-    
     //----- 39 формула асосида z(i, j)
     double z1z(int i, int j) {
         z1z = zyM[i][j - 1].getZ() - (zyM[i][j - 1].getY() - this.z1y(i, j))
@@ -400,42 +427,61 @@ public class PoTexRasch {
 
     //----- 49 формула Ф(i, j-1)
     double Fij1(int i, int j) {
-        Fij1 = K * A0 * Math.exp(this.n("P") * zyM[i][j - 1].getZ() - this.delta1_0()
-                * (zyM[i][j - 1].getY() + 0.5 * this.b0()) + 1.35 * this.delta1_0()
-                + Math.abs(this.n("P")) * 0.667 * this.Fihi_j(zyM[i][j - 1].getY()) * Math.tan(alfa1) - K * this.Azy(i, j - 1));
+        n = this.n("P");
+        delta1_0 = this.delta1_0();
+        b0 = this.b0();
+
+        Fij1 = K * A0 * Math.exp(n * zyM[i][j - 1].getZ() - delta1_0
+                * (zyM[i][j - 1].getY() + 0.5 * b0) + 1.35 * delta1_0
+                + Math.abs(n) * 0.667 * this.Fihi_j(zyM[i][j - 1].getY()) * Math.tan(alfa1) - K * this.Azy(i, j - 1));
         return Fij1;
     }
 
     //----- 49 формула Ф(i-1, j)
     double Fi1j(int i, int j) {
-        Fi1j = K * A0 * Math.exp(this.n("P") * zyM[i - 1][j].getZ() - this.delta1_0()
-                * (zyM[i - 1][j].getY() + 0.5 * this.b0()) + 1.35 * this.delta1_0()
-                + Math.abs(this.n("P")) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY()) * Math.tan(alfa1) - K * this.Azy(i - 1, j));
+        n = this.n("P");
+        delta1_0 = this.delta1_0();
+        b0 = this.b0();
+
+        Fi1j = K * A0 * Math.exp(n * zyM[i - 1][j].getZ() - delta1_0
+                * (zyM[i - 1][j].getY() + 0.5 * b0) + 1.35 * delta1_0
+                + Math.abs(n) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY()) * Math.tan(alfa1) - K * this.Azy(i - 1, j));
         return Fi1j;
     }
 
     //----- 50 формула B(i, j-1)
     double Hij1(int i, int j) {
-        Hij1 = Math.exp(this.n("P") * zyM[i][j - 1].getZ() - this.delta1_0()
-                * (zyM[i][j - 1].getY() + 0.5 * this.b0()) + 1.35 * this.delta1_0()
-                + Math.abs(this.n("P")) * 0.667 * this.Fihi_j(zyM[i][j - 1].getY()) * Math.tan(alfa1));
+        n = this.n("P");
+        delta1_0 = this.delta1_0();
+        b0 = this.b0();
+
+        Hij1 = Math.exp(n * zyM[i][j - 1].getZ() - delta1_0
+                * (zyM[i][j - 1].getY() + 0.5 * b0) + 1.35 * delta1_0
+                + Math.abs(n) * 0.667 * this.Fihi_j(zyM[i][j - 1].getY()) * Math.tan(alfa1));
         return Hij1;
     }
 
     //----- 50 формула B(i-1, j)
     double Hi1j(int i, int j) {
-        Hi1j = Math.exp(this.n("P") * zyM[i - 1][j].getZ() - this.delta1_0()
-                * (zyM[i - 1][j].getY() + 0.5 * this.b0()) + 1.35 * this.delta1_0()
-                + Math.abs(this.n("P")) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY()) * Math.tan(alfa1));
+        n = this.n("P");
+        delta1_0 = this.delta1_0();
+        b0 = this.b0();
+
+        Hi1j = Math.exp(n * zyM[i - 1][j].getZ() - delta1_0
+                * (zyM[i - 1][j].getY() + 0.5 * b0) + 1.35 * delta1_0
+                + Math.abs(n) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY()) * Math.tan(alfa1));
         return Hi1j;
     }
 
     //----- 47 формула B(i, j-1)
     double Bij1(int i, int j) {
+        n = this.n("P");
+        delta1_0 = this.delta1_0();
+
         Bij1 = 0.15 * gamma * this.Hij1(i, j) * A0 / 439 - this.Fij1(i, j)
-                * ((this.delta1_0() - Math.abs(this.n("P")) * 0.667 * this.Fihi_j(zyM[i][j - 1].getY())
+                * ((delta1_0 - Math.abs(n) * 0.667 * this.Fihi_j(zyM[i][j - 1].getY())
                 * Math.tan(alfa1)) * Math.sin(2 * zyM[i][j - 1].getDelta())
-                + this.n("P") * Math.cos(2 * zyM[i][j - 1].getDelta()))
+                + n * Math.cos(2 * zyM[i][j - 1].getDelta()))
                 * (Fist * Kfi * (zyM[i][j - 1].getSigma() * Math.cos(zyM[i][j - 1].getFidin())
                 - zyM[i][j - 1].getCdin() * Math.sin(zyM[i][j - 1].getFidin()))
                 + Cst * Kc * Math.cos(zyM[i][j - 1].getFidin()));
@@ -444,22 +490,27 @@ public class PoTexRasch {
 
     //----- 47 формула B(i-1, j)
     double Bi1j(int i, int j) {
+        n = this.n("P");
+        delta1_0 = this.delta1_0();
+
         Bi1j = 0.15 * gamma * this.Hi1j(i, j) * A0 / 439 - this.Fi1j(i, j)
-                * ((this.delta1_0() - Math.abs(this.n("P")) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY())
+                * ((delta1_0 - Math.abs(n) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY())
                 * Math.tan(alfa1)) * Math.sin(2 * zyM[i - 1][j].getDelta())
-                + this.n("P") * Math.cos(2 * zyM[i - 1][j].getDelta()))
+                + n * Math.cos(2 * zyM[i - 1][j].getDelta()))
                 * (Fist * Kfi * (zyM[i - 1][j].getSigma() * Math.cos(zyM[i - 1][j].getFidin())
                 - zyM[i][j - 1].getCdin() * Math.sin(zyM[i - 1][j].getFidin()))
                 + Cst * Kc * Math.cos(zyM[i - 1][j].getFidin()));
         return Bi1j;
     }
 
-    
     //----- 48 формула D(i, j-1)
     double Dij1(int i, int j) {
+        n = this.n("P");
+        delta1_0 = this.delta1_0();
+
         Dij1 = 0.04 * gamma * this.Hij1(i, j) * A0 / 439 + this.Fij1(i, j)
-                * (this.n("P") * Math.sin(2 * zyM[i][j - 1].getDelta())
-                - (this.delta1_0() - this.Fihi_j(zyM[i][j - 1].getY()) * Math.abs(this.n("P")) * 0.667
+                * (n * Math.sin(2 * zyM[i][j - 1].getDelta())
+                - (delta1_0 - this.Fihi_j(zyM[i][j - 1].getY()) * Math.abs(n) * 0.667
                 * Math.tan(alfa1)) * Math.cos(2 * zyM[i][j - 1].getDelta()))
                 * (Fist * Kfi * (zyM[i][j - 1].getSigma() * Math.cos(zyM[i][j - 1].getFidin())
                 - zyM[i][j - 1].getCdin() * Math.sin(zyM[i][j - 1].getFidin()))
@@ -469,9 +520,12 @@ public class PoTexRasch {
 
     //----- 48 формула D(i-1, j)
     double Di1j(int i, int j) {
+        n = this.n("P");
+        delta1_0 = this.delta1_0();
+
         Di1j = 0.04 * gamma * this.Hi1j(i, j) * A0 / 439 + this.Fi1j(i, j)
-                * (this.n("P") * Math.sin(2 * zyM[i - 1][j].getDelta())
-                - (this.delta1_0() - this.Fihi_j(zyM[i - 1][j].getY()) * Math.abs(this.n("P")) * 0.667
+                * (n * Math.sin(2 * zyM[i - 1][j].getDelta())
+                - (delta1_0 - this.Fihi_j(zyM[i - 1][j].getY()) * Math.abs(n) * 0.667
                 * Math.tan(alfa1)) * Math.cos(2 * zyM[i - 1][j].getDelta()))
                 * (Fist * Kfi * (zyM[i - 1][j].getSigma() * Math.cos(zyM[i - 1][j].getFidin())
                 - zyM[i - 1][j].getCdin() * Math.sin(zyM[i - 1][j].getFidin()))
@@ -514,16 +568,17 @@ public class PoTexRasch {
 
     //------ (34)
     double delta_10i_0(int i) {
-        delta_10i_0 = ((Math.PI - 2 * this.alfa()) / 20) * i + this.alfa();
+        alfa = this.alfa();
+        delta_10i_0 = ((Math.PI - 2 * alfa) / 20) * i + alfa;
         return delta_10i_0;
     }
 
-    
     //------ (35)
     double sigma_10i_0(int i) {
-        sigma_10i_0 = ((gamma * this.Fia(zyM[i - 1][0].getY()) * Math.cos(this.alfa())
-                + this.Cdin(0, 0) * Math.cos(this.Fidin(0, 0)) * Math.cos(2 * (zyM[10][0].getDelta() - this.alfa())))
-                / (1 - Math.sin(this.Fidin(0, 0)) * Math.cos(2 * (zyM[10][0].getDelta() - this.alfa()))))
+        alfa = this.alfa();
+        sigma_10i_0 = ((gamma * this.Fia(zyM[i - 1][0].getY()) * Math.cos(alfa)
+                + this.Cdin(0, 0) * Math.cos(this.Fidin(0, 0)) * Math.cos(2 * (zyM[10][0].getDelta() - alfa)))
+                / (1 - Math.sin(this.Fidin(0, 0)) * Math.cos(2 * (zyM[10][0].getDelta() - alfa))))
                 * Math.exp(2 * this.delta_10i_0(i) * Math.tan(this.Fidin(0, 0)));
         return sigma_10i_0;
     }
@@ -572,4 +627,3 @@ public class PoTexRasch {
 //    }
 
 }
-
