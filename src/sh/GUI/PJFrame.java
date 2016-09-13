@@ -257,7 +257,7 @@ public class PJFrame extends javax.swing.JFrame {
 //                if ((i == 10 && j == 0) || (i == 0 && j == 10)) {
 //                if ((i + j == 10)||(i + j > 10 && (i <= 10 && j <= 10)) || j == 10) {
                 if (i + j == 10) {
-                    circBuffer = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getY() * 100) + 600, (PoTexRasch.zyM[i][j].getZ() * 100) + 300, 6, 6);
+                    circBuffer = new Ellipse2D.Double(-1*(PoTexRasch.zyM[i][j].getY() * 100) + 600, (PoTexRasch.zyM[i][j].getZ() * 100) + 300, 6, 6);
                     circContainer.add(circBuffer);
 //                    if (i < 10 && j < 10) {
 //                    lineBuffer = new Line2D.Double((PoTexRasch.zyM[10][0].getZ() * 100) + 300, (PoTexRasch.zyM[10][0].getY() * 100) + 300,
