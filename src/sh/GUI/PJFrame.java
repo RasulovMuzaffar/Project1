@@ -60,13 +60,15 @@ public class PJFrame extends javax.swing.JFrame {
         h_nas = new javax.swing.JLabel();
         _h_nas = new javax.swing.JTextField();
         a = new javax.swing.JLabel();
-        _a = new javax.swing.JTextField();
+        _b_pl = new javax.swing.JTextField();
         gamma = new javax.swing.JLabel();
         _gamma = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         _Cst = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         _Fist = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        _h_b = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,11 +86,11 @@ public class PJFrame extends javax.swing.JFrame {
 
         h_nas.setText("Высота насыпи");
 
-        _h_nas.setText("0.3");
+        _h_nas.setText("15");
 
-        a.setText("Расчетная ширина обочины, м");
+        a.setText("Ширина основной площадки, м (b_pl)");
 
-        _a.setText("0.85");
+        _b_pl.setText("0.85");
 
         gamma.setText("Объемный вес грунта, т/м3");
 
@@ -101,6 +103,10 @@ public class PJFrame extends javax.swing.JFrame {
         jLabel2.setText("Угол внутренного трения");
 
         _Fist.setText("38");
+
+        jLabel3.setText("Высота балласта, h_b");
+
+        _h_b.setText("0.4");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -115,16 +121,20 @@ public class PJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(_a, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_gamma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                    .addComponent(_b_pl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_gamma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                     .addComponent(_Cst, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(_m, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(_h_nas, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(46, 46, 46)
-                .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(_Fist, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 613, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(_h_b)
+                    .addComponent(_Fist, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
+                .addGap(0, 595, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,10 +147,12 @@ public class PJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(_h_nas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(h_nas))
+                    .addComponent(h_nas)
+                    .addComponent(jLabel3)
+                    .addComponent(_h_b, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(_a, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_b_pl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(a))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -194,10 +206,11 @@ public class PJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         PoTexRasch.Peremennie(Double.parseDouble(_m.getText()),
                 Double.parseDouble(_h_nas.getText()),
-                Double.parseDouble(_a.getText()),
+                Double.parseDouble(_b_pl.getText()),
                 Double.parseDouble(_gamma.getText()),
                 Double.parseDouble(_Cst.getText()),
-                Double.parseDouble(_Fist.getText()));
+                Double.parseDouble(_Fist.getText()),
+                Double.parseDouble(_h_b.getText()));
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
                 PoTexRasch.ZY(i, j);
@@ -257,7 +270,7 @@ public class PJFrame extends javax.swing.JFrame {
 //                if ((i == 10 && j == 0) || (i == 0 && j == 10)) {
 //                if ((i + j == 10)||(i + j > 10 && (i <= 10 && j <= 10)) || j == 10) {
                 if (i + j == 10) {
-                    circBuffer = new Ellipse2D.Double(-1*(PoTexRasch.zyM[i][j].getY() * 100) + 600, (PoTexRasch.zyM[i][j].getZ() * 100) + 300, 6, 6);
+                    circBuffer = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 100) + 300,(PoTexRasch.zyM[i][j].getY() * 100) + 300,  6, 6);
                     circContainer.add(circBuffer);
 //                    if (i < 10 && j < 10) {
 //                    lineBuffer = new Line2D.Double((PoTexRasch.zyM[10][0].getZ() * 100) + 300, (PoTexRasch.zyM[10][0].getY() * 100) + 300,
@@ -268,19 +281,19 @@ public class PJFrame extends javax.swing.JFrame {
 //                if (i + j > 10 && (i <= 10 && j <= 10)) {
                 if ((i + j > 10) && (i <= 10 && j <= 10)) {
 //                if (i==10&&j == 1) {
-                    circBuffer2 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getY() * 100) + 600, (PoTexRasch.zyM[i][j].getZ() * 100) + 300, 6, 6);
+                    circBuffer2 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 100) + 300,(PoTexRasch.zyM[i][j].getY() * 100) + 300,  6, 6);
                     circContainer2.add(circBuffer2);
                 }
-                if ((i >= 11 && i <= 20) && j == 0) {
-//                if (i==10&&j == 1) {
-                    circBuffer3 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getY() * 100) + 600, (PoTexRasch.zyM[i][j].getZ() * 100) + 300, 6, 6);
-                    circContainer3.add(circBuffer3);
-                }
-                if (i >= 11 && (j>=0 && j<=2) ) {
-//                if ((i >= 11 && i <= 20) && (j >= 1 && j<=5)) {
-                    circBuffer4 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getY() * 100) + 600,(PoTexRasch.zyM[i][j].getZ() * 100) + 300, 6, 6);
-                    circContainer4.add(circBuffer4);
-                }
+//                if ((i >= 11 && i <= 20) && j == 0) {
+////                if (i==10&&j == 1) {
+//                    circBuffer3 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getY() * 100) + 600, (PoTexRasch.zyM[i][j].getZ() * 100) + 300, 6, 6);
+//                    circContainer3.add(circBuffer3);
+//                }
+//                if (i >= 11 && (j>=0 && j<=2) ) {
+////                if ((i >= 11 && i <= 20) && (j >= 1 && j<=5)) {
+//                    circBuffer4 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getY() * 100) + 600,(PoTexRasch.zyM[i][j].getZ() * 100) + 300, 6, 6);
+//                    circContainer4.add(circBuffer4);
+//                }
 //                if (i + j == 14) {
 //                    circBuffer3 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 50) + 300, (PoTexRasch.zyM[i][j].getY() * 50) + 300, 6, 6);
 //                    circContainer3.add(circBuffer3);
@@ -368,8 +381,9 @@ public class PJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField _Cst;
     private javax.swing.JTextField _Fist;
-    private javax.swing.JTextField _a;
+    private javax.swing.JTextField _b_pl;
     private javax.swing.JTextField _gamma;
+    private javax.swing.JTextField _h_b;
     private javax.swing.JTextField _h_nas;
     private javax.swing.JTextField _m;
     private javax.swing.JLabel a;
@@ -379,6 +393,7 @@ public class PJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel m;
     // End of variables declaration//GEN-END:variables

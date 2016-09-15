@@ -77,17 +77,23 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="_a" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
-                      <Component id="_gamma" alignment="1" pref="68" max="32767" attributes="0"/>
+                      <Component id="_b_pl" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
+                      <Component id="_gamma" alignment="1" pref="51" max="32767" attributes="0"/>
                       <Component id="_Cst" alignment="1" max="32767" attributes="0"/>
                       <Component id="_m" alignment="1" max="32767" attributes="0"/>
                       <Component id="_h_nas" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="_Fist" min="-2" pref="47" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="613" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="_h_b" max="32767" attributes="0"/>
+                      <Component id="_Fist" pref="47" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="0" pref="595" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -104,10 +110,12 @@
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="_h_nas" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="h_nas" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="_h_b" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="_a" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="_b_pl" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="a" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -143,15 +151,15 @@
         </Component>
         <Component class="javax.swing.JTextField" name="_h_nas">
           <Properties>
-            <Property name="text" type="java.lang.String" value="0.3"/>
+            <Property name="text" type="java.lang.String" value="15"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="a">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x420;&#x430;&#x441;&#x447;&#x435;&#x442;&#x43d;&#x430;&#x44f; &#x448;&#x438;&#x440;&#x438;&#x43d;&#x430; &#x43e;&#x431;&#x43e;&#x447;&#x438;&#x43d;&#x44b;, &#x43c;"/>
+            <Property name="text" type="java.lang.String" value="&#x428;&#x438;&#x440;&#x438;&#x43d;&#x430; &#x43e;&#x441;&#x43d;&#x43e;&#x432;&#x43d;&#x43e;&#x439; &#x43f;&#x43b;&#x43e;&#x449;&#x430;&#x434;&#x43a;&#x438;, &#x43c; (b_pl)"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="_a">
+        <Component class="javax.swing.JTextField" name="_b_pl">
           <Properties>
             <Property name="text" type="java.lang.String" value="0.85"/>
           </Properties>
@@ -184,6 +192,16 @@
         <Component class="javax.swing.JTextField" name="_Fist">
           <Properties>
             <Property name="text" type="java.lang.String" value="38"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x412;&#x44b;&#x441;&#x43e;&#x442;&#x430; &#x431;&#x430;&#x43b;&#x43b;&#x430;&#x441;&#x442;&#x430;, h_b"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="_h_b">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0.4"/>
           </Properties>
         </Component>
       </SubComponents>
