@@ -82,15 +82,15 @@ public class PJFrame extends javax.swing.JFrame {
 
         m.setText("m");
 
-        _m.setText("2");
+        _m.setText("1");
 
         h_nas.setText("Высота насыпи");
 
-        _h_nas.setText("15");
+        _h_nas.setText("1");
 
         a.setText("Ширина основной площадки, м (b_pl)");
 
-        _b_pl.setText("0.85");
+        _b_pl.setText("5");
 
         gamma.setText("Объемный вес грунта, т/м3");
 
@@ -270,7 +270,7 @@ public class PJFrame extends javax.swing.JFrame {
 //                if ((i == 10 && j == 0) || (i == 0 && j == 10)) {
 //                if ((i + j == 10)||(i + j > 10 && (i <= 10 && j <= 10)) || j == 10) {
                 if (i + j == 10) {
-                    circBuffer = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 100) + 300,(PoTexRasch.zyM[i][j].getY() * 100) + 300,  6, 6);
+                    circBuffer = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getY() * 100) + 600, (PoTexRasch.zyM[i][j].getZ() * 100) + 300, 6, 6);
                     circContainer.add(circBuffer);
 //                    if (i < 10 && j < 10) {
 //                    lineBuffer = new Line2D.Double((PoTexRasch.zyM[10][0].getZ() * 100) + 300, (PoTexRasch.zyM[10][0].getY() * 100) + 300,
@@ -280,13 +280,13 @@ public class PJFrame extends javax.swing.JFrame {
                 }
 //                if (i + j > 10 && (i <= 10 && j <= 10)) {
                 if ((i + j > 10) && (i <= 10 && j <= 10)) {
-//                if (i==10&&j == 1) {
-                    circBuffer2 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 100) + 300,(PoTexRasch.zyM[i][j].getY() * 100) + 300,  6, 6);
+//                if (i == 1 && j == 10) {
+                    circBuffer2 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getY() * 100) + 600, (PoTexRasch.zyM[i][j].getZ() * 100) + 300, 6, 6);
                     circContainer2.add(circBuffer2);
                 }
 //                if ((i >= 11 && i <= 20) && j == 0) {
 ////                if (i==10&&j == 1) {
-//                    circBuffer3 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getY() * 100) + 600, (PoTexRasch.zyM[i][j].getZ() * 100) + 300, 6, 6);
+//                    circBuffer3 = new Ellipse2D.Double(-1 * (PoTexRasch.zyM[i][j].getY() * 100) + 600, (PoTexRasch.zyM[i][j].getZ() * 100) + 300, 6, 6);
 //                    circContainer3.add(circBuffer3);
 //                }
 //                if (i >= 11 && (j>=0 && j<=2) ) {

@@ -125,84 +125,10 @@ public class PoTexRasch {
         h_b = _h_b;
     }
 
-    ////////////По указанию Шавката
-    public static void ZY(int i, int j) {
-        PoTexRasch p = new PoTexRasch();
-        ModelZY zy = new ModelZY();
-
-//        System.out.println("alfa - >> " + Math.toDegrees(p.alfa()));
-//        System.out.println("alfa1 - >> " + Math.toDegrees(alfa1));
-        if (i + j == 10) {  //А0 кесма учун z, y, sigma, delta ларни аниклаймиз
-            z = (j * p.b0() / 10) * Math.sin(p.alfa());
-            y = (j * p.b0() / 10) * Math.cos(p.alfa());
-
-//            System.out.println("z = " + z + " : " + " y = " + y);
-            sigma = p.sigma(z, y);
-            delta = p.delta(z, y);
-            zy.setZ(z);
-            zy.setY(y);
-            zy.setSigma(sigma);
-            zy.setDelta(delta);
-            zy.setCdin(Cdin);
-            zy.setFidin(Fidin);
-            zyM[i][j] = zy;
-
-//        } else if (i + j > 10 && (i <= 10 && j <= 10)) {
-        } else if ((i + j > 10) && (i <= 10 && j <= 10)) { //А0А1 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
-            z1z = p.z1z(i, j);
-            z1y = p.z1y(i, j);
-            deltaij = p.deltaij(i, j);
-            sigmaij = p.sigmaij(i, j);
-
-            zy.setZ(z1z);
-            zy.setY(z1y);
-            zy.setSigma(sigmaij);
-            zy.setDelta(deltaij);
-            zy.setCdin(Cdin);
-            zy.setFidin(Fidin);
-            zyM[i][j] = zy;
-//
-//        } else if ((i >= 11 && i <= 20) && j == 0) { //0 даги барча нукталар (10:0 ---->> 20:0) учун z, y, sigma, delta ларни аниклаймиз
-//            zy.setZ(0);
-//            zy.setY(0);
-//            zy.setCdin(p.Cdin(0, 0));
-//            zy.setFidin(p.Fidin(0, 0));
-//            zy.setSigma(p.sigma_10i_0(i));
-//            zy.setDelta(p.delta_10i_0(i));
-//            zyM[i][j] = zy;
-//        } else if ((i >= 11 && i <= 20) && j != 0) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
-//            z1z = p.z1z(i, j);
-//            z1y = p.z1y(i, j);
-//            deltaij = p.deltaij(i, j);
-//            sigmaij = p.sigmaij(i, j);
-//
-//            zy.setZ(z1z);
-//            zy.setY(z1y);
-//            zy.setSigma(sigmaij);
-//            zy.setDelta(deltaij);
-//            zy.setCdin(Cdin);
-//            zy.setFidin(Fidin);
-//            zyM[i][j] = zy;
-        } else { //матрицани колган кисмини хозирча 0га тулдирамиз
-            zy.setZ(0);
-            zy.setY(0);
-            zy.setSigma(0);
-            zy.setDelta(0);
-            zy.setCdin(0);
-            zy.setFidin(0);
-            zyM[i][j] = zy;
-        }
-    }
-
-//    /////////////////end 
 //    ////////////глава 1.2 Ширина загружения земляного полотна
 //    //----(8)----
     double b0() {
-        System.out.println("l_shp - > " + l_shp);
-        System.out.println("h_b - > " + h_b);
-        System.out.println(Math.tan(Math.toRadians(30)));
         b0 = l_shp + 2 * h_b * Math.tan(Math.toRadians(30));
-        System.out.println("b0 - > " + b0);
         return b0;
     }
 //    /////////////////end главы 1.2
@@ -212,7 +138,6 @@ public class PoTexRasch {
 
     double a_1p() {
         a = 0.5 * (b_pl - b0);
-        System.out.println("a - > " + a);
         return a;
     }
 //
@@ -229,6 +154,7 @@ public class PoTexRasch {
     double alfa() {
         alfa1 = Math.atan(1 / m); //получаем угол в радиансах
         alfa = Math.atan(h_nas / (this.a_1p() + h_nas / Math.tan(alfa1)));
+//        alfa = Math.atan(h_nas * Math.tan(alfa1) / (this.a_1p() * Math.tan(alfa1) + h_nas));
         System.out.println("alfa1 - > " + alfa1);
         System.out.println("alfa - > " + alfa);
         return alfa;
@@ -596,23 +522,96 @@ public class PoTexRasch {
         return (gamma + this.Bi1j(i, j)) * ((zyM[i - 1][j].getZ() - z1z) - (zyM[i - 1][j].getY() - z1y) * Math.tan(zyM[i - 1][j].getFidin()))
                 + this.Di1j(i, j) * ((zyM[i - 1][j].getY() - z1y) + (zyM[i - 1][j].getZ() - z1z) * Math.tan(zyM[i - 1][j].getFidin()));
     }
+
+        //------ (34)
+    double delta_10i_0(int i) {
+        alfa = this.alfa();
+        delta_10i_0 = ((Math.PI - 2 * alfa) / 20) * i + alfa;
+        return delta_10i_0;
+    }
+
+    //------ (35)
+    double sigma_10i_0(int i) {
+        alfa = this.alfa();
+        sigma_10i_0 = ((gamma * this.Fia(zyM[i - 1][0].getY()) * Math.cos(alfa)
+                + this.Cdin(0, 0) * Math.cos(this.Fidin(0, 0)) * Math.cos(2 * (zyM[10][0].getDelta() - alfa)))
+                / (1 - Math.sin(this.Fidin(0, 0)) * Math.cos(2 * (zyM[10][0].getDelta() - alfa))))
+                * Math.exp(2 * this.delta_10i_0(i) * Math.tan(this.Fidin(0, 0)));
+        return sigma_10i_0;
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////По указанию Шавката
+    public static void ZY(int i, int j) {
+        PoTexRasch p = new PoTexRasch();
+        ModelZY zy = new ModelZY();
+
+//        System.out.println("alfa - >> " + Math.toDegrees(p.alfa()));
+//        System.out.println("alfa1 - >> " + Math.toDegrees(alfa1));
+        if (i + j == 10) {  //А0 кесма учун z, y, sigma, delta ларни аниклаймиз
+            z = (j * p.b0() / 10) * Math.sin(p.alfa());
+            y = (j * p.b0() / 10) * Math.cos(p.alfa());
+
+//            System.out.println("z = " + z + " : " + " y = " + y);
+            sigma = p.sigma(z, y);
+            delta = p.delta(z, y);
+            zy.setZ(z);
+            zy.setY(y);
+            zy.setSigma(sigma);
+            zy.setDelta(delta);
+            zy.setCdin(Cdin);
+            zy.setFidin(Fidin);
+            zyM[i][j] = zy;
+
+//        } else if (i+j==11) {
+        } else if ((i + j > 10) && (i <= 10 && j <= 10)) { //А0А1 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
+            z1z = p.z1z(i, j);
+            z1y = p.z1y(i, j);
+            deltaij = p.deltaij(i, j);
+            sigmaij = p.sigmaij(i, j);
+
+            zy.setZ(z1z);
+            zy.setY(z1y);
+            zy.setSigma(sigmaij);
+            zy.setDelta(deltaij);
+            zy.setCdin(Cdin);
+            zy.setFidin(Fidin);
+            zyM[i][j] = zy;
+////
+//        } else if ((i >= 11 && i <= 20) && j == 0) { //0 даги барча нукталар (10:0 ---->> 20:0) учун z, y, sigma, delta ларни аниклаймиз
+//            zy.setZ(0);
+//            zy.setY(0);
+//            zy.setCdin(p.Cdin(0, 0));
+//            zy.setFidin(p.Fidin(0, 0));
+//            zy.setSigma(p.sigma_10i_0(i));
+//            zy.setDelta(p.delta_10i_0(i));
+//            zyM[i][j] = zy;
+//        } else if ((i >= 11 && i <= 20) && j != 0) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
+//            z1z = p.z1z(i, j);
+//            z1y = p.z1y(i, j);
+//            deltaij = p.deltaij(i, j);
+//            sigmaij = p.sigmaij(i, j);
 //
-//    //------ (34)
-//    double delta_10i_0(int i) {
-//        alfa = this.alfa();
-//        delta_10i_0 = ((Math.PI - 2 * alfa) / 20) * i + alfa;
-//        return delta_10i_0;
-//    }
+//            zy.setZ(z1z);
+//            zy.setY(z1y);
+//            zy.setSigma(sigmaij);
+//            zy.setDelta(deltaij);
+//            zy.setCdin(Cdin);
+//            zy.setFidin(Fidin);
+//            zyM[i][j] = zy;
+        } else { //матрицани колган кисмини хозирча 0га тулдирамиз
+            zy.setZ(0);
+            zy.setY(0);
+            zy.setSigma(0);
+            zy.setDelta(0);
+            zy.setCdin(0);
+            zy.setFidin(0);
+            zyM[i][j] = zy;
+        }
+    }
+
+//    /////////////////end 
 //
-//    //------ (35)
-//    double sigma_10i_0(int i) {
-//        alfa = this.alfa();
-//        sigma_10i_0 = ((gamma * this.Fia(zyM[i - 1][0].getY()) * Math.cos(alfa)
-//                + this.Cdin(0, 0) * Math.cos(this.Fidin(0, 0)) * Math.cos(2 * (zyM[10][0].getDelta() - alfa)))
-//                / (1 - Math.sin(this.Fidin(0, 0)) * Math.cos(2 * (zyM[10][0].getDelta() - alfa))))
-//                * Math.exp(2 * this.delta_10i_0(i) * Math.tan(this.Fidin(0, 0)));
-//        return sigma_10i_0;
-//    }
+
 //    ////////////КОНЕЦ ЗОНЫ 1 
 ////    public static void main(String[] args) {
 ////        PoTexRasch p = new PoTexRasch();
