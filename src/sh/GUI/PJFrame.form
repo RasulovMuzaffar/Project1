@@ -69,31 +69,38 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="m" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="h_nas" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="a" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="gamma" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="m" alignment="0" min="-2" pref="119" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="_b_pl" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
-                      <Component id="_gamma" alignment="1" pref="51" max="32767" attributes="0"/>
-                      <Component id="_Cst" alignment="1" max="32767" attributes="0"/>
-                      <Component id="_m" alignment="1" max="32767" attributes="0"/>
+                      <Component id="_m" alignment="1" pref="62" max="32767" attributes="0"/>
                       <Component id="_h_nas" alignment="1" max="32767" attributes="0"/>
+                      <Component id="_h_b" pref="62" max="32767" attributes="0"/>
+                      <Component id="_b_pl" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="_h_b" max="32767" attributes="0"/>
-                      <Component id="_Fist" pref="47" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="_Fist" min="-2" pref="47" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="gamma" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="_gamma" pref="48" max="32767" attributes="0"/>
+                              <Component id="_Cst" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace min="0" pref="595" max="32767" attributes="0"/>
+                  <EmptySpace pref="580" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -110,25 +117,33 @@
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="_h_nas" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="h_nas" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="_h_b" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="_b_pl" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="a" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="_b_pl" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="a" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="_h_b" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="_gamma" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="gamma" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="_Cst" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="_gamma" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="gamma" alignment="2" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="_Cst" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="0" pref="472" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="498" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -136,7 +151,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="m">
           <Properties>
-            <Property name="text" type="java.lang.String" value="m"/>
+            <Property name="text" type="java.lang.String" value="&#x43d;&#x430;&#x43a;&#x43b;&#x43e;&#x43d;, 1/m"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="_m">
