@@ -324,11 +324,11 @@ public class PJFrame extends javax.swing.JFrame {
                     circBuffer3 = new Ellipse2D.Double(-1 * (x * 200) + 700 - 3, (y * 200) + 300 - 3, 6, 6);
                     circContainer3.add(circBuffer3);
                 }
-//                if (i >= 11 && (j>=0 && j<=2) ) {
-////                if ((i >= 11 && i <= 20) && (j >= 1 && j<=5)) {
-//                    circBuffer4 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getY() * 100) + 600,(PoTexRasch.zyM[i][j].getZ() * 100) + 300, 6, 6);
-//                    circContainer4.add(circBuffer4);
-//                }
+                if ((i >= 11 && i <= 20) && j != 0) {
+//                if ((i >= 11 && i <= 20) && (j >= 1 && j<=5)) {
+                    circBuffer4 = new Ellipse2D.Double(-1 * (x * 200) + 700 - 3, (y * 200) + 300 - 3, 6, 6);
+                    circContainer4.add(circBuffer4);
+                }
 //                if (i + j == 14) {
 //                    circBuffer3 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 50) + 300, (PoTexRasch.zyM[i][j].getY() * 50) + 300, 6, 6);
 //                    circContainer3.add(circBuffer3);
@@ -356,7 +356,7 @@ public class PJFrame extends javax.swing.JFrame {
             g.draw(circContainer3.get(i));
         }
         for (int i = 0; i < circContainer4.size(); i++) {
-            g.setColor(Color.GREEN);
+            g.setColor(Color.BLUE);
             g.draw(circContainer4.get(i));
         }
 //        for (int i = 0; i < circContainer5.size(); i++) {

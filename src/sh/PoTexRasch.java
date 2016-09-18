@@ -723,19 +723,19 @@ public class PoTexRasch {
             zy.setSigma(p.sigma_10i_0(i));
             zy.setDelta(p.delta_10i_0(i));
             zyM[i][j] = zy;
-//        } else if ((i >= 11 && i <= 20) && j != 0) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
-//            z1z = p.z1z(i, j);
-//            z1y = p.z1y(i, j);
-//            deltaij = p.deltaij(i, j);
-//            sigmaij = p.sigmaij(i, j);
-//
-//            zy.setZ(z1z);
-//            zy.setY(z1y);
-//            zy.setSigma(sigmaij);
-//            zy.setDelta(deltaij);
-//            zy.setCdin(Cdin);
-//            zy.setFidin(Fidin);
-//            zyM[i][j] = zy;
+        } else if ((i >= 11 && i <= 20) && j != 0) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
+            z1z = p.z1z(i, j);
+            z1y = p.z1y(i, j);
+            deltaij = p.deltaij(i, j);
+            sigmaij = p.sigmaij(i, j);
+
+            zy.setZ(z1z);
+            zy.setY(z1y);
+            zy.setSigma(sigmaij);
+            zy.setDelta(deltaij);
+            zy.setCdin(Cdin);
+            zy.setFidin(Fidin);
+            zyM[i][j] = zy;
         } else { //матрицани колган кисмини хозирча 0га тулдирамиз
             zy.setZ(0);
             zy.setY(0);
