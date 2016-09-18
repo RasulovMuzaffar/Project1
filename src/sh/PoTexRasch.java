@@ -129,7 +129,7 @@ public class PoTexRasch {
 //    //----(8)----
     double b0() {
         b0 = l_shp + 2 * h_b * Math.tan(Math.toRadians(30));
-        System.out.println("---------------------------------------" + b0);
+//        System.out.println("---------------------------------------" + b0);
         return b0;
     }
 //    /////////////////end главы 1.2
@@ -139,7 +139,7 @@ public class PoTexRasch {
 
     double a_1p() {
         a = 0.5 * (b_pl - b0);
-        System.out.println("---------------------------------------" + a);
+//        System.out.println("---------------------------------------" + a);
         return a;
     }
 //
@@ -157,8 +157,8 @@ public class PoTexRasch {
         alfa1 = Math.atan(1 / m); //получаем угол в радиансах
         alfa = Math.atan(h_nas / (this.a_1p() + h_nas / Math.tan(alfa1)));
 //        alfa = Math.atan(h_nas * Math.tan(alfa1) / (this.a_1p() * Math.tan(alfa1) + h_nas));
-        System.out.println("alfa1 - > " + Math.toDegrees(alfa1));
-        System.out.println("alfa - > " + Math.toDegrees(alfa));
+//        System.out.println("alfa1 - > " + Math.toDegrees(alfa1));
+//        System.out.println("alfa - > " + Math.toDegrees(alfa));
         return alfa;
     }
 //    /////////////////end главы 1.4

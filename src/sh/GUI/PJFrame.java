@@ -321,12 +321,12 @@ public class PJFrame extends javax.swing.JFrame {
 //                        || (i == 8 && j == 4)
 //                        || (i == 9 && j == 3)
 //                        || (i == 3 && j == 10) || (i == 4 && j == 9) || (i == 4 && j == 10)) {
-                    circBuffer3 = new Ellipse2D.Double(-1 * (x * 200) + 700 - 3, (y * 200) + 300 - 3, 6, 6);
+                    circBuffer3 = new Ellipse2D.Double(-1*(x * 200) + 700 - 3, (y * 200) + 300 - 3, 6, 6);
                     circContainer3.add(circBuffer3);
                 }
                 if ((i >= 11 && i <= 20) && j != 0) {
 //                if ((i >= 11 && i <= 20) && (j >= 1 && j<=5)) {
-                    circBuffer4 = new Ellipse2D.Double(-1 * (x * 200) + 700 - 3, (y * 200) + 300 - 3, 6, 6);
+                    circBuffer4 = new Ellipse2D.Double(-1*(x * 200) + 700 - 3, (y * 200) + 300 - 3,6, 6);
                     circContainer4.add(circBuffer4);
                 }
 //                if (i + j == 14) {
