@@ -172,11 +172,11 @@ public class PoTexRasch {
         Cdin = this.Cdin(z, y);
         Fidin = this.Fidin(z, y);
         delta = this.delta(z, y);
-//        sigma = (gamma * Fia * Math.cos(alfa) + Cdin * Math.cos(Fidin) * Math.cos(2 * (delta - alfa)))
-//                / (1 - Math.sin(Fidin) * Math.cos(2 * (delta - alfa)));
-
-        sigma = (Fia * Math.cos(alfa) + Cdin * Math.cos(Fidin) * Math.cos(2 * (delta - alfa)))
+        sigma = (gamma * Fia * Math.cos(alfa) + Cdin * Math.cos(Fidin) * Math.cos(2 * (delta - alfa)))
                 / (1 - Math.sin(Fidin) * Math.cos(2 * (delta - alfa)));
+
+//        sigma = (Fia * Math.cos(alfa) + Cdin * Math.cos(Fidin) * Math.cos(2 * (delta - alfa)))
+//                / (1 - Math.sin(Fidin) * Math.cos(2 * (delta - alfa)));
         return sigma;
     }
 //
@@ -187,23 +187,23 @@ public class PoTexRasch {
         alfa = this.alfa();
         Cdin = this.Cdin(z, y);
         Fidin = this.Fidin(z, y);
-
-//        delta = 0.5 * Math.asin(gamma * Fia * Math.sin(alfa)
-//                * (Cdin + gamma * Fia * Math.tan(Fidin) * Math.cos(alfa)
-//                - Math.sqrt(Math.pow(Cdin + gamma * Fia * Math.cos(alfa) * Math.tan(Fidin), 2)
-//                        * Math.pow(Math.sin(Fidin), 2)
-//                        - Math.pow(gamma * Fia * Math.sin(alfa) * Math.sin(Fidin), 2)))
-//                / ((Math.pow(gamma * Fia * Math.sin(alfa) * Math.tan(Fidin), 2)
-//                + Math.pow(gamma * Fia * Math.cos(alfa) * Math.tan(Fidin) + Cdin, 2)) * Math.cos(Fidin)))
-//                + alfa;
-        delta = 0.5 * Math.asin(Fia * Math.sin(alfa)
-                * (Cdin + Fia * Math.tan(Fidin) * Math.cos(alfa)
-                - Math.sqrt(Math.pow(Cdin + Fia * Math.cos(alfa) * Math.tan(Fidin), 2)
+        double A1, A2;
+        
+        A1 = Cdin + gamma * Fia * Math.tan(Fidin) * Math.cos(alfa)
+                - Math.sqrt(Math.pow(Cdin + gamma * Fia * Math.cos(alfa) * Math.tan(Fidin), 2)
                         * Math.pow(Math.sin(Fidin), 2)
-                        - Math.pow(Fia * Math.sin(alfa) * Math.sin(Fidin), 2)))
-                / (Math.cos(Fidin) * (Math.pow(Fia * Math.sin(alfa) * Math.tan(Fidin), 2)
-                + Math.pow(Cdin + Fia * Math.cos(alfa) * Math.tan(Fidin), 2))))
-                + alfa;
+                        - Math.pow(gamma * Fia * Math.sin(alfa) * Math.sin(Fidin), 2));
+        A2 = (Math.pow(gamma * Fia * Math.sin(alfa) * Math.tan(Fidin), 2)
+                + Math.pow(gamma * Fia * Math.cos(alfa) * Math.tan(Fidin) + Cdin, 2)) * Math.cos(Fidin);
+        delta = 0.5 * Math.asin(gamma * Fia * Math.sin(alfa) * (A1 / A2)) + alfa;
+//        delta = 0.5 * Math.asin(Fia * Math.sin(alfa)
+//                * (Cdin + Fia * Math.tan(Fidin) * Math.cos(alfa)
+//                - Math.sqrt(Math.pow(Cdin + Fia * Math.cos(alfa) * Math.tan(Fidin), 2)
+//                        * Math.pow(Math.sin(Fidin), 2)
+//                        - Math.pow(Fia * Math.sin(alfa) * Math.sin(Fidin), 2)))
+//                / (Math.cos(Fidin) * (Math.pow(Fia * Math.sin(alfa) * Math.tan(Fidin), 2)
+//                + Math.pow(Cdin + Fia * Math.cos(alfa) * Math.tan(Fidin), 2))))
+//                + alfa;
         return delta;
     }
 //
@@ -213,20 +213,21 @@ public class PoTexRasch {
 
     double Fia(double y) {
         a = this.a_1p();
-//        if (y <= a) {
-//            Fia = y * Math.tan(alfa);
-//        } else if (a < y && y <= a + h_nas / Math.tan(alfa1)) {
-//            Fia = y * (Math.tan(alfa) - Math.tan(alfa1)) + a * Math.tan(alfa1);
-//        } else if (y > a + h_nas / Math.tan(alfa1)) {
-//            Fia = 0;
-//        }
-        if (y > a + h_nas / Math.tan(alfa1)) {
+        if (y <= a) {
+            Fia = y * Math.tan(alfa);
+        } else if (a < y && y <= a + h_nas / Math.tan(alfa1)) {
+            Fia = y * (Math.tan(alfa) - Math.tan(alfa1)) + a * Math.tan(alfa1);
+        } else if (y > a + h_nas / Math.tan(alfa1)) {
             Fia = 0;
-        } else if (a < y && y < h_nas / Math.tan(alfa1)) {
-            Fia = gamma * y * (Math.tan(alfa) - Math.tan(alfa1)) + gamma * a * Math.tan(alfa1);
-        } else if (y < a) {
-            Fia = gamma * y * Math.tan(alfa);
         }
+        
+//        if (y > a + h_nas / Math.tan(alfa1)) {
+//            Fia = 0;
+//        } else if (a < y && y < h_nas / Math.tan(alfa1)) {
+//            Fia = gamma * y * (Math.tan(alfa) - Math.tan(alfa1)) + gamma * a * Math.tan(alfa1);
+//        } else if (y < a) {
+//            Fia = gamma * y * Math.tan(alfa);
+//        }
         System.out.println("Fia ------>>>> y ---> " + y + " ----- " + Fia);
         return Fia;
     }
@@ -243,11 +244,11 @@ public class PoTexRasch {
         Fihi_j = this.Fihi_j(y);
         delta3 = this.delta3(n);
 //
-//        Cdin = Kc_1 + Kc * Math.exp(n * z - delta1_0
-//                * (Math.abs(y + 0.5 * b0) - 1.35) + delta3 * Fihi_j);
+        Cdin = Kc_1 + Kc * Math.exp(n * z - delta1_0
+                * (Math.abs(y + 0.5 * b0) - 1.35) + delta3 * Fihi_j);
 
-        Cdin = Cst * (Kc_1 + Kc * Math.exp(n * z - delta1_0
-                * (Math.abs(y + 0.5 * b0) - 1.35) + delta3 * Fihi_j));
+//        Cdin = Cst * (Kc_1 + Kc * Math.exp(n * z - delta1_0
+//                * (Math.abs(y + 0.5 * b0) - 1.35) + delta3 * Fihi_j));
         return Cdin;
     }
 //
@@ -261,10 +262,10 @@ public class PoTexRasch {
         Fihi_j = this.Fihi_j(y);
         delta3 = this.delta3(n);
 
-//        Fidin = Kfi_1 + Kfi * Math.exp(n * z - delta1_0
-//                * (Math.abs(y + 0.5 * b0) - 1.35) + delta3 * Fihi_j);
-        Fidin = Fist * (Kfi_1 + Kfi * Math.exp(n * z - delta1_0
-                * (Math.abs(y + 0.5 * b0) - 1.35) + delta3 * Fihi_j));
+        Fidin = Kfi_1 + Kfi * Math.exp(n * z - delta1_0
+                * (Math.abs(y + 0.5 * b0) - 1.35) + delta3 * Fihi_j);
+//        Fidin = Fist * (Kfi_1 + Kfi * Math.exp(n * z - delta1_0
+//                * (Math.abs(y + 0.5 * b0) - 1.35) + delta3 * Fihi_j));
         return Fidin;
     }
 //
@@ -315,17 +316,17 @@ public class PoTexRasch {
 //    //----(16)----
 
     double Fiy(double y) {
-//        if (Math.abs(y + 0.5 * this.b0()) <= 1.35) {
-//            Fiy = 0;
-//        } else {
-//            Fiy = Math.abs(y + 0.5 * this.b0()) - 1.35;
-//        }
-
-        if (Math.abs(y - 0.5 * this.b0()) <= 1.35) {
+        if (Math.abs(y + 0.5 * this.b0()) <= 1.35) {
             Fiy = 0;
         } else {
-            Fiy = Math.abs(y - 0.5 * this.b0()) - 1.35;
+            Fiy = Math.abs(y + 0.5 * this.b0()) - 1.35;
         }
+
+//        if (Math.abs(y - 0.5 * this.b0()) <= 1.35) {
+//            Fiy = 0;
+//        } else {
+//            Fiy = Math.abs(y - 0.5 * this.b0()) - 1.35;
+//        }
         return Fiy;
     }
 //
@@ -425,13 +426,13 @@ public class PoTexRasch {
         delta1_0 = this.delta1_0();
         b0 = this.b0();
 //
-//        Fij1 = K * A0 * Math.exp(n * zyM[i][j - 1].getZ() - delta1_0
-//                * (zyM[i][j - 1].getY() + 0.5 * b0) + 1.35 * delta1_0
-//                + Math.abs(n) * 0.667 * this.Fihi_j(zyM[i][j - 1].getY()) * Math.tan(alfa1) - K * this.Azy(i, j - 1));
-
         Fij1 = K * A0 * Math.exp(n * zyM[i][j - 1].getZ() - delta1_0
-                * (zyM[i][j - 1].getY() - 1.35) + Math.abs(n) * 0.667
-                * this.Fi1_hi(zyM[i][j - 1].getY()) * Math.tan(alfa1) - K * this.Azy(i, j - 1));
+                * (zyM[i][j - 1].getY() + 0.5 * b0) + 1.35 * delta1_0
+                + Math.abs(n) * 0.667 * this.Fihi_j(zyM[i][j - 1].getY()) * Math.tan(alfa1) - K * this.Azy(i, j - 1));
+
+//        Fij1 = K * A0 * Math.exp(n * zyM[i][j - 1].getZ() - delta1_0
+//                * (zyM[i][j - 1].getY() - 1.35) + Math.abs(n) * 0.667
+//                * this.Fi1_hi(zyM[i][j - 1].getY()) * Math.tan(alfa1) - K * this.Azy(i, j - 1));
         return Fij1;
     }
 //
@@ -442,13 +443,13 @@ public class PoTexRasch {
         delta1_0 = this.delta1_0();
         b0 = this.b0();
 //
-//        Fi1j = K * A0 * Math.exp(n * zyM[i - 1][j].getZ() - delta1_0
-//                * (zyM[i - 1][j].getY() + 0.5 * b0) + 1.35 * delta1_0
-//                + Math.abs(n) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY()) * Math.tan(alfa1) - K * this.Azy(i - 1, j));
+        Fi1j = K * A0 * Math.exp(n * zyM[i - 1][j].getZ() - delta1_0
+                * (zyM[i - 1][j].getY() + 0.5 * b0) + 1.35 * delta1_0
+                + Math.abs(n) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY()) * Math.tan(alfa1) - K * this.Azy(i - 1, j));
 
-        Fij1 = K * A0 * Math.exp(n * zyM[i - 1][j].getZ() - delta1_0
-                * (zyM[i - 1][j].getY() - 1.35) + Math.abs(n) * 0.667
-                * this.Fi1_hi(zyM[i - 1][j].getY()) * Math.tan(alfa1) - K * this.Azy(i - 1, j));
+//        Fij1 = K * A0 * Math.exp(n * zyM[i - 1][j].getZ() - delta1_0
+//                * (zyM[i - 1][j].getY() - 1.35) + Math.abs(n) * 0.667
+//                * this.Fi1_hi(zyM[i - 1][j].getY()) * Math.tan(alfa1) - K * this.Azy(i - 1, j));
         return Fi1j;
     }
 //
@@ -459,13 +460,13 @@ public class PoTexRasch {
         delta1_0 = this.delta1_0();
         b0 = this.b0();
 //
-//        Hij1 = Math.exp(n * zyM[i][j - 1].getZ() - delta1_0
-//                * (zyM[i][j - 1].getY() + 0.5 * b0) + 1.35 * delta1_0
-//                + Math.abs(n) * 0.667 * this.Fihi_j(zyM[i][j - 1].getY()) * Math.tan(alfa1));
-
         Hij1 = Math.exp(n * zyM[i][j - 1].getZ() - delta1_0
-                * (zyM[i][j - 1].getY() - 1.35)
-                + Math.abs(n) * 0.667 * this.Fi1_hi(zyM[i][j - 1].getY()) * Math.tan(alfa1));
+                * (zyM[i][j - 1].getY() + 0.5 * b0) + 1.35 * delta1_0
+                + Math.abs(n) * 0.667 * this.Fihi_j(zyM[i][j - 1].getY()) * Math.tan(alfa1));
+
+//        Hij1 = Math.exp(n * zyM[i][j - 1].getZ() - delta1_0
+//                * (zyM[i][j - 1].getY() - 1.35)
+//                + Math.abs(n) * 0.667 * this.Fi1_hi(zyM[i][j - 1].getY()) * Math.tan(alfa1));
         return Hij1;
     }
 //
@@ -476,13 +477,13 @@ public class PoTexRasch {
         delta1_0 = this.delta1_0();
         b0 = this.b0();
 //
-//        Hi1j = Math.exp(n * zyM[i - 1][j].getZ() - delta1_0
-//                * (zyM[i - 1][j].getY() + 0.5 * b0) + 1.35 * delta1_0
-//                + Math.abs(n) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY()) * Math.tan(alfa1));
-
         Hi1j = Math.exp(n * zyM[i - 1][j].getZ() - delta1_0
-                * (zyM[i - 1][j].getY() - 1.35)
-                + Math.abs(n) * 0.667 * this.Fi1_hi(zyM[i - 1][j].getY()) * Math.tan(alfa1));
+                * (zyM[i - 1][j].getY() + 0.5 * b0) + 1.35 * delta1_0
+                + Math.abs(n) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY()) * Math.tan(alfa1));
+
+//        Hi1j = Math.exp(n * zyM[i - 1][j].getZ() - delta1_0
+//                * (zyM[i - 1][j].getY() - 1.35)
+//                + Math.abs(n) * 0.667 * this.Fi1_hi(zyM[i - 1][j].getY()) * Math.tan(alfa1));
         return Hi1j;
     }
 //
@@ -492,21 +493,21 @@ public class PoTexRasch {
         n = this.n("P");
         delta1_0 = this.delta1_0();
 //
-//        Bij1 = 0.15 * gamma * this.Hij1(i, j) * A0 / 439 - this.Fij1(i, j)
-//                * ((delta1_0 - Math.abs(n) * 0.667 * this.Fihi_j(zyM[i][j - 1].getY())
-//                * Math.tan(alfa1)) * Math.sin(2 * zyM[i][j - 1].getDelta())
-//                + n * Math.cos(2 * zyM[i][j - 1].getDelta()))
-//                * (Fist * Kfi * (zyM[i][j - 1].getSigma() * Math.cos(zyM[i][j - 1].getFidin())
-//                - zyM[i][j - 1].getCdin() * Math.sin(zyM[i][j - 1].getFidin()))
-//                + Cst * Kc * Math.cos(zyM[i][j - 1].getFidin()));
-
         Bij1 = 0.15 * gamma * this.Hij1(i, j) * A0 / 439 - this.Fij1(i, j)
-                * ((delta1_0 - Math.abs(n) * 0.667 * this.Fi1_hi(zyM[i][j - 1].getY())
+                * ((delta1_0 - Math.abs(n) * 0.667 * this.Fihi_j(zyM[i][j - 1].getY())
                 * Math.tan(alfa1)) * Math.sin(2 * zyM[i][j - 1].getDelta())
                 + n * Math.cos(2 * zyM[i][j - 1].getDelta()))
                 * (Fist * Kfi * (zyM[i][j - 1].getSigma() * Math.cos(zyM[i][j - 1].getFidin())
                 - zyM[i][j - 1].getCdin() * Math.sin(zyM[i][j - 1].getFidin()))
                 + Cst * Kc * Math.cos(zyM[i][j - 1].getFidin()));
+
+//        Bij1 = 0.15 * gamma * this.Hij1(i, j) * A0 / 439 - this.Fij1(i, j)
+//                * ((delta1_0 - Math.abs(n) * 0.667 * this.Fi1_hi(zyM[i][j - 1].getY())
+//                * Math.tan(alfa1)) * Math.sin(2 * zyM[i][j - 1].getDelta())
+//                + n * Math.cos(2 * zyM[i][j - 1].getDelta()))
+//                * (Fist * Kfi * (zyM[i][j - 1].getSigma() * Math.cos(zyM[i][j - 1].getFidin())
+//                - zyM[i][j - 1].getCdin() * Math.sin(zyM[i][j - 1].getFidin()))
+//                + Cst * Kc * Math.cos(zyM[i][j - 1].getFidin()));
         return Bij1;
     }
 //
@@ -516,20 +517,20 @@ public class PoTexRasch {
         n = this.n("P");
         delta1_0 = this.delta1_0();
 
-//        Bi1j = 0.15 * gamma * this.Hi1j(i, j) * A0 / 439 - this.Fi1j(i, j)
-//                * ((delta1_0 - Math.abs(n) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY())
-//                * Math.tan(alfa1)) * Math.sin(2 * zyM[i - 1][j].getDelta())
-//                + n * Math.cos(2 * zyM[i - 1][j].getDelta()))
-//                * (Fist * Kfi * (zyM[i - 1][j].getSigma() * Math.cos(zyM[i - 1][j].getFidin())
-//                - zyM[i][j - 1].getCdin() * Math.sin(zyM[i - 1][j].getFidin()))
-//                + Cst * Kc * Math.cos(zyM[i - 1][j].getFidin()));
         Bi1j = 0.15 * gamma * this.Hi1j(i, j) * A0 / 439 - this.Fi1j(i, j)
-                * ((delta1_0 - Math.abs(n) * 0.667 * this.Fi1_hi(zyM[i - 1][j].getY())
+                * ((delta1_0 - Math.abs(n) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY())
                 * Math.tan(alfa1)) * Math.sin(2 * zyM[i - 1][j].getDelta())
                 + n * Math.cos(2 * zyM[i - 1][j].getDelta()))
                 * (Fist * Kfi * (zyM[i - 1][j].getSigma() * Math.cos(zyM[i - 1][j].getFidin())
                 - zyM[i][j - 1].getCdin() * Math.sin(zyM[i - 1][j].getFidin()))
                 + Cst * Kc * Math.cos(zyM[i - 1][j].getFidin()));
+//        Bi1j = 0.15 * gamma * this.Hi1j(i, j) * A0 / 439 - this.Fi1j(i, j)
+//                * ((delta1_0 - Math.abs(n) * 0.667 * this.Fi1_hi(zyM[i - 1][j].getY())
+//                * Math.tan(alfa1)) * Math.sin(2 * zyM[i - 1][j].getDelta())
+//                + n * Math.cos(2 * zyM[i - 1][j].getDelta()))
+//                * (Fist * Kfi * (zyM[i - 1][j].getSigma() * Math.cos(zyM[i - 1][j].getFidin())
+//                - zyM[i][j - 1].getCdin() * Math.sin(zyM[i - 1][j].getFidin()))
+//                + Cst * Kc * Math.cos(zyM[i - 1][j].getFidin()));
         return Bi1j;
     }
 //
@@ -539,20 +540,20 @@ public class PoTexRasch {
         n = this.n("P");
         delta1_0 = this.delta1_0();
 
-//        Dij1 = 0.04 * gamma * this.Hij1(i, j) * A0 / 439 + this.Fij1(i, j)
-//                * (n * Math.sin(2 * zyM[i][j - 1].getDelta())
-//                - (delta1_0 - this.Fihi_j(zyM[i][j - 1].getY()) * Math.abs(n) * 0.667
-//                * Math.tan(alfa1)) * Math.cos(2 * zyM[i][j - 1].getDelta()))
-//                * (Fist * Kfi * (zyM[i][j - 1].getSigma() * Math.cos(zyM[i][j - 1].getFidin())
-//                - zyM[i][j - 1].getCdin() * Math.sin(zyM[i][j - 1].getFidin()))
-//                + Cst * Kc * Math.cos(zyM[i][j - 1].getFidin()));
         Dij1 = 0.04 * gamma * this.Hij1(i, j) * A0 / 439 + this.Fij1(i, j)
                 * (n * Math.sin(2 * zyM[i][j - 1].getDelta())
-                - (delta1_0 - this.Fi1_hi(zyM[i][j - 1].getY()) * Math.abs(n) * 0.667
-                * Math.tan(alfa1)) * Math.cos(2 * zyM[i][j - 1].getDelta()) + n * Math.cos(2 * zyM[i][j - 1].getDelta()))
+                - (delta1_0 - this.Fihi_j(zyM[i][j - 1].getY()) * Math.abs(n) * 0.667
+                * Math.tan(alfa1)) * Math.cos(2 * zyM[i][j - 1].getDelta()))
                 * (Fist * Kfi * (zyM[i][j - 1].getSigma() * Math.cos(zyM[i][j - 1].getFidin())
                 - zyM[i][j - 1].getCdin() * Math.sin(zyM[i][j - 1].getFidin()))
                 + Cst * Kc * Math.cos(zyM[i][j - 1].getFidin()));
+//        Dij1 = 0.04 * gamma * this.Hij1(i, j) * A0 / 439 + this.Fij1(i, j)
+//                * (n * Math.sin(2 * zyM[i][j - 1].getDelta())
+//                - (delta1_0 - this.Fi1_hi(zyM[i][j - 1].getY()) * Math.abs(n) * 0.667
+//                * Math.tan(alfa1)) * Math.cos(2 * zyM[i][j - 1].getDelta()) + n * Math.cos(2 * zyM[i][j - 1].getDelta()))
+//                * (Fist * Kfi * (zyM[i][j - 1].getSigma() * Math.cos(zyM[i][j - 1].getFidin())
+//                - zyM[i][j - 1].getCdin() * Math.sin(zyM[i][j - 1].getFidin()))
+//                + Cst * Kc * Math.cos(zyM[i][j - 1].getFidin()));
         return Dij1;
     }
 //
@@ -562,20 +563,20 @@ public class PoTexRasch {
         n = this.n("P");
         delta1_0 = this.delta1_0();
 
-//        Di1j = 0.04 * gamma * this.Hi1j(i, j) * A0 / 439 + this.Fi1j(i, j)
-//                * (n * Math.sin(2 * zyM[i - 1][j].getDelta())
-//                - (delta1_0 - this.Fihi_j(zyM[i - 1][j].getY()) * Math.abs(n) * 0.667
-//                * Math.tan(alfa1)) * Math.cos(2 * zyM[i - 1][j].getDelta()))
-//                * (Fist * Kfi * (zyM[i - 1][j].getSigma() * Math.cos(zyM[i - 1][j].getFidin())
-//                - zyM[i - 1][j].getCdin() * Math.sin(zyM[i - 1][j].getFidin()))
-//                + Cst * Kc * Math.cos(zyM[i - 1][j].getFidin()));
-        Dij1 = 0.04 * gamma * this.Hij1(i, j) * A0 / 439 + this.Fij1(i, j)
+        Di1j = 0.04 * gamma * this.Hi1j(i, j) * A0 / 439 + this.Fi1j(i, j)
                 * (n * Math.sin(2 * zyM[i - 1][j].getDelta())
-                - (delta1_0 - this.Fi1_hi(zyM[i - 1][j].getY()) * Math.abs(n) * 0.667
-                * Math.tan(alfa1)) * Math.cos(2 * zyM[i - 1][j].getDelta()) + n * Math.cos(2 * zyM[i - 1][j].getDelta()))
+                - (delta1_0 - this.Fihi_j(zyM[i - 1][j].getY()) * Math.abs(n) * 0.667
+                * Math.tan(alfa1)) * Math.cos(2 * zyM[i - 1][j].getDelta()))
                 * (Fist * Kfi * (zyM[i - 1][j].getSigma() * Math.cos(zyM[i - 1][j].getFidin())
                 - zyM[i - 1][j].getCdin() * Math.sin(zyM[i - 1][j].getFidin()))
                 + Cst * Kc * Math.cos(zyM[i - 1][j].getFidin()));
+//        Dij1 = 0.04 * gamma * this.Hij1(i, j) * A0 / 439 + this.Fij1(i, j)
+//                * (n * Math.sin(2 * zyM[i - 1][j].getDelta())
+//                - (delta1_0 - this.Fi1_hi(zyM[i - 1][j].getY()) * Math.abs(n) * 0.667
+//                * Math.tan(alfa1)) * Math.cos(2 * zyM[i - 1][j].getDelta()) + n * Math.cos(2 * zyM[i - 1][j].getDelta()))
+//                * (Fist * Kfi * (zyM[i - 1][j].getSigma() * Math.cos(zyM[i - 1][j].getFidin())
+//                - zyM[i - 1][j].getCdin() * Math.sin(zyM[i - 1][j].getFidin()))
+//                + Cst * Kc * Math.cos(zyM[i - 1][j].getFidin()));
         return Di1j;
     }
 //
@@ -605,20 +606,20 @@ public class PoTexRasch {
 //    //------ 40 тенгламанинг унг кисми
 
     double Q(int i, int j) {
-//        return (gamma + this.Bij1(i, j)) * ((zyM[i][j - 1].getZ() - z1z) + (zyM[i][j - 1].getY() - z1y) * Math.tan(zyM[i][j - 1].getFidin()))
-//                + this.Dij1(i, j) * ((zyM[i][j - 1].getY() - z1y) + (zyM[i][j - 1].getZ() - z1z) * Math.tan(zyM[i][j - 1].getFidin()));
-return (gamma + this.Bij1(i, j)) * ((zyM[i][j - 1].getZ() - z1z) + (zyM[i][j - 1].getY() - this.z1y(i, j)) * Math.tan(zyM[i][j - 1].getFidin()))
-                + this.Dij1(i, j) * ((zyM[i][j - 1].getY() - z1y) + (zyM[i][j - 1].getZ() - this.z1z(i, j)) * Math.tan(zyM[i][j - 1].getFidin()));
+        return (gamma + this.Bij1(i, j)) * ((zyM[i][j - 1].getZ() - z1z) + (zyM[i][j - 1].getY() - z1y) * Math.tan(zyM[i][j - 1].getFidin()))
+                + this.Dij1(i, j) * ((zyM[i][j - 1].getY() - z1y) + (zyM[i][j - 1].getZ() - z1z) * Math.tan(zyM[i][j - 1].getFidin()));
+//        return (gamma + this.Bij1(i, j)) * ((zyM[i][j - 1].getZ() - z1z) + (zyM[i][j - 1].getY() - this.z1y(i, j)) * Math.tan(zyM[i][j - 1].getFidin()))
+//                + this.Dij1(i, j) * ((zyM[i][j - 1].getY() - z1y) + (zyM[i][j - 1].getZ() - this.z1z(i, j)) * Math.tan(zyM[i][j - 1].getFidin()));
     }
 //
 //    //------ 42 тенгламанинг унг кисми
 
     double W(int i, int j) {
-//        return (gamma + this.Bi1j(i, j)) * ((zyM[i - 1][j].getZ() - z1z) - (zyM[i - 1][j].getY() - z1y) * Math.tan(zyM[i - 1][j].getFidin()))
-//                + this.Di1j(i, j) * ((zyM[i - 1][j].getY() - z1y) + (zyM[i - 1][j].getZ() - z1z) * Math.tan(zyM[i - 1][j].getFidin()));
+        return (gamma + this.Bi1j(i, j)) * ((zyM[i - 1][j].getZ() - z1z) - (zyM[i - 1][j].getY() - z1y) * Math.tan(zyM[i - 1][j].getFidin()))
+                + this.Di1j(i, j) * ((zyM[i - 1][j].getY() - z1y) + (zyM[i - 1][j].getZ() - z1z) * Math.tan(zyM[i - 1][j].getFidin()));
 
-return (gamma + this.Bi1j(i, j)) * ((zyM[i - 1][j].getZ() - this.z1z(i, j)) - (zyM[i - 1][j].getY() - this.z1y(i, j)) * Math.tan(zyM[i - 1][j].getFidin()))
-                + this.Di1j(i, j) * ((zyM[i - 1][j].getY() - this.z1y(i, j)) + (zyM[i - 1][j].getZ() - this.z1z(i, j)) * Math.tan(zyM[i - 1][j].getFidin()));
+//        return (gamma + this.Bi1j(i, j)) * ((zyM[i - 1][j].getZ() - this.z1z(i, j)) - (zyM[i - 1][j].getY() - this.z1y(i, j)) * Math.tan(zyM[i - 1][j].getFidin()))
+//                + this.Di1j(i, j) * ((zyM[i - 1][j].getY() - this.z1y(i, j)) + (zyM[i - 1][j].getZ() - this.z1z(i, j)) * Math.tan(zyM[i - 1][j].getFidin()));
     }
 
     //------ (34)
