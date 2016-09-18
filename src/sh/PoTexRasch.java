@@ -594,9 +594,9 @@ public class PoTexRasch {
     double deltaij(int i, int j) {
         deltaij = (this.W(i, j) - this.Q(i, j) - zyM[i - 1][j].getSigma() + zyM[i][j - 1].getSigma()
                 + 2 * (zyM[i][j - 1].getSigma() * Math.tan(zyM[i][j - 1].getFidin()) * zyM[i][j - 1].getDelta()
-                - zyM[i][j - 1].getCdin() * zyM[i][j - 1].getDelta()
-                - zyM[i - 1][j].getSigma() * Math.tan(zyM[i - 1][j].getFidin()) * zyM[i - 1][j].getDelta()
-                - zyM[i - 1][j].getCdin() * zyM[i - 1][j].getDelta()))
+                + zyM[i][j - 1].getCdin() * zyM[i][j - 1].getDelta()
+                + zyM[i - 1][j].getSigma() * Math.tan(zyM[i - 1][j].getFidin()) * zyM[i - 1][j].getDelta()
+                + zyM[i - 1][j].getCdin() * zyM[i - 1][j].getDelta()))
                 / (2 * (zyM[i][j - 1].getSigma() * Math.tan(zyM[i][j - 1].getFidin()) + zyM[i][j - 1].getCdin()
                 + zyM[i - 1][j].getSigma() * Math.tan(zyM[i - 1][j].getFidin()) + zyM[i - 1][j].getCdin()));
         return deltaij;
