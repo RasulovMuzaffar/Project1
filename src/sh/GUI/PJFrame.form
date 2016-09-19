@@ -156,7 +156,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="_m">
           <Properties>
-            <Property name="text" type="java.lang.String" value="1"/>
+            <Property name="text" type="java.lang.String" value="2"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="h_nas">
@@ -166,7 +166,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="_h_nas">
           <Properties>
-            <Property name="text" type="java.lang.String" value="1"/>
+            <Property name="text" type="java.lang.String" value="6"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="a">
@@ -176,7 +176,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="_b_pl">
           <Properties>
-            <Property name="text" type="java.lang.String" value="5"/>
+            <Property name="text" type="java.lang.String" value="7.6"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="gamma">
@@ -186,7 +186,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="_gamma">
           <Properties>
-            <Property name="text" type="java.lang.String" value="1.85"/>
+            <Property name="text" type="java.lang.String" value="1.68"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
@@ -196,7 +196,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="_Cst">
           <Properties>
-            <Property name="text" type="java.lang.String" value="0.5"/>
+            <Property name="text" type="java.lang.String" value="0.67"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -206,7 +206,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="_Fist">
           <Properties>
-            <Property name="text" type="java.lang.String" value="38"/>
+            <Property name="text" type="java.lang.String" value="31"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -216,7 +216,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="_h_b">
           <Properties>
-            <Property name="text" type="java.lang.String" value="0.4"/>
+            <Property name="text" type="java.lang.String" value="0.35"/>
           </Properties>
         </Component>
       </SubComponents>

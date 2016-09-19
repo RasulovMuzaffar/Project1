@@ -115,6 +115,8 @@ public class PoTexRasch {
     static ModelIJ[][] ij = new ModelIJ[1][10];
     public static ModelZY[][] zyM = new ModelZY[31][11];
 
+    public PoTexRasch() {
+    }
     public static void Peremennie(double _m, double _h_nas, double _b_pl, double _gamma, double _Cst, double _Fist, double _h_b) {
         m = _m;
         h_nas = _h_nas;
@@ -152,7 +154,10 @@ public class PoTexRasch {
 //
 //////////////глава 1.4 Угол заложения расчетного откоса
 //    //----(11)----
-
+public static double alf(){
+    PoTexRasch p = new PoTexRasch();
+    return p.alfa();
+}
     double alfa() {
         alfa1 = Math.atan(1 / m); //получаем угол в радиансах
         alfa = Math.atan(h_nas / (this.a_1p() + h_nas / Math.tan(alfa1)));
@@ -188,7 +193,7 @@ public class PoTexRasch {
         Cdin = this.Cdin(z, y);
         Fidin = this.Fidin(z, y);
         double A1, A2;
-        
+
         A1 = Cdin + gamma * Fia * Math.tan(Fidin) * Math.cos(alfa)
                 - Math.sqrt(Math.pow(Cdin + gamma * Fia * Math.cos(alfa) * Math.tan(Fidin), 2)
                         * Math.pow(Math.sin(Fidin), 2)
@@ -220,7 +225,7 @@ public class PoTexRasch {
         } else if (y > a + h_nas / Math.tan(alfa1)) {
             Fia = 0;
         }
-        
+
 //        if (y > a + h_nas / Math.tan(alfa1)) {
 //            Fia = 0;
 //        } else if (a < y && y < h_nas / Math.tan(alfa1)) {
@@ -228,7 +233,7 @@ public class PoTexRasch {
 //        } else if (y < a) {
 //            Fia = gamma * y * Math.tan(alfa);
 //        }
-        System.out.println("Fia ------>>>> y ---> " + y + " ----- " + Fia);
+//        System.out.println("Fia ------>>>> y ---> " + y + " ----- " + Fia);
         return Fia;
     }
 //    /////////////////end главы 1.5
@@ -632,7 +637,7 @@ public class PoTexRasch {
     //------ (35)
     double sigma_10i_0(int i) {
         alfa = this.alfa();
-        double A1 = gamma * this.Fia(zyM[i - 1][0].getY()) * Math.cos(alfa);
+        double A1 = gamma * this.Fia(0) * Math.cos(alfa);
         double A2 = this.Cdin(0, 0) * Math.cos(this.Fidin(0, 0)) * Math.cos(2 * (zyM[10][0].getDelta() - alfa));
         double A3 = 1 - Math.sin(this.Fidin(0, 0)) * Math.cos(2 * (zyM[10][0].getDelta() - alfa));
         double A4 = Math.exp(2 * this.delta_10i_0(i) * Math.tan(this.Fidin(0, 0)));
@@ -724,6 +729,21 @@ public class PoTexRasch {
             zy.setDelta(p.delta_10i_0(i));
             zyM[i][j] = zy;
         } else if ((i >= 11 && i <= 20) && j != 0) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
+            z1z = p.z1z(i, j);
+            z1y = p.z1y(i, j);
+            deltaij = p.deltaij(i, j);
+            sigmaij = p.sigmaij(i, j);
+
+            zy.setZ(z1z);
+            zy.setY(z1y);
+            zy.setSigma(sigmaij);
+            zy.setDelta(deltaij);
+            zy.setCdin(Cdin);
+            zy.setFidin(Fidin);
+            zyM[i][j] = zy;
+        } else if (i > 20 && i - j < 20) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
+//            System.out.println("[i : j] [" + i + " : " + j + "]");
+
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
             deltaij = p.deltaij(i, j);
