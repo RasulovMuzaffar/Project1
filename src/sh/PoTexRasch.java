@@ -117,6 +117,7 @@ public class PoTexRasch {
 
     public PoTexRasch() {
     }
+
     public static void Peremennie(double _m, double _h_nas, double _b_pl, double _gamma, double _Cst, double _Fist, double _h_b) {
         m = _m;
         h_nas = _h_nas;
@@ -154,10 +155,12 @@ public class PoTexRasch {
 //
 //////////////глава 1.4 Угол заложения расчетного откоса
 //    //----(11)----
-public static double alf(){
-    PoTexRasch p = new PoTexRasch();
-    return p.alfa();
-}
+
+    public static double alf() {
+        PoTexRasch p = new PoTexRasch();
+        return p.alfa();
+    }
+
     double alfa() {
         alfa1 = Math.atan(1 / m); //получаем угол в радиансах
         alfa = Math.atan(h_nas / (this.a_1p() + h_nas / Math.tan(alfa1)));
@@ -630,17 +633,19 @@ public static double alf(){
     //------ (34)
     double delta_10i_0(int i) {
         alfa = this.alfa();
-        delta_10i_0 = ((Math.PI - 2 * alfa) / 20) * i + alfa;
+        delta_10i_0 = ((Math.PI - 2 * alfa) / 20) * (i - 10) + alfa;
         return delta_10i_0;
     }
 
     //------ (35)
     double sigma_10i_0(int i) {
         alfa = this.alfa();
+        Cdin = this.Cdin(0, 0);
+        Fidin = this.Fidin(0, 0);
         double A1 = gamma * this.Fia(0) * Math.cos(alfa);
-        double A2 = this.Cdin(0, 0) * Math.cos(this.Fidin(0, 0)) * Math.cos(2 * (zyM[10][0].getDelta() - alfa));
-        double A3 = 1 - Math.sin(this.Fidin(0, 0)) * Math.cos(2 * (zyM[10][0].getDelta() - alfa));
-        double A4 = Math.exp(2 * this.delta_10i_0(i) * Math.tan(this.Fidin(0, 0)));
+        double A2 = Cdin * Math.cos(Fidin) * Math.cos(2 * (Math.PI / 2 - alfa));
+        double A3 = 1 - Math.sin(Fidin) * Math.cos(2 * (Math.PI / 2 - alfa));
+        double A4 = Math.exp(2 * this.delta_10i_0(i) * Math.tan(Fidin));
         sigma_10i_0 = ((A1 + A2) / A3) * A4;
         return sigma_10i_0;
     }
@@ -728,9 +733,12 @@ public static double alf(){
             zy.setSigma(p.sigma_10i_0(i));
             zy.setDelta(p.delta_10i_0(i));
             zyM[i][j] = zy;
+//        } else if ((i >= 11 && i <= 20) && j != 0) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
         } else if ((i >= 11 && i <= 20) && j != 0) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
+            Fidin = p.Fidin(z1z, z1y);
+            Cdin = p.Cdin(z1z, z1y);
             deltaij = p.deltaij(i, j);
             sigmaij = p.sigmaij(i, j);
 
@@ -741,21 +749,21 @@ public static double alf(){
             zy.setCdin(Cdin);
             zy.setFidin(Fidin);
             zyM[i][j] = zy;
-        } else if (i > 20 && i - j < 20) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
-//            System.out.println("[i : j] [" + i + " : " + j + "]");
-
-            z1z = p.z1z(i, j);
-            z1y = p.z1y(i, j);
-            deltaij = p.deltaij(i, j);
-            sigmaij = p.sigmaij(i, j);
-
-            zy.setZ(z1z);
-            zy.setY(z1y);
-            zy.setSigma(sigmaij);
-            zy.setDelta(deltaij);
-            zy.setCdin(Cdin);
-            zy.setFidin(Fidin);
-            zyM[i][j] = zy;
+//        } else if (i > 20 && i - j < 20) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
+////            System.out.println("[i : j] [" + i + " : " + j + "]");
+//
+//            z1z = p.z1z(i, j);
+//            z1y = p.z1y(i, j);
+//            deltaij = p.deltaij(i, j);
+//            sigmaij = p.sigmaij(i, j);
+//
+//            zy.setZ(z1z);
+//            zy.setY(z1y);
+//            zy.setSigma(sigmaij);
+//            zy.setDelta(deltaij);
+//            zy.setCdin(Cdin);
+//            zy.setFidin(Fidin);
+//            zyM[i][j] = zy;
         } else { //матрицани колган кисмини хозирча 0га тулдирамиз
             zy.setZ(0);
             zy.setY(0);

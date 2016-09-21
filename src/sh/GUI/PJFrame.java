@@ -286,61 +286,40 @@ public class PJFrame extends javax.swing.JFrame {
 //                    lineContainer.add(lineBuffer);
 //                    }
                 }
-//                if (i + j > 10 && (i <= 10 && j <= 10)) {
                 if ((i + j > 10) && (i <= 10 && j <= 10)) {
-//                if ((i == 10 && j == 1)
-//                        || (i == 9 && j == 2)
-//                        || (i == 8 && j == 3)
-//                        || (i == 7 && j == 4)
-//                        || (i == 6 && j == 5)
-//                        || (i == 5 && j == 6)
-//                        || (i == 4 && j == 7)
-//                        || (i == 3 && j == 8)
-//                        || (i == 2 && j == 9)
-//                        || (i == 1 && j == 10)) {
                     circBuffer2 = new Ellipse2D.Double(-1 * x + 900 - 3, y + 300 - 3, 6, 6);
                     circContainer2.add(circBuffer2);
                 }
                 if ((i >= 11 && i <= 20) && j == 0) {
-//                if (i == 2 && j == 10
-//                        || (i == 3 && j == 9)
-//                        || (i == 4 && j == 8)
-//                        || (i == 5 && j == 7)
-//                        || (i == 6 && j == 6)
-//                        || (i == 7 && j == 5)
-//                        || (i == 8 && j == 4)
-//                        || (i == 9 && j == 3)
-//                        || (i == 3 && j == 10) || (i == 4 && j == 9) || (i == 4 && j == 10)) {
                     circBuffer3 = new Ellipse2D.Double(-1 * x + 900 - 3, y + 300 - 3, 6, 6);
                     circContainer3.add(circBuffer3);
                 }
-                if ((i >= 11 && i <= 20) && j != 0) {
-//                if ((i >= 11 && i <= 20) && (j == 10)) {
+//                if ((i == 11 || i == 12) && j != 0) {
+                if ((i >= 11 && i <= 20) && (j != 0)) {
 //pX = X * CosA + Y * SinA
 //pY = Y * CosA - X * SinA
                     double xt = x * Math.cos(PoTexRasch.alf()) - y * Math.sin(PoTexRasch.alf());
                     double yt = y * Math.cos(PoTexRasch.alf()) + x * Math.sin(PoTexRasch.alf());
 //                    System.out.println("Math.cos(PoTexRasch.alf()) " + Math.toDegrees(PoTexRasch.alf()));
-                    circBuffer4 = new Ellipse2D.Double(-1 * (yt) + 900 - 3, -1 * (xt) + 300 - 3, 6, 6);
+                    circBuffer4 = new Ellipse2D.Double(-1*x/5 + 900 - 3, y/5 + 300 - 3, 6, 6);
                     circContainer4.add(circBuffer4);
                 }
-                if ((i == 21 & j == 2) || (i == 22 & j == 3)
-                                                || (i == 23 & j == 4)
-                                                || (i == 24 & j == 5)
-                                                || (i == 25 & j == 6)
-                                                || (i == 26 & j == 7)
-                                                || (i == 27 & j == 8)
-                                                || (i == 28 & j == 9)
-                                                || (i == 29 & j == 10)
-                        ) {
-//                if (i > 20 && i - j < 20) {
-                    double xt = x * Math.cos(PoTexRasch.alf()) - y * Math.sin(PoTexRasch.alf());
-                    double yt = y * Math.cos(PoTexRasch.alf()) + x * Math.sin(PoTexRasch.alf());
-//                    System.out.println("Math.cos(PoTexRasch.alf()) " + Math.toDegrees(PoTexRasch.alf()));
-                    circBuffer5 = new Ellipse2D.Double(-1 * (yt) + 900 - 3, -1 * (xt) + 300 - 3, 6, 6);
-//                    circBuffer5 = new Ellipse2D.Double(x + 900 - 3, y + 300 - 3, 6, 6);
-                    circContainer5.add(circBuffer5);
-                }
+//                if ((i == 21 & j == 2) || (i == 22 & j == 3)
+//                        || (i == 23 & j == 4)
+//                        || (i == 24 & j == 5)
+//                        || (i == 25 & j == 6)
+//                        || (i == 26 & j == 7)
+//                        || (i == 27 & j == 8)
+//                        || (i == 28 & j == 9)
+//                        || (i == 29 & j == 10)) {
+////                if (i > 20 && i - j < 20) {
+//                    double xt = x * Math.cos(PoTexRasch.alf()) - y * Math.sin(PoTexRasch.alf());
+//                    double yt = y * Math.cos(PoTexRasch.alf()) + x * Math.sin(PoTexRasch.alf());
+////                    System.out.println("Math.cos(PoTexRasch.alf()) " + Math.toDegrees(PoTexRasch.alf()));
+//                    circBuffer5 = new Ellipse2D.Double(-1 * (xt) + 900 - 3, (yt) + 300 - 3, 6, 6);
+////                    circBuffer5 = new Ellipse2D.Double(x + 900 - 3, y + 300 - 3, 6, 6);
+//                    circContainer5.add(circBuffer5);
+//                }
 
 //                if (i + j == 15) {
 //                    circBuffer4 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 50) + 300, (PoTexRasch.zyM[i][j].getY() * 50) + 300, 6, 6);
