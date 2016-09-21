@@ -632,6 +632,7 @@ public class PoTexRasch {
 
     //------ (34)
     double delta_10i_0(int i) {
+        System.out.println("delta_10i_0(int i) " + i);
         alfa = this.alfa();
         delta_10i_0 = ((Math.PI - 2 * alfa) / 20) * (i - 10) + alfa;
         return delta_10i_0;
@@ -639,12 +640,13 @@ public class PoTexRasch {
 
     //------ (35)
     double sigma_10i_0(int i) {
+        System.out.println("sigma_10i_0(int i) " + i);
         alfa = this.alfa();
         Cdin = this.Cdin(0, 0);
         Fidin = this.Fidin(0, 0);
         double A1 = gamma * this.Fia(0) * Math.cos(alfa);
-        double A2 = Cdin * Math.cos(Fidin) * Math.cos(2 * (Math.PI / 2 - alfa));
-        double A3 = 1 - Math.sin(Fidin) * Math.cos(2 * (Math.PI / 2 - alfa));
+        double A2 = Cdin * Math.cos(Fidin) * Math.cos(2 * (this.delta_10i_0(20) - alfa));
+        double A3 = 1 - Math.sin(Fidin) * Math.cos(2 * (this.delta_10i_0(20) - alfa));
         double A4 = Math.exp(2 * this.delta_10i_0(i) * Math.tan(Fidin));
         sigma_10i_0 = ((A1 + A2) / A3) * A4;
         return sigma_10i_0;

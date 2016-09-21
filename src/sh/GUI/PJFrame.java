@@ -295,13 +295,13 @@ public class PJFrame extends javax.swing.JFrame {
                     circContainer3.add(circBuffer3);
                 }
 //                if ((i == 11 || i == 12) && j != 0) {
-                if ((i >= 11 && i <= 20) && (j != 0)) {
+                if ((i >= 11 && i <= 20) && (j <= 3)) {
 //pX = X * CosA + Y * SinA
 //pY = Y * CosA - X * SinA
                     double xt = x * Math.cos(PoTexRasch.alf()) - y * Math.sin(PoTexRasch.alf());
                     double yt = y * Math.cos(PoTexRasch.alf()) + x * Math.sin(PoTexRasch.alf());
 //                    System.out.println("Math.cos(PoTexRasch.alf()) " + Math.toDegrees(PoTexRasch.alf()));
-                    circBuffer4 = new Ellipse2D.Double(-1 * x / 5 + 900 - 3, y / 5 + 300 - 3, 6, 6);
+                    circBuffer4 = new Ellipse2D.Double(-1 * x + 900 - 3, y + 300 - 3, 6, 6);
                     circContainer4.add(circBuffer4);
                 }
 //                if ((i == 21 & j == 2) || (i == 22 & j == 3)
