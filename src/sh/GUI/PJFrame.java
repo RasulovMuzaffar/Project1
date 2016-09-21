@@ -301,7 +301,7 @@ public class PJFrame extends javax.swing.JFrame {
                     double xt = x * Math.cos(PoTexRasch.alf()) - y * Math.sin(PoTexRasch.alf());
                     double yt = y * Math.cos(PoTexRasch.alf()) + x * Math.sin(PoTexRasch.alf());
 //                    System.out.println("Math.cos(PoTexRasch.alf()) " + Math.toDegrees(PoTexRasch.alf()));
-                    circBuffer4 = new Ellipse2D.Double(-1*x/5 + 900 - 3, y/5 + 300 - 3, 6, 6);
+                    circBuffer4 = new Ellipse2D.Double(-1 * x / 5 + 900 - 3, y / 5 + 300 - 3, 6, 6);
                     circContainer4.add(circBuffer4);
                 }
 //                if ((i == 21 & j == 2) || (i == 22 & j == 3)
