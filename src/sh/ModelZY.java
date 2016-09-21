@@ -35,9 +35,9 @@ public class ModelZY {
     @Override
     public String toString() {
 //        return "{" + "z=" + z + ", y=" + y + ", sigma=" + sigma + ", delta=" + delta + ", Cdin=" + Cdin + ", Fidin=" + Fidin + "}";
-//        return "{" + z + ", " + y + ", " + sigma + ", " + delta + ", " + Cdin + ", " + Fidin + "}";
+        return "{" + z + ", " + y + ", " + sigma + ", " + delta + ", " + Cdin + ", " + Fidin + "}";
 //        return "{" + z + ", " + y + ", " + sigma + ", " + delta + "}";
-        return "{" + z + ", " + y + "}";
+//        return "{" + z + ", " + y + "}";
     }
 
     public double getZ() {

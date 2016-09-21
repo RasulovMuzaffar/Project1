@@ -322,7 +322,7 @@ public class PJFrame extends javax.swing.JFrame {
                 }
 
                 if (i > 20 && i - j == 20) {
-                    circBuffer6 = new Ellipse2D.Double( x + 900 - 3, y + 300 - 3, 6, 6);
+                    circBuffer6 = new Ellipse2D.Double(-1 * x + 900 - 3, y + 300 - 3, 6, 6);
                     circContainer6.add(circBuffer6);
                 }
             }
