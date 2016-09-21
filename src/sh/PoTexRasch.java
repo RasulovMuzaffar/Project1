@@ -645,8 +645,8 @@ public class PoTexRasch {
         Cdin = this.Cdin(0, 0);
         Fidin = this.Fidin(0, 0);
         double A1 = gamma * this.Fia(0) * Math.cos(alfa);
-        double A2 = Cdin * Math.cos(Fidin) * Math.cos(2 * (this.delta_10i_0(20) - alfa));
-        double A3 = 1 - Math.sin(Fidin) * Math.cos(2 * (this.delta_10i_0(20) - alfa));
+        double A2 = Cdin * Math.cos(Fidin) * Math.cos(2 * (this.delta_10i_0(10) - alfa));
+        double A3 = 1 - Math.sin(Fidin) * Math.cos(2 * (this.delta_10i_0(10) - alfa));
         double A4 = Math.exp(2 * this.delta_10i_0(i) * Math.tan(Fidin));
         sigma_10i_0 = ((A1 + A2) / A3) * A4;
         return sigma_10i_0;
@@ -727,16 +727,18 @@ public class PoTexRasch {
             zyM[i][j] = zy;
             /////////////////////////////////////////
 //
-        } else if ((i >= 11 && i <= 20) && j == 0) { //0 даги барча нукталар (10:0 ---->> 20:0) учун z, y, sigma, delta ларни аниклаймиз
+        } else if ((i >= 10 && i <= 20) && j == 0) { //0 даги барча нукталар (10:0 ---->> 20:0) учун z, y, sigma, delta ларни аниклаймиз
             zy.setZ(0);
             zy.setY(0);
             zy.setCdin(p.Cdin(0, 0));
             zy.setFidin(p.Fidin(0, 0));
+//            zy.setSigma(p.sigma(0,0));
+//            zy.setDelta(p.delta(0, 0));
             zy.setSigma(p.sigma_10i_0(i));
             zy.setDelta(p.delta_10i_0(i));
             zyM[i][j] = zy;
 //        } else if ((i >= 11 && i <= 20) && j != 0) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
-        } else if ((i >= 11 && i <= 20) && j != 0) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
+        } else if ((i >= 11 && i <= 20)&& j != 0) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
             Fidin = p.Fidin(z1z, z1y);
@@ -751,21 +753,40 @@ public class PoTexRasch {
             zy.setCdin(Cdin);
             zy.setFidin(Fidin);
             zyM[i][j] = zy;
-//        } else if (i > 20 && i - j < 20) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
-////            System.out.println("[i : j] [" + i + " : " + j + "]");
-//
-//            z1z = p.z1z(i, j);
-//            z1y = p.z1y(i, j);
-//            deltaij = p.deltaij(i, j);
-//            sigmaij = p.sigmaij(i, j);
-//
-//            zy.setZ(z1z);
-//            zy.setY(z1y);
-//            zy.setSigma(sigmaij);
-//            zy.setDelta(deltaij);
-//            zy.setCdin(Cdin);
-//            zy.setFidin(Fidin);
-//            zyM[i][j] = zy;
+        } else if (i > 20 && i - j < 20) { //А30А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
+//            System.out.println("[i : j] [" + i + " : " + j + "]");
+
+            z1z = p.z1z(i, j);
+            z1y = p.z1y(i, j);
+            Fidin = p.Fidin(z1z, z1y);
+            Cdin = p.Cdin(z1z, z1y);
+            deltaij = p.deltaij(i, j);
+            sigmaij = p.sigmaij(i, j);
+
+            zy.setZ(z1z);
+            zy.setY(z1y);
+            zy.setSigma(sigmaij);
+            zy.setDelta(deltaij);
+            zy.setCdin(Cdin);
+            zy.setFidin(Fidin);
+            zyM[i][j] = zy;
+            } else if (i > 20 && i - j == 20) { //0А3 кесмадаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
+//            21,1; 22,2; 23,3; 24,4; 25,5; 26,6; 27,7; 28,8; 29,9; 30,10
+
+            z1z = 0;
+            z1y = p.z1y(i, j);            
+            Fidin = p.Fidin(z1z, z1y);
+            Cdin = p.Cdin(z1z, z1y);
+            deltaij = Math.PI/2;
+            sigmaij = p.sigmaij(i, j);
+
+            zy.setZ(z1z);
+            zy.setY(z1y);
+            zy.setSigma(sigmaij);
+            zy.setDelta(deltaij);
+            zy.setCdin(Cdin);
+            zy.setFidin(Fidin);
+            zyM[i][j] = zy;
         } else { //матрицани колган кисмини хозирча 0га тулдирамиз
             zy.setZ(0);
             zy.setY(0);

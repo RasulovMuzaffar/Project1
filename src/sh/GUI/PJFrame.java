@@ -295,7 +295,7 @@ public class PJFrame extends javax.swing.JFrame {
                     circContainer3.add(circBuffer3);
                 }
 //                if ((i == 11 || i == 12) && j != 0) {
-                if ((i >= 11 && i <= 20) && (j <= 3)) {
+                if ((i >= 11 && i <= 20) && (j != 0)) {
 //pX = X * CosA + Y * SinA
 //pY = Y * CosA - X * SinA
                     double xt = x * Math.cos(PoTexRasch.alf()) - y * Math.sin(PoTexRasch.alf());
@@ -312,19 +312,19 @@ public class PJFrame extends javax.swing.JFrame {
 //                        || (i == 27 & j == 8)
 //                        || (i == 28 & j == 9)
 //                        || (i == 29 & j == 10)) {
-////                if (i > 20 && i - j < 20) {
-//                    double xt = x * Math.cos(PoTexRasch.alf()) - y * Math.sin(PoTexRasch.alf());
-//                    double yt = y * Math.cos(PoTexRasch.alf()) + x * Math.sin(PoTexRasch.alf());
-////                    System.out.println("Math.cos(PoTexRasch.alf()) " + Math.toDegrees(PoTexRasch.alf()));
-//                    circBuffer5 = new Ellipse2D.Double(-1 * (xt) + 900 - 3, (yt) + 300 - 3, 6, 6);
-////                    circBuffer5 = new Ellipse2D.Double(x + 900 - 3, y + 300 - 3, 6, 6);
-//                    circContainer5.add(circBuffer5);
-//                }
+                if (i > 20 && i - j < 20) {
+                    double xt = x * Math.cos(PoTexRasch.alf()) - y * Math.sin(PoTexRasch.alf());
+                    double yt = y * Math.cos(PoTexRasch.alf()) + x * Math.sin(PoTexRasch.alf());
+//                    System.out.println("Math.cos(PoTexRasch.alf()) " + Math.toDegrees(PoTexRasch.alf()));
+                    circBuffer5 = new Ellipse2D.Double(-1 * x + 900 - 3, y + 300 - 3, 6, 6);
+//                    circBuffer5 = new Ellipse2D.Double(x + 900 - 3, y + 300 - 3, 6, 6);
+                    circContainer5.add(circBuffer5);
+                }
 
-//                if (i + j == 15) {
-//                    circBuffer4 = new Ellipse2D.Double((PoTexRasch.zyM[i][j].getZ() * 50) + 300, (PoTexRasch.zyM[i][j].getY() * 50) + 300, 6, 6);
-//                    circContainer4.add(circBuffer4);
-//                }
+                if (i > 20 && i - j == 20) {
+                    circBuffer6 = new Ellipse2D.Double( x + 900 - 3, y + 300 - 3, 6, 6);
+                    circContainer6.add(circBuffer6);
+                }
             }
         }
         for (int i = 0; i < circContainer.size(); i++) {
@@ -350,10 +350,10 @@ public class PJFrame extends javax.swing.JFrame {
             g.setColor(Color.GREEN);
             g.draw(circContainer5.get(i));
         }
-//        for (int i = 0; i < circContainer6.size(); i++) {
-//            g.setColor(Color.magenta);
-//            g.draw(circContainer6.get(i));
-//        }
+        for (int i = 0; i < circContainer6.size(); i++) {
+            g.setColor(Color.magenta);
+            g.draw(circContainer6.get(i));
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
