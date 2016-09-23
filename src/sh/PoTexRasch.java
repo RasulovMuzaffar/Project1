@@ -110,6 +110,10 @@ public class PoTexRasch {
     static double Hi1j;
     static double sigmaij;
     static double deltaij;
+    
+    
+    static double z3z;
+    static double z3y;
     //
 
     static ModelIJ[][] ij = new ModelIJ[1][10];
@@ -644,16 +648,97 @@ public class PoTexRasch {
         alfa = this.alfa();
         Cdin = this.Cdin(0, 0);
         Fidin = this.Fidin(0, 0);
-        double A1 = gamma * this.Fia(0) * Math.cos(alfa);
-        double A2 = Cdin * Math.cos(Fidin) * Math.cos(2 * (this.delta_10i_0(10) - alfa));
-        double A3 = 1 - Math.sin(Fidin) * Math.cos(2 * (this.delta_10i_0(10) - alfa));
+        double A1 = gamma * this.Fia(a) * Math.cos(alfa);
+        double A2 = Cdin * Math.cos(Fidin) * Math.cos(2 * (this.delta_10i_0(20) - alfa));
+        double A3 = 1 - Math.sin(Fidin) * Math.cos(2 * (this.delta_10i_0(20) - alfa));
         double A4 = Math.exp(2 * this.delta_10i_0(i) * Math.tan(Fidin));
         sigma_10i_0 = ((A1 + A2) / A3) * A4;
         return sigma_10i_0;
     }
+
+//Находим Правый край!! 3 области
+    double z3y(int i, int j) {
+        return (zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getDelta() - 0.25 * Math.PI + 0.5 * zyM[i - 1][j].getFidin()) + 0)
+                / Math.tan(zyM[i - 1][j].getDelta() - 0.25 * Math.PI + 0.5 * zyM[i - 1][j].getFidin());
+    }
+//    //----- 49 формула Ф(i-1, j)
+
+    double Fi1j3(int i, int j) {
+        n = this.n("P");
+        delta1_0 = this.delta1_0();
+        b0 = this.b0();
+
+        return K * A0 * Math.exp(n * zyM[i - 1][j].getZ() - delta1_0
+                * (zyM[i - 1][j].getY() + 0.5 * b0) + 1.35 * delta1_0
+                + Math.abs(n) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY()) * Math.tan(alfa1) - K * this.Azy(i - 1, j));
+    }
+//
+
+//    //----- 50 формула B(i-1, j)
+    double Hi1j3(int i, int j) {
+        n = this.n("P");
+        delta1_0 = this.delta1_0();
+        b0 = this.b0();
+//
+
+        return Math.exp(n * zyM[i - 1][j].getZ() - delta1_0
+                * (zyM[i - 1][j].getY() + 0.5 * b0) + 1.35 * delta1_0
+                + Math.abs(n) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY()) * Math.tan(alfa1));
+    }
+//
+
+//    //----- 47 формула B(i-1, j)
+    double Bi1j3(int i, int j) {
+        n = this.n("P");
+        delta1_0 = this.delta1_0();
+
+        return 0.15 * gamma * this.Hi1j3(i, j) * A0 / 439 - this.Fi1j(i, j)
+                * ((delta1_0 - Math.abs(n) * 0.667 * this.Fihi_j(zyM[i - 1][j].getY())
+                * Math.tan(alfa1)) * Math.sin(2 * zyM[i - 1][j].getDelta())
+                + n * Math.cos(2 * zyM[i - 1][j].getDelta()))
+                * (Fist * Kfi * (zyM[i - 1][j].getSigma() * Math.cos(zyM[i - 1][j].getFidin())
+                - zyM[i][j - 1].getCdin() * Math.sin(zyM[i - 1][j].getFidin()))
+                + Cst * Kc * Math.cos(zyM[i - 1][j].getFidin()));
+    }
+//
+//
+//    //----- 48 формула D(i-1, j)
+
+    double Di1j3(int i, int j) {
+        n = this.n("P");
+        delta1_0 = this.delta1_0();
+
+        return 0.04 * gamma * this.Hi1j3(i, j) * A0 / 439 + this.Fi1j(i, j)
+                * (n * Math.sin(2 * zyM[i - 1][j].getDelta())
+                - (delta1_0 - this.Fihi_j(zyM[i - 1][j].getY()) * Math.abs(n) * 0.667
+                * Math.tan(alfa1)) * Math.cos(2 * zyM[i - 1][j].getDelta()))
+                * (Fist * Kfi * (zyM[i - 1][j].getSigma() * Math.cos(zyM[i - 1][j].getFidin())
+                - zyM[i - 1][j].getCdin() * Math.sin(zyM[i - 1][j].getFidin()))
+                + Cst * Kc * Math.cos(zyM[i - 1][j].getFidin()));
+    }
+//
+//    //----- 40 формулалар асосида топилди
+
+    double sigmaij3(int i, int j) {
+
+        return zyM[i - 1][j].getSigma() - this.W3(i, j)
+                - 2 * (zyM[i - 1][j].getSigma() * Math.tan(zyM[i - 1][j].getFidin()) + zyM[i - 1][j].getCdin())
+                * (zyM[i - 1][j].getDelta() - Math.PI / 2);
+    }
+//
+
+//
+//    //------ 42 тенгламанинг унг кисми
+    double W3(int i, int j) {
+        return (gamma + this.Bi1j3(i, j)) * ((zyM[i - 1][j].getZ() - 0) - (zyM[i - 1][j].getY() - z1y) * Math.tan(zyM[i - 1][j].getFidin()))
+                + this.Di1j3(i, j) * ((zyM[i - 1][j].getY() - z1y) + (zyM[i - 1][j].getZ() - 0) * Math.tan(zyM[i - 1][j].getFidin()));
+
+//        return (gamma + this.Bi1j(i, j)) * ((zyM[i - 1][j].getZ() - this.z1z(i, j)) - (zyM[i - 1][j].getY() - this.z1y(i, j)) * Math.tan(zyM[i - 1][j].getFidin()))
+//                + this.Di1j(i, j) * ((zyM[i - 1][j].getY() - this.z1y(i, j)) + (zyM[i - 1][j].getZ() - this.z1z(i, j)) * Math.tan(zyM[i - 1][j].getFidin()));
+    }
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////По указанию Шавката
-
     public static void ZY(int i, int j) {
         PoTexRasch p = new PoTexRasch();
         ModelZY zy = new ModelZY();
@@ -753,54 +838,53 @@ public class PoTexRasch {
             zy.setCdin(Cdin);
             zy.setFidin(Fidin);
             zyM[i][j] = zy;
-            
-        }else if((i==21 && j==1) || (i==22 && j==2)|| (i==23 && j==3)){
-//        } else if (i > 20 && i - j == 20) { //0А3 кесмадаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
+
+//        } else if ((i == 21 && j == 1) || (i == 22 && j == 2) || (i == 23 && j == 3)) {
+        } else if (i > 20 && i - j == 20) { //0А3 кесмадаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
 //            21,1; 22,2; 23,3; 24,4; 25,5; 26,6; 27,7; 28,8; 29,9; 30,10
 
-            z1z = 0;
-            z1y = p.z1y(i, j);
+            z3z = 0;
+            z3y = p.z3y(i, j);
             Fidin = p.Fidin(z1z, z1y);
-            Cdin = p.Cdin(z1z, z1y);
+            Cdin = p.Cdin(z3z, z3y);
             deltaij = Math.PI / 2;
-            sigmaij = p.sigmaij(i, j);
+            sigmaij = p.sigmaij3(i, j);
 
-            zy.setZ(z1z);
-            zy.setY(z1y);
+            zy.setZ(z3z);
+            zy.setY(z3y);
             zy.setSigma(sigmaij);
             zy.setDelta(deltaij);
             zy.setCdin(Cdin);
             zy.setFidin(Fidin);
             zyM[i][j] = zy;
 
-//        } else if (i > 20 && i - j < 20) { //А30А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
-        } else if ((i == 21 && j == 2) 
-                || (i == 21 && j == 3)
-                || (i == 21 && j == 4)
-                || (i == 21 && j == 5)
-                || (i == 21 && j == 6)
-                || (i == 21 && j == 7)
-                || (i == 21 && j == 8)
-                || (i == 21 && j == 9)
-                || (i == 21 && j == 10)
-                || (i == 22 && j == 2)
-                || (i == 22 && j == 3)
-                || (i == 22 && j == 4)
-                || (i == 22 && j == 5)
-                || (i == 22 && j == 6)
-                || (i == 22 && j == 7)
-                || (i == 22 && j == 8)
-                || (i == 22 && j == 9)
-                || (i == 22 && j == 10)
-                || (i == 23 && j == 2)
-                || (i == 23 && j == 3)
-                || (i == 23 && j == 4)
-                || (i == 23 && j == 5)
-                || (i == 23 && j == 6)
-                || (i == 23 && j == 7)
-                || (i == 23 && j == 8)
-                || (i == 23 && j == 9)
-                || (i == 23 && j == 10)) { //А30А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
+        } else if (i > 20 && i - j < 20) { //А30А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
+//        } else if ((i == 21 && j == 2)
+//                || (i == 21 && j == 3)
+//                || (i == 21 && j == 4)
+//                || (i == 21 && j == 5)
+//                || (i == 21 && j == 6)
+//                || (i == 21 && j == 7)
+//                || (i == 21 && j == 8)
+//                || (i == 21 && j == 9)
+//                || (i == 21 && j == 10)
+//                || (i == 22 && j == 2)
+//                || (i == 22 && j == 3)
+//                || (i == 22 && j == 4)
+//                || (i == 22 && j == 5)
+//                || (i == 22 && j == 6)
+//                || (i == 22 && j == 7)
+//                || (i == 22 && j == 8)
+//                || (i == 22 && j == 9)
+//                || (i == 22 && j == 10)
+//                || (i == 23 && j == 3)
+//                || (i == 23 && j == 4)
+//                || (i == 23 && j == 5)
+//                || (i == 23 && j == 6)
+//                || (i == 23 && j == 7)
+//                || (i == 23 && j == 8)
+//                || (i == 23 && j == 9)
+//                || (i == 23 && j == 10)) { //А30А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
 //            Внутренные точки 3й области
 
             z1z = p.z1z(i, j);
