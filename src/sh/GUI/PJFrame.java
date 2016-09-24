@@ -281,10 +281,13 @@ public class PJFrame extends javax.swing.JFrame {
         coordBuffer = new Line2D.Double(900, 200, 900, 600);
         coordinates.add(coordBuffer);
         //////////////
+
+        System.out.println("-----b0--- " + PoTexRasch.B0());
+        System.out.println("-----l--- " + PoTexRasch.zyM[30][10].getY());
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
-                double x = PoTexRasch.zyM[i][j].getY() * 200;
-                double y = PoTexRasch.zyM[i][j].getZ() * 200;
+                double x = PoTexRasch.zyM[i][j].getY() * 500;
+                double y = PoTexRasch.zyM[i][j].getZ() * 500;
                 if (i + j == 10) {
                     circBuffer = new Ellipse2D.Double(-1 * x + 900 - 3, y + 300 - 3, 6, 6);
                     circContainer.add(circBuffer);

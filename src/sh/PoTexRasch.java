@@ -81,6 +81,7 @@ public class PoTexRasch {
     //Глава 3
     static double sigma; //напряжения
     static double gamma; //= 1.85 Объемный вес грунта на откосе;
+    static double gamma_b=1.65; //= 1.65 Объемный вес балласта;
     static double delta;
     double Fia;
     double C;
@@ -110,8 +111,7 @@ public class PoTexRasch {
     static double Hi1j;
     static double sigmaij;
     static double deltaij;
-    
-    
+
     static double z3z;
     static double z3y;
     //
@@ -159,7 +159,10 @@ public class PoTexRasch {
 //
 //////////////глава 1.4 Угол заложения расчетного откоса
 //    //----(11)----
-
+public static double B0(){
+    PoTexRasch p = new PoTexRasch();
+    return p.b0();
+}
     public static double alf() {
         PoTexRasch p = new PoTexRasch();
         return p.alfa();
@@ -221,25 +224,30 @@ public class PoTexRasch {
 //
 //    /////////////////end главы 3
 //    ////////////глава 1.5 Учет пригрузки, действующей на расчетную поверхность откоса
-//    //----(13)----
 
+    double alfa2() {
+        a = this.a_1p();
+        return Math.atan(h_b / a);
+    }
+
+//    //----(13)----
     double Fia(double y) {
         a = this.a_1p();
-        if (y <= a) {
-            Fia = y * Math.tan(alfa);
-        } else if (a < y && y <= a + h_nas / Math.tan(alfa1)) {
-            Fia = y * (Math.tan(alfa) - Math.tan(alfa1)) + a * Math.tan(alfa1);
-        } else if (y > a + h_nas / Math.tan(alfa1)) {
-            Fia = 0;
-        }
-
-//        if (y > a + h_nas / Math.tan(alfa1)) {
+//        if (y <= a) {
+//            Fia = y * Math.tan(alfa);
+//        } else if (a < y && y <= a + h_nas / Math.tan(alfa1)) {
+//            Fia = y * (Math.tan(alfa) - Math.tan(alfa1)) + a * Math.tan(alfa1);
+//        } else if (y > a + h_nas / Math.tan(alfa1)) {
 //            Fia = 0;
-//        } else if (a < y && y < h_nas / Math.tan(alfa1)) {
-//            Fia = gamma * y * (Math.tan(alfa) - Math.tan(alfa1)) + gamma * a * Math.tan(alfa1);
-//        } else if (y < a) {
-//            Fia = gamma * y * Math.tan(alfa);
 //        }
+
+        if (y > a + h_nas / Math.tan(alfa1)) {
+            Fia = 0;
+        } else if (a < y && y <= a + h_nas / Math.tan(alfa1)) {
+            Fia = gamma * y * (Math.tan(alfa) - Math.tan(alfa1)) + gamma * a * Math.tan(alfa);
+        } else if (y <= a) {
+            Fia = gamma_b * (h_b - y * Math.tan(this.alfa2())) + gamma * a * Math.tan(alfa);
+        }
 //        System.out.println("Fia ------>>>> y ---> " + y + " ----- " + Fia);
         return Fia;
     }
@@ -644,15 +652,19 @@ public class PoTexRasch {
 
     //------ (35)
     double sigma_10i_0(int i) {
-        System.out.println("sigma_10i_0(int i) " + i);
+//        System.out.println("sigma_10i_0(int i) " + i);
         alfa = this.alfa();
         Cdin = this.Cdin(0, 0);
         Fidin = this.Fidin(0, 0);
-        double A1 = gamma * this.Fia(a) * Math.cos(alfa);
-        double A2 = Cdin * Math.cos(Fidin) * Math.cos(2 * (this.delta_10i_0(20) - alfa));
-        double A3 = 1 - Math.sin(Fidin) * Math.cos(2 * (this.delta_10i_0(20) - alfa));
-        double A4 = Math.exp(2 * this.delta_10i_0(i) * Math.tan(Fidin));
-        sigma_10i_0 = ((A1 + A2) / A3) * A4;
+//        double A1 = gamma * this.Fia(a) * Math.cos(alfa);
+//        double A2 = Cdin * Math.cos(Fidin) * Math.cos(2 * (this.delta_10i_0(20) - alfa));
+//        double A3 = 1 - Math.sin(Fidin) * Math.cos(2 * (this.delta_10i_0(20) - alfa));
+//        double A4 = Math.exp(2 * this.delta_10i_0(i) * Math.tan(Fidin));
+//        sigma_10i_0 = ((A1 + A2) / A3) * A4;
+
+        sigma_10i_0 = 2 * Cdin * (this.delta_10i_0(i) - this.delta_10i_0(10))
+                + (Cdin * Math.cos(Fidin) / (1 - Math.sin(Fidin)))
+                * Math.exp(2 * (this.delta_10i_0(i) - this.delta_10i_0(10)) * Math.tan(Fidin));
         return sigma_10i_0;
     }
 
