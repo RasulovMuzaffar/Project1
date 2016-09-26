@@ -83,6 +83,8 @@ public class PJFrame extends javax.swing.JFrame {
         _Fist = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         _h_b = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        _E = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -122,6 +124,10 @@ public class PJFrame extends javax.swing.JFrame {
 
         _h_b.setText("0.35");
 
+        jLabel4.setText("E");
+
+        _E.setText("0.001");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -134,9 +140,9 @@ public class PJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(_m, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                    .addComponent(_m, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                     .addComponent(_h_nas, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(_h_b, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                    .addComponent(_h_b, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                     .addComponent(_b_pl, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -152,7 +158,11 @@ public class PJFrame extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(_gamma, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                             .addComponent(_Cst))))
-                .addContainerGap(580, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(_E, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(436, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +171,9 @@ public class PJFrame extends javax.swing.JFrame {
                     .addComponent(_m, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(m)
                     .addComponent(jLabel2)
-                    .addComponent(_Fist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(_Fist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(_E, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(_h_nas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,7 +244,8 @@ public class PJFrame extends javax.swing.JFrame {
                 Double.parseDouble(_gamma.getText()),
                 Double.parseDouble(_Cst.getText()),
                 Double.parseDouble(_Fist.getText()),
-                Double.parseDouble(_h_b.getText()));
+                Double.parseDouble(_h_b.getText()),
+                Double.parseDouble(_E.getText()));
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
                 PoTexRasch.ZY(i, j);
@@ -244,6 +257,17 @@ public class PJFrame extends javax.swing.JFrame {
                 System.out.print(" " + i + ":" + j + " " + PoTexRasch.zyM[i][j].toString());
             }
             System.out.println("");
+        }
+        double d1 = 0.5 * (PoTexRasch.zyM[0][10].getDelta() + PoTexRasch.zyM[1][10].getDelta());
+        double d2 = 0.5 * (PoTexRasch.zyM[1][9].getDelta() + PoTexRasch.zyM[1][10].getDelta());
+        
+        if (PoTexRasch.zyM[1][10].getDelta() - d1 <= Double.parseDouble(_E.getText())) {
+            System.out.println("E = " + Double.parseDouble(_E.getText()));
+            System.out.println("PoTexRasch.zyM[1][10].getDelta()-d<=Double.parseDouble(_E.getText()) = " + (PoTexRasch.zyM[0][10].getDelta() - d1));
+        }
+        if (PoTexRasch.zyM[1][9].getDelta() - d2 <= Double.parseDouble(_E.getText())) {
+            System.out.println("E = " + Double.parseDouble(_E.getText()));
+            System.out.println("PoTexRasch.zyM[1][9].getDelta()-d<=Double.parseDouble(_E.getText()) = " + (PoTexRasch.zyM[1][9].getDelta() - d2));
         }
         //------Рисуем------
         g = (Graphics2D) jPanel1.getGraphics();
@@ -467,6 +491,7 @@ public class PJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField _Cst;
+    private javax.swing.JTextField _E;
     private javax.swing.JTextField _Fist;
     private javax.swing.JTextField _b_pl;
     private javax.swing.JTextField _gamma;
@@ -481,6 +506,7 @@ public class PJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel m;
     // End of variables declaration//GEN-END:variables

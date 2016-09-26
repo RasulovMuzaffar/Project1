@@ -17,7 +17,6 @@ public class PoTexRasch {
     //По указанию Шавката
     static double z; //
     static double y; //
-
     //По указанию Шавката
     //Пункт 1.1
     double A0 = 442; //Результирующая амплитуда колебаний грунтов основной площадки;
@@ -25,7 +24,7 @@ public class PoTexRasch {
     double Ay; //Амплитуда горизонтальных колебаний грунтов основной площадки;
     double sigma_bsr; //средние напряжения, передающиеся от шпалы на балласт, Мпа;
     double mju_0; //коэффициент Пуассона земляного полотна;
-    double E; //модуль упругости грунта земляного полотна, Мпа;
+    static double E; //модуль упругости грунта земляного полотна, Мпа;
     double v; //скорость движения поездов, км/ч;
     double Q_shp; //нагрузка от рельса на шпалу;
 //Пункт 1.1
@@ -81,7 +80,7 @@ public class PoTexRasch {
     //Глава 3
     static double sigma; //напряжения
     static double gamma; //= 1.85 Объемный вес грунта на откосе;
-    static double gamma_b=1.65; //= 1.65 Объемный вес балласта;
+    static double gamma_b = 1.65; //= 1.65 Объемный вес балласта;
     static double delta;
     double Fia;
     double C;
@@ -122,7 +121,7 @@ public class PoTexRasch {
     public PoTexRasch() {
     }
 
-    public static void Peremennie(double _m, double _h_nas, double _b_pl, double _gamma, double _Cst, double _Fist, double _h_b) {
+    public static void Peremennie(double _m, double _h_nas, double _b_pl, double _gamma, double _Cst, double _Fist, double _h_b, double _E) {
         m = _m;
         h_nas = _h_nas;
         b_pl = _b_pl;
@@ -130,6 +129,7 @@ public class PoTexRasch {
         Cst = _Cst;
         Fist = Math.toRadians(_Fist);
         h_b = _h_b;
+        E = _E;
     }
 
 //    ////////////глава 1.2 Ширина загружения земляного полотна
@@ -159,10 +159,12 @@ public class PoTexRasch {
 //
 //////////////глава 1.4 Угол заложения расчетного откоса
 //    //----(11)----
-public static double B0(){
-    PoTexRasch p = new PoTexRasch();
-    return p.b0();
-}
+
+    public static double B0() {
+        PoTexRasch p = new PoTexRasch();
+        return p.b0();
+    }
+
     public static double alf() {
         PoTexRasch p = new PoTexRasch();
         return p.alfa();
