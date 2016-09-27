@@ -11,6 +11,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
+import sh.Korrect;
 import sh.ModelZY;
 import sh.PoTexRasch;
 
@@ -258,17 +259,22 @@ public class PJFrame extends javax.swing.JFrame {
             }
             System.out.println("");
         }
-        double d1 = 0.5 * (PoTexRasch.zyM[0][10].getDelta() + PoTexRasch.zyM[1][10].getDelta());
-        double d2 = 0.5 * (PoTexRasch.zyM[1][9].getDelta() + PoTexRasch.zyM[1][10].getDelta());
-        
-        if (PoTexRasch.zyM[1][10].getDelta() - d1 <= Double.parseDouble(_E.getText())) {
-            System.out.println("E = " + Double.parseDouble(_E.getText()));
-            System.out.println("PoTexRasch.zyM[1][10].getDelta()-d<=Double.parseDouble(_E.getText()) = " + (PoTexRasch.zyM[0][10].getDelta() - d1));
-        }
-        if (PoTexRasch.zyM[1][9].getDelta() - d2 <= Double.parseDouble(_E.getText())) {
-            System.out.println("E = " + Double.parseDouble(_E.getText()));
-            System.out.println("PoTexRasch.zyM[1][9].getDelta()-d<=Double.parseDouble(_E.getText()) = " + (PoTexRasch.zyM[1][9].getDelta() - d2));
-        }
+//        Korrect.Korrect(PoTexRasch.k_d0_10(), PoTexRasch.k_d1_9());
+//
+//        for (int i = 0; i < PoTexRasch.zyM.length; i++) {
+//            for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
+//                if (i + j >= 11) {
+//                    System.out.println("DA");
+//                    PoTexRasch.ZY(i, j);
+//                }
+//            }
+//        }
+//        for (int i = 0; i < PoTexRasch.zyM.length; i++) {
+//            for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
+//                System.out.print(" " + i + ":" + j + " " + PoTexRasch.zyM[i][j].toString());
+//            }
+//            System.out.println("");
+//        }
         //------Рисуем------
         g = (Graphics2D) jPanel1.getGraphics();
 
@@ -310,8 +316,8 @@ public class PJFrame extends javax.swing.JFrame {
         System.out.println("-----l--- " + PoTexRasch.zyM[30][10].getY());
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
-                double x = PoTexRasch.zyM[i][j].getY() * 500;
-                double y = PoTexRasch.zyM[i][j].getZ() * 500;
+                double x = PoTexRasch.zyM[i][j].getY() * 300;
+                double y = PoTexRasch.zyM[i][j].getZ() * 300;
                 if (i + j == 10) {
                     circBuffer = new Ellipse2D.Double(-1 * x + 900 - 3, y + 300 - 3, 6, 6);
                     circContainer.add(circBuffer);

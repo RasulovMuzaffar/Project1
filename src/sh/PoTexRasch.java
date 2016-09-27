@@ -646,7 +646,7 @@ public class PoTexRasch {
 
     //------ (34)
     double delta_10i_0(int i) {
-        System.out.println("delta_10i_0(int i) " + i);
+//        System.out.println("delta_10i_0(int i) " + i);
         alfa = this.alfa();
         delta_10i_0 = ((Math.PI - 2 * alfa) / 20) * (i - 10) + alfa;
         return delta_10i_0;
@@ -757,13 +757,10 @@ public class PoTexRasch {
         PoTexRasch p = new PoTexRasch();
         ModelZY zy = new ModelZY();
 
-//        System.out.println("alfa - >> " + Math.toDegrees(p.alfa()));
-//        System.out.println("alfa1 - >> " + Math.toDegrees(alfa1));
         if (i + j == 10) {  //А0 кесма учун z, y, sigma, delta ларни аниклаймиз
             z = (j * p.b0() / 10) * Math.sin(p.alfa());
             y = (j * p.b0() / 10) * Math.cos(p.alfa());
 
-//            System.out.println("z = " + z + " : " + " y = " + y);
             sigma = p.sigma(z, y);
             delta = p.delta(z, y);
             zy.setZ(z);
@@ -774,56 +771,67 @@ public class PoTexRasch {
             zy.setFidin(Fidin);
             zyM[i][j] = zy;
 
-//        } else if ((i == 10 && j == 1)
-//                || (i == 9 && j == 2)
-//                || (i == 8 && j == 3)
-//                || (i == 7 && j == 4)
-//                || (i == 6 && j == 5)
-//                || (i == 5 && j == 6)
-//                || (i == 4 && j == 7)
-//                || (i == 3 && j == 8)
-//                || (i == 2 && j == 9)
-//                || (i == 1 && j == 10)) {
-        } else if ((i + j > 10) && (i <= 10 && j <= 10)) { //А0А1 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
-            z1z = p.z1z(i, j);
-            z1y = p.z1y(i, j);
-            Fidin = p.Fidin(z1z, z1y);
-            Cdin = p.Cdin(z1z, z1y);
-            deltaij = p.deltaij(i, j);
-            sigmaij = p.sigmaij(i, j);
-
-            zy.setZ(z1z);
-            zy.setY(z1y);
-            zy.setSigma(sigmaij);
-            zy.setDelta(deltaij);
-            zy.setCdin(Cdin);
-            zy.setFidin(Fidin);
-            zyM[i][j] = zy;
+//        } else if ((i + j > 10) && (i <= 10 && j <= 10)) { //А0А1 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
+//            z1z = p.z1z(i, j);
+//            z1y = p.z1y(i, j);
+//            Fidin = p.Fidin(z1z, z1y);
+//            Cdin = p.Cdin(z1z, z1y);
+//            deltaij = p.deltaij(i, j);
+//            sigmaij = p.sigmaij(i, j);
+//
+//            zy.setZ(z1z);
+//            zy.setY(z1y);
+//            zy.setSigma(sigmaij);
+//            zy.setDelta(deltaij);
+//            zy.setCdin(Cdin);
+//            zy.setFidin(Fidin);
+//            zyM[i][j] = zy;
             /////////////////////////////////////////
-//        } else if ((i == 2 && j == 10)
-//                || (i == 3 && j == 9)
-//                || (i == 4 && j == 8)
-//                || (i == 5 && j == 7)
-//                || (i == 6 && j == 6)
-//                || (i == 7 && j == 5)
-//                || (i == 8 && j == 4)
-//                || (i == 9 && j == 3)
-//                || (i == 10 && j == 2)) {
         } else if ((i + j > 10) && (i <= 10 && j <= 10)) { //А0А1 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
-            z1z = p.z1z(i, j);
-            z1y = p.z1y(i, j);
-            Fidin = p.Fidin(z1z, z1y);
-            Cdin = p.Cdin(z1z, z1y);
-            deltaij = p.deltaij(i, j);
-            sigmaij = p.sigmaij(i, j);
+            int kkk = 0;
+            do {
+                z1z = p.z1z(i, j);
+                z1y = p.z1y(i, j);
+                Fidin = p.Fidin(z1z, z1y);
+                Cdin = p.Cdin(z1z, z1y);
+                deltaij = p.deltaij(i, j);
+                sigmaij = p.sigmaij(i, j);
+                System.out.println("111111 >>> " + i);
+                System.out.println("222222 >>> " + j);
+                System.out.println("333333 >>> " + deltaij);
 
-            zy.setZ(z1z);
-            zy.setY(z1y);
-            zy.setSigma(sigmaij);
-            zy.setDelta(deltaij);
-            zy.setCdin(Cdin);
-            zy.setFidin(Fidin);
-            zyM[i][j] = zy;
+                double deltai1j = p.k_di1j(i, j, deltaij);
+                double deltaij1 = p.k_dij1(i, j, deltaij);
+                System.out.println("deltai1j ------------ " + deltai1j);
+                System.out.println("deltaij1 ------------ " + deltaij1);
+
+                double d = p.deltaij(i, j);
+                System.out.println("dddddd >>> " + d);
+                double ddd = deltaij - d;
+                System.out.println("deltaij - d " + ddd);
+                System.out.println(E >= deltaij - d);
+                if (E >= deltaij - d) {
+
+                    z1z = p.z1z(i, j);
+                    z1y = p.z1y(i, j);
+                    Fidin = p.Fidin(z1z, z1y);
+                    Cdin = p.Cdin(z1z, z1y);
+                    deltaij = p.deltaij(i, j);
+                    System.out.println("444444 >>> " + deltaij);
+                    sigmaij = p.sigmaij(i, j);
+
+                    zy.setZ(z1z);
+                    zy.setY(z1y);
+                    zy.setSigma(sigmaij);
+                    zy.setDelta(deltaij);
+                    zy.setCdin(Cdin);
+                    zy.setFidin(Fidin);
+                    zyM[i][j] = zy;
+                    break;
+                }
+                kkk++;
+                System.out.println("kkk >>>>> " + kkk);
+            } while (kkk < 20);
             /////////////////////////////////////////
 //
         } else if ((i >= 10 && i <= 20) && j == 0) { //0 даги барча нукталар (10:0 ---->> 20:0) учун z, y, sigma, delta ларни аниклаймиз
@@ -836,7 +844,6 @@ public class PoTexRasch {
             zy.setSigma(p.sigma_10i_0(i));
             zy.setDelta(p.delta_10i_0(i));
             zyM[i][j] = zy;
-//        } else if ((i >= 11 && i <= 20) && j != 0) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
         } else if ((i >= 11 && i <= 20) && j != 0) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
@@ -853,10 +860,7 @@ public class PoTexRasch {
             zy.setFidin(Fidin);
             zyM[i][j] = zy;
 
-//        } else if ((i == 21 && j == 1) || (i == 22 && j == 2) || (i == 23 && j == 3)) {
         } else if (i > 20 && i - j == 20) { //0А3 кесмадаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
-//            21,1; 22,2; 23,3; 24,4; 25,5; 26,6; 27,7; 28,8; 29,9; 30,10
-
             z3z = 0;
             z3y = p.z3y(i, j);
             Fidin = p.Fidin(z1z, z1y);
@@ -873,32 +877,6 @@ public class PoTexRasch {
             zyM[i][j] = zy;
 
         } else if (i > 20 && i - j < 20) { //А30А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
-//        } else if ((i == 21 && j == 2)
-//                || (i == 21 && j == 3)
-//                || (i == 21 && j == 4)
-//                || (i == 21 && j == 5)
-//                || (i == 21 && j == 6)
-//                || (i == 21 && j == 7)
-//                || (i == 21 && j == 8)
-//                || (i == 21 && j == 9)
-//                || (i == 21 && j == 10)
-//                || (i == 22 && j == 2)
-//                || (i == 22 && j == 3)
-//                || (i == 22 && j == 4)
-//                || (i == 22 && j == 5)
-//                || (i == 22 && j == 6)
-//                || (i == 22 && j == 7)
-//                || (i == 22 && j == 8)
-//                || (i == 22 && j == 9)
-//                || (i == 22 && j == 10)
-//                || (i == 23 && j == 3)
-//                || (i == 23 && j == 4)
-//                || (i == 23 && j == 5)
-//                || (i == 23 && j == 6)
-//                || (i == 23 && j == 7)
-//                || (i == 23 && j == 8)
-//                || (i == 23 && j == 9)
-//                || (i == 23 && j == 10)) { //А30А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
 //            Внутренные точки 3й области
 
             z1z = p.z1z(i, j);
@@ -972,4 +950,36 @@ public class PoTexRasch {
 ////        }
 ////    }
 //
+    ///КОРРЕКТИРОВКА
+    public static double k_d0_10() {
+        double d1 = 0.5 * (PoTexRasch.zyM[0][10].getDelta() + PoTexRasch.zyM[1][10].getDelta());
+        return d1;
+    }
+
+    public static double k_d1_9() {
+        double d2 = 0.5 * (PoTexRasch.zyM[1][9].getDelta() + PoTexRasch.zyM[1][10].getDelta());
+        return d2;
+    }
+
+    double k_di1j(int i, int j, double d) {
+        double deltai1j = 0.5 * (PoTexRasch.zyM[i - 1][j].getDelta() + d);
+        System.out.println("deltai1j000000000000");
+        zyM[i - 1][j].setDelta(deltai1j);
+        return deltai1j;
+    }
+
+    double k_dij1(int i, int j, double d) {
+        double deltaij1 = 0.5 * (PoTexRasch.zyM[i][j - 1].getDelta() + d);
+        System.out.println("deltaij111111111111");
+        zyM[i][j - 1].setDelta(deltaij1);
+        return deltaij1;
+    }
+
+    public void Korrect() {
+        double d1 = PoTexRasch.k_d0_10();
+        PoTexRasch.zyM[0][10].setDelta(d1);
+        System.out.println("----------------------");
+        double d2 = PoTexRasch.k_d1_9();
+        PoTexRasch.zyM[1][9].setDelta(d2);
+    }
 }
