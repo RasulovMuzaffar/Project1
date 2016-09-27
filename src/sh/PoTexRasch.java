@@ -615,6 +615,7 @@ public class PoTexRasch {
 //    //----- 40 ва 42 формулалар асосида топилди
 
     double deltaij(int i, int j) {
+        System.out.println("i , j , d : " + i + " , " + j + " , " + zyM[i - 1][j].getDelta());
         deltaij = (this.W(i, j) - this.Q(i, j) - zyM[i - 1][j].getSigma() + zyM[i][j - 1].getSigma()
                 + 2 * (zyM[i][j - 1].getSigma() * Math.tan(zyM[i][j - 1].getFidin()) * zyM[i][j - 1].getDelta()
                 + zyM[i][j - 1].getCdin() * zyM[i][j - 1].getDelta()
@@ -622,6 +623,7 @@ public class PoTexRasch {
                 + zyM[i - 1][j].getCdin() * zyM[i - 1][j].getDelta()))
                 / (2 * (zyM[i][j - 1].getSigma() * Math.tan(zyM[i][j - 1].getFidin()) + zyM[i][j - 1].getCdin()
                 + zyM[i - 1][j].getSigma() * Math.tan(zyM[i - 1][j].getFidin()) + zyM[i - 1][j].getCdin()));
+        System.out.println("i , j , d : " + i + " , " + j + " , " + deltaij);
         return deltaij;
     }
 //
@@ -789,35 +791,37 @@ public class PoTexRasch {
             /////////////////////////////////////////
         } else if ((i + j > 10) && (i <= 10 && j <= 10)) { //А0А1 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
             int kkk = 0;
-            do {
                 z1z = p.z1z(i, j);
                 z1y = p.z1y(i, j);
                 Fidin = p.Fidin(z1z, z1y);
                 Cdin = p.Cdin(z1z, z1y);
                 deltaij = p.deltaij(i, j);
                 sigmaij = p.sigmaij(i, j);
-                System.out.println("111111 >>> " + i);
-                System.out.println("222222 >>> " + j);
-                System.out.println("333333 >>> " + deltaij);
+                double old_d = deltaij;
+            do {
+//                System.out.println("111111 >>> " + i);
+//                System.out.println("222222 >>> " + j);
+//                System.out.println("old_d >>> " + old_d);
 
                 double deltai1j = p.k_di1j(i, j, deltaij);
                 double deltaij1 = p.k_dij1(i, j, deltaij);
-                System.out.println("deltai1j ------------ " + deltai1j);
-                System.out.println("deltaij1 ------------ " + deltaij1);
+//                System.out.println("deltai1j ------------ " + deltai1j);
+//                System.out.println("deltaij1 ------------ " + deltaij1);
 
                 double d = p.deltaij(i, j);
-                System.out.println("dddddd >>> " + d);
-                double ddd = deltaij - d;
-                System.out.println("deltaij - d " + ddd);
-                System.out.println(E >= deltaij - d);
-                if (E >= deltaij - d) {
+//                System.out.println("new_d >>> " + d);
+//                System.out.println("old_d >>> " + old_d + "  new_d >>> " + d);
+                double ddd = old_d - d;
+//                System.out.println("deltaij - d " + ddd);
+                System.out.println(old_d - d);
+                if (E >=  Math.abs(old_d-d)) {
 
                     z1z = p.z1z(i, j);
                     z1y = p.z1y(i, j);
                     Fidin = p.Fidin(z1z, z1y);
                     Cdin = p.Cdin(z1z, z1y);
                     deltaij = p.deltaij(i, j);
-                    System.out.println("444444 >>> " + deltaij);
+//                    System.out.println("444444 >>> " + deltaij);
                     sigmaij = p.sigmaij(i, j);
 
                     zy.setZ(z1z);
@@ -831,7 +835,10 @@ public class PoTexRasch {
                 }
                 kkk++;
                 System.out.println("kkk >>>>> " + kkk);
-            } while (kkk < 20);
+            } while (kkk < 100);
+
+///////////////////////
+////////////////////
             /////////////////////////////////////////
 //
         } else if ((i >= 10 && i <= 20) && j == 0) { //0 даги барча нукталар (10:0 ---->> 20:0) учун z, y, sigma, delta ларни аниклаймиз
