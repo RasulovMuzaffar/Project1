@@ -17,6 +17,8 @@ public class PoTexRasch {
     //По указанию Шавката
     static double z; //
     static double y; //
+    static double old_d;
+    static double new_d;
     //По указанию Шавката
     //Пункт 1.1
     double A0 = 442; //Результирующая амплитуда колебаний грунтов основной площадки;
@@ -408,6 +410,7 @@ public class PoTexRasch {
 //    //----- 39 формула асосида z(i, j)
 
     double z1z(int i, int j) {
+//        System.out.println("z1z - " + zyM[i][j - 1].getDelta());
         z1z = zyM[i][j - 1].getZ() - (zyM[i][j - 1].getY() - this.z1y(i, j))
                 * Math.tan(zyM[i][j - 1].getDelta() + 0.25 * Math.PI - 0.5 * zyM[i][j - 1].getFidin());
         return z1z;
@@ -416,6 +419,7 @@ public class PoTexRasch {
 //    //----- 39 ва 41 формулалар асосида y(i, j)
 
     double z1y(int i, int j) {
+//        System.out.println("z1y - " + zyM[i - 1][j].getDelta());
         double A1, A2;
         A1 = zyM[i - 1][j].getZ() - zyM[i][j - 1].getZ()
                 - zyM[i - 1][j].getY() * Math.tan(zyM[i - 1][j].getDelta() - 0.25 * Math.PI + 0.5 * zyM[i - 1][j].getFidin())
@@ -615,7 +619,7 @@ public class PoTexRasch {
 //    //----- 40 ва 42 формулалар асосида топилди
 
     double deltaij(int i, int j) {
-        System.out.println("i , j , d : " + i + " , " + j + " , " + zyM[i - 1][j].getDelta());
+//        System.out.println("i , j , d : " + i + " , " + j + " , " + zyM[i - 1][j].getDelta());
         deltaij = (this.W(i, j) - this.Q(i, j) - zyM[i - 1][j].getSigma() + zyM[i][j - 1].getSigma()
                 + 2 * (zyM[i][j - 1].getSigma() * Math.tan(zyM[i][j - 1].getFidin()) * zyM[i][j - 1].getDelta()
                 + zyM[i][j - 1].getCdin() * zyM[i][j - 1].getDelta()
@@ -623,7 +627,7 @@ public class PoTexRasch {
                 + zyM[i - 1][j].getCdin() * zyM[i - 1][j].getDelta()))
                 / (2 * (zyM[i][j - 1].getSigma() * Math.tan(zyM[i][j - 1].getFidin()) + zyM[i][j - 1].getCdin()
                 + zyM[i - 1][j].getSigma() * Math.tan(zyM[i - 1][j].getFidin()) + zyM[i - 1][j].getCdin()));
-        System.out.println("i , j , d : " + i + " , " + j + " , " + deltaij);
+//        System.out.println("i , j , d : " + i + " , " + j + " , " + deltaij);
         return deltaij;
     }
 //
@@ -791,47 +795,42 @@ public class PoTexRasch {
             /////////////////////////////////////////
         } else if ((i + j > 10) && (i <= 10 && j <= 10)) { //А0А1 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
             int kkk = 0;
+            z1z = p.z1z(i, j);
+            z1y = p.z1y(i, j);
+            Fidin = p.Fidin(z1z, z1y);
+            Cdin = p.Cdin(z1z, z1y);
+            deltaij = p.deltaij(i, j);
+            sigmaij = p.sigmaij(i, j);
+//            System.out.println("zyfcds " + z1z + " " + z1y + " " + Fidin + " " + Cdin + " " + deltaij + " " + sigmaij);
+            old_d = deltaij;
+            p.k_di1j(i, j, old_d);
+            p.k_dij1(i, j, old_d);
+            do {
+
+                new_d = p.deltaij(i, j);
+//                System.out.println("old_d >>> " + old_d + "  new_d >>> " + new_d);
                 z1z = p.z1z(i, j);
                 z1y = p.z1y(i, j);
                 Fidin = p.Fidin(z1z, z1y);
                 Cdin = p.Cdin(z1z, z1y);
-                deltaij = p.deltaij(i, j);
                 sigmaij = p.sigmaij(i, j);
-                double old_d = deltaij;
-            do {
-//                System.out.println("111111 >>> " + i);
-//                System.out.println("222222 >>> " + j);
-//                System.out.println("old_d >>> " + old_d);
 
-                double deltai1j = p.k_di1j(i, j, deltaij);
-                double deltaij1 = p.k_dij1(i, j, deltaij);
-//                System.out.println("deltai1j ------------ " + deltai1j);
-//                System.out.println("deltaij1 ------------ " + deltaij1);
+//                System.out.println("zyfcds " + z1z + " " + z1y + " " + Fidin + " " + Cdin + " " + new_d + " " + sigmaij);
 
-                double d = p.deltaij(i, j);
-//                System.out.println("new_d >>> " + d);
-//                System.out.println("old_d >>> " + old_d + "  new_d >>> " + d);
-                double ddd = old_d - d;
-//                System.out.println("deltaij - d " + ddd);
-                System.out.println(old_d - d);
-                if (E >=  Math.abs(old_d-d)) {
+                zy.setZ(z1z);
+                zy.setY(z1y);
+                zy.setSigma(sigmaij);
+                zy.setDelta(new_d);
+                zy.setCdin(Cdin);
+                zy.setFidin(Fidin);
+                zyM[i][j] = zy;
 
-                    z1z = p.z1z(i, j);
-                    z1y = p.z1y(i, j);
-                    Fidin = p.Fidin(z1z, z1y);
-                    Cdin = p.Cdin(z1z, z1y);
-                    deltaij = p.deltaij(i, j);
-//                    System.out.println("444444 >>> " + deltaij);
-                    sigmaij = p.sigmaij(i, j);
-
-                    zy.setZ(z1z);
-                    zy.setY(z1y);
-                    zy.setSigma(sigmaij);
-                    zy.setDelta(deltaij);
-                    zy.setCdin(Cdin);
-                    zy.setFidin(Fidin);
-                    zyM[i][j] = zy;
+                System.out.println("old_d >>> " + old_d + "  new_d >>> " + new_d);
+                System.out.println(Math.abs(old_d - new_d));
+                if (E >= Math.abs(old_d - new_d)) {                    
                     break;
+                } else {
+                    old_d = new_d;
                 }
                 kkk++;
                 System.out.println("kkk >>>>> " + kkk);
@@ -969,15 +968,17 @@ public class PoTexRasch {
     }
 
     double k_di1j(int i, int j, double d) {
-        double deltai1j = 0.5 * (PoTexRasch.zyM[i - 1][j].getDelta() + d);
-        System.out.println("deltai1j000000000000");
+        double deltai1j = 0.5 * (zyM[i - 1][j].getDelta() + d);
+//        System.out.println("k_di1j zyM[i - 1][j]--->>> " + zyM[i - 1][j].getDelta());
+//        System.out.println("k_di1j --->>> " + deltai1j);
         zyM[i - 1][j].setDelta(deltai1j);
         return deltai1j;
     }
 
     double k_dij1(int i, int j, double d) {
-        double deltaij1 = 0.5 * (PoTexRasch.zyM[i][j - 1].getDelta() + d);
-        System.out.println("deltaij111111111111");
+        double deltaij1 = 0.5 * (zyM[i][j - 1].getDelta() + d);
+//        System.out.println("k_dij1 zyM[i][j - 1]--->>> " + zyM[i][j - 1].getDelta());
+//        System.out.println("k_dij1 --->>> " + deltaij1);
         zyM[i][j - 1].setDelta(deltaij1);
         return deltaij1;
     }
@@ -988,5 +989,13 @@ public class PoTexRasch {
         System.out.println("----------------------");
         double d2 = PoTexRasch.k_d1_9();
         PoTexRasch.zyM[1][9].setDelta(d2);
+    }
+    
+    double k_dz0(int i, int j, double d) {
+        double deltaz0 = 0.5 * (zyM[i - 1][j].getDelta() + Math.PI/2);
+//        System.out.println("k_di1j zyM[i - 1][j]--->>> " + zyM[i - 1][j].getDelta());
+//        System.out.println("k_di1j --->>> " + deltai1j);
+        zyM[i - 1][j].setDelta(deltaz0);
+        return deltaz0;
     }
 }
