@@ -115,6 +115,8 @@ public class PoTexRasch {
 
     static double z3z;
     static double z3y;
+
+    static boolean flag = true;
     //
 
     static ModelIJ[][] ij = new ModelIJ[1][10];
@@ -763,11 +765,17 @@ public class PoTexRasch {
     public static void ZY(int i, int j) {
         PoTexRasch p = new PoTexRasch();
         ModelZY zy = new ModelZY();
-
+        System.out.println("B0B0B0---------------- " + b0);
         if (i + j == 10) {  //А0 кесма учун z, y, sigma, delta ларни аниклаймиз
-
-            z = (j * p.b0() / 10) * Math.sin(p.alfa());
-            y = (j * p.b0() / 10) * Math.cos(p.alfa());
+            if (flag) {
+                z = (j * p.b0() / 10) * Math.sin(p.alfa());
+                System.out.println("zy-- " + b0);
+                y = (j * p.b0() / 10) * Math.cos(p.alfa());
+            } else {
+                z = (j * b0 / 10) * Math.sin(p.alfa());
+                System.out.println("zy-- " + b0);
+                y = (j * b0 / 10) * Math.cos(p.alfa());
+            }
 
             sigma = p.sigma(z, y);
             delta = p.delta(z, y);
@@ -826,15 +834,15 @@ public class PoTexRasch {
                 zy.setFidin(Fidin);
                 zyM[i][j] = zy;
 
-                System.out.println("old_d >>> " + old_d + "  new_d >>> " + new_d);
-                System.out.println(Math.abs(old_d - new_d));
+//                System.out.println("old_d >>> " + old_d + "  new_d >>> " + new_d);
+//                System.out.println(Math.abs(old_d - new_d));
                 if (E >= Math.abs(old_d - new_d)) {
                     break;
                 } else {
                     old_d = new_d;
                 }
                 kkk++;
-                System.out.println("kkk >>>>> " + kkk);
+//                System.out.println("kkk >>>>> " + kkk);
             } while (kkk < 100);
 
 ///////////////////////
@@ -842,7 +850,7 @@ public class PoTexRasch {
             /////////////////////////////////////////
 //
         } else if ((i >= 10 && i <= 20) && j == 0) { //0 даги барча нукталар (10:0 ---->> 20:0) учун z, y, sigma, delta ларни аниклаймиз
-            
+
             zy.setZ(0);
             zy.setY(0);
             zy.setCdin(p.Cdin(0, 0));
@@ -852,7 +860,7 @@ public class PoTexRasch {
             zy.setSigma(p.sigma_10i_0(i));
             zy.setDelta(p.delta_10i_0(i));
             zyM[i][j] = zy;
-            
+
         } else if ((i >= 11 && i <= 20) && j != 0) { //А10А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
             z1z = p.z1z(i, j);
             z1y = p.z1y(i, j);
@@ -901,24 +909,28 @@ public class PoTexRasch {
 
                 }
                 kkk++;
-                System.out.println("ГОРИЗОНТ - " + kkk);
+//                System.out.println("ГОРИЗОНТ - " + kkk);
             } while (kkk < 100);
-            System.out.println("i + j " + i + " " + j);
+//            System.out.println("i + j " + i + " " + j);
             if (i == 30 && j == 10) {
                 System.out.println("---------------------------");
                 System.out.println("b0------------------------->" + b0);
-                System.out.println("(0.01 * b0)------------------------->" + (0.01 * b0));
-                System.out.println("Y-------------------------->" + Math.abs(zyM[i][j].getY()));
+//                System.out.println("(0.01 * b0)------------------------->" + (0.01 * b0));
+//                System.out.println("Y-------------------------->" + Math.abs(zyM[i][j].getY()));
                 System.out.println("---------------------------");
 
                 if ((0.01 * b0) >= Math.abs(zyM[i][j].getY())) {
                     System.out.println("РАСЧЕТЫ ЗАКОНЧЕНЫ");
-                }else {                    
-                    b0 = Math.pow(b0, 2) / zyM[i][j].getY();
+                } else {
+                    double H = b0 / 10;
+                    double H1 = H * b0 / Math.abs(zyM[i][j].getY());
+                    b0 = H1 / 10;
                     System.out.println("++++++++++++++++++++++++++++++++" + b0);
+                    flag = false;
+                    p.Raschet();
                 }
             }
-            
+
         } else if (i > 20 && i - j < 20) { //А30А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
 //            Внутренные точки 3й области
 
@@ -1044,11 +1056,18 @@ public class PoTexRasch {
         return deltaz01;
     }
 
-    private double k_new_sigma_0A(int i, int j) {        
+    private double k_new_sigma_0A(int i, int j) {
 
         return zyM[i - 1][j].getSigma() - this.W3(i, j)
                 - 2 * (zyM[i - 1][j].getSigma() * Math.tan(zyM[i - 1][j].getFidin()) + zyM[i - 1][j].getCdin())
                 * (zyM[i - 1][j].getDelta() - Math.PI / 2);
     }
-    
+
+    public static void Raschet() {
+        for (int i = 0; i < PoTexRasch.zyM.length; i++) {
+            for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
+                PoTexRasch.ZY(i, j);
+            }
+        }
+    }
 }

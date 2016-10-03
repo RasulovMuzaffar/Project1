@@ -247,11 +247,12 @@ public class PJFrame extends javax.swing.JFrame {
                 Double.parseDouble(_Fist.getText()),
                 Double.parseDouble(_h_b.getText()),
                 Double.parseDouble(_E.getText()));
-        for (int i = 0; i < PoTexRasch.zyM.length; i++) {
-            for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
-                PoTexRasch.ZY(i, j);
-            }
-        }
+//        popravka: for (int i = 0; i < PoTexRasch.zyM.length; i++) {
+//            for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
+//                PoTexRasch.ZY(i, j);
+//            }
+//        }
+        PoTexRasch.Raschet();
 
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
