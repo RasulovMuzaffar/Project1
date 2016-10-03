@@ -909,7 +909,6 @@ public class PoTexRasch {
 
                 }
                 kkk++;
-//                System.out.println("ГОРИЗОНТ - " + kkk);
             } while (kkk < 100);
 //            System.out.println("i + j " + i + " " + j);
             if (i == 30 && j == 10) {
@@ -919,16 +918,14 @@ public class PoTexRasch {
 //                System.out.println("Y-------------------------->" + Math.abs(zyM[i][j].getY()));
                 System.out.println("---------------------------");
 
-                if ((0.01 * b0) >= Math.abs(zyM[i][j].getY())) {
-                    System.out.println("РАСЧЕТЫ ЗАКОНЧЕНЫ");
-                } else {
-                    double H = b0 / 10;
-                    double H1 = H * b0 / Math.abs(zyM[i][j].getY());
-                    b0 = H1 / 10;
-                    System.out.println("++++++++++++++++++++++++++++++++" + b0);
-                    flag = false;
-                    p.Raschet();
-                }
+//                if ((0.01 * b0) >= Math.abs(b0 - zyM[i][j].getY())) {
+//                    System.out.println("РАСЧЕТЫ ЗАКОНЧЕНЫ");
+//                } else {
+//                    b0 = Math.pow(b0, 2) / Math.abs(zyM[i][j].getY());
+//                    System.out.println("++++++++++++++++++++++++++++++++" + b0);
+//                    flag = false;
+//                    p.Raschet();
+//                }
             }
 
         } else if (i > 20 && i - j < 20) { //А30А2 учбурчакдаги барча нукталар учун z, y, sigma, delta ларни аниклаймиз
@@ -960,51 +957,7 @@ public class PoTexRasch {
     }
 
 //    /////////////////end 
-//
-//    ////////////КОНЕЦ ЗОНЫ 1 
-////    public static void main(String[] args) {
-////        PoTexRasch p = new PoTexRasch();
-////
-//////        for (int i = 9; i >= 0; i--) {
-//////            for (int j = 0; j <= 10; j++) {
-////        for (int i = 0; i < zyM.length; i++) {
-////            for (int j = 0; j < zyM[i].length; j++) {
-//////                int i=1;
-////                if (i + j == 10) {
-////                    ZY(i, j);
-//////                    System.out.println("ZYMZ " + i + ":" + j + " -- " + zyM[i][j].getZ());
-//////                    System.out.println("ZYMY " + i + ":" + j + " -- " + zyM[i][j].getY());
-//////                    System.out.println("ZYMS " + i + ":" + j + " -- " + zyM[i][j].getSigma());
-//////                    System.out.println("ZYMD " + i + ":" + j + " -- " + zyM[i][j].getDelta());
-//////                    System.out.println("ZYMCd " + i + ":" + j + " -- " + zyM[i][j].getCdin());
-//////                    System.out.println("ZYMFd " + i + ":" + j + " -- " + zyM[i][j].getFidin());
-//////                    p.mju();
-//////                    System.out.println("z " + zyM[i][j].getZ() + " : y " + zyM[i][j].getY());
-//////                    System.out.println("Cdin " + p.Cdin(zyM[i][j].getZ(), zyM[i][j].getY()));
-////                } else {
-////                    ModelZY zy = new ModelZY();
-////
-////                    zy.setZ(0);
-////                    zy.setY(0);
-////                    zy.setSigma(0);
-////                    zy.setDelta(0);
-////                    zy.setCdin(0);
-////                    zy.setFidin(0);
-////                    zyM[i][j] = zy;
-////                }
-////            }
-////        }
-//////        zyM[8][2].setDelta(0.001);
-////
-////        for (int i = 0; i < zyM.length; i++) {
-//////            System.out.println(zyM[i].length);
-////            for (int j = 0; j < zyM[i].length; j++) {
-////                System.out.print(i + ":" + j + " " + zyM[i][j].toString());
-////            }
-////            System.out.println("");
-////        }
-////    }
-//
+
     ///КОРРЕКТИРОВКА
     public static double k_d0_10() {
         double d1 = 0.5 * (PoTexRasch.zyM[0][10].getDelta() + PoTexRasch.zyM[1][10].getDelta());
