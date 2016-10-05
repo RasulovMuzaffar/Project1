@@ -252,7 +252,7 @@ public class PoTexRasch {
         } else if (a < y && y <= a + h_nas / Math.tan(alfa1)) {
             Fia = gamma * y * (Math.tan(alfa) - Math.tan(alfa1)) + gamma * a * Math.tan(alfa);
         } else if (y <= a) {
-            Fia = gamma_b * (h_b - y * Math.tan(this.alfa2())) + gamma * a * Math.tan(alfa);
+            Fia = gamma_b * (h_b - y * Math.tan(this.alfa2())) + gamma * y * Math.tan(alfa);
         }
 //        System.out.println("Fia ------>>>> y ---> " + y + " ----- " + Fia);
         return Fia;

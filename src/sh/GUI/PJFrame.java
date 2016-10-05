@@ -314,7 +314,8 @@ public class PJFrame extends javax.swing.JFrame {
         //////////////
 
         System.out.println("-----b0--- " + PoTexRasch.B0());
-        System.out.println("-----l--- " + PoTexRasch.zyM[30][10].getY());
+        System.out.println("DLINA OTKOSA " + (Math.sqrt(Math.pow(PoTexRasch.zyM[0][10].getY(), 2) + Math.pow(PoTexRasch.zyM[0][10].getZ(), 2))));
+        System.out.println("-----l--- " + Math.abs(PoTexRasch.zyM[30][10].getY()));
         for (int i = 0; i < PoTexRasch.zyM.length; i++) {
             for (int j = 0; j < PoTexRasch.zyM[i].length; j++) {
                 double x = PoTexRasch.zyM[i][j].getY() * 500;
